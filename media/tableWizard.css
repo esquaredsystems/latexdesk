@@ -1,0 +1,19 @@
+body { padding: 10px 14px; display: block; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding-bottom: 8px; border-bottom: 1.5px solid var(--ink); }
+.toolbar label { display: flex; gap: 4px; align-items: center; }
+.sep { width: 1px; height: 18px; background: var(--rule); }
+.gridwrap { overflow: auto; margin: 10px 0; max-height: 45vh; }
+.grid { border-collapse: collapse; }
+.grid th { font-weight: normal; padding: 2px 4px; }
+.grid td { padding: 0; border: 1px solid var(--rule); }
+.grid td input { border: none; width: 9em; padding: 4px 6px; font-family: var(--mono); font-size: 12px; }
+.grid td input.sel { box-shadow: inset 0 0 0 1.5px var(--accent); }
+.grid tr.head td input { font-weight: 700; }
+.options { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.options label { display: flex; gap: 4px; align-items: center; }
+.options .wide { flex: 1; min-width: 240px; }
+.options .wide input { flex: 1; }
+.preview { font-family: var(--mono); font-size: 12px; background: var(--surface); border: 1px solid var(--rule); padding: 8px; margin-top: 10px; white-space: pre; overflow: auto; }
+.footer { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+.footer .grow { flex: 1; }
+.note { color: var(--accent); }

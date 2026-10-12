@@ -1,0 +1,41 @@
+body { padding: 16px; background: var(--surface); }
+.card { max-width: 980px; margin: 0 auto; }
+.pad { padding: 12px; }
+.small { font-size: 11px; }
+.title { font-size: 20px; font-weight: 700; }
+.big { font-size: 20px; font-weight: 700; }
+h2 { font-size: 16px; margin: 6px 0 10px; }
+pre { font-family: var(--mono); font-size: 12px; background: var(--surface); padding: 8px; white-space: pre-wrap; border: 1px solid var(--rule); }
+.footer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--rule); }
+.grow { flex: 1; }
+.right { float: right; padding: 0 4px; }
+
+/* dashboard */
+.dash-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px; border-bottom: 1px solid var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.grid > div { padding: 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.grid > div:nth-child(3n) { border-right: none; }
+.blocker { display: flex; gap: 8px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+.blocker button { margin-left: auto; }
+.ok-chip { background: var(--ok); color: #fff; }
+
+/* log viewer */
+.log-bar { display: flex; gap: 6px; padding: 8px 10px; border-bottom: 1px solid var(--ink); align-items: center; }
+.log-bar a { color: var(--ink); }
+.log-body { display: grid; grid-template-columns: 2fr 3fr; min-height: 420px; }
+.stack { border-right: 1px solid var(--ink); overflow: auto; max-height: 80vh; }
+.stack .file { padding: 4px 10px; font-weight: 600; }
+.stack .entry { padding: 3px 10px 3px 24px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stack .entry:hover { background: var(--surface); }
+.stack .entry.sel { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.detail { padding: 12px; overflow: auto; max-height: 80vh; }
+.detail .caps { margin-top: 12px; padding-bottom: 4px; border-bottom: 1px solid var(--rule); }
+.detail .footer { padding: 12px 0 0; border: none; }
+
+/* tools */
+.tools header { padding: 8px 12px; border-bottom: 1px solid var(--ink); }
+.tools .row { display: flex; gap: 8px; align-items: center; }
+.banner { background: var(--accent-soft); color: var(--accent); padding: 8px 12px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 5px 12px; border-bottom: 1px solid var(--rule); }
+th { border-bottom: 1.5px solid var(--ink); font-weight: 600; }

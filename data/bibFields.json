@@ -1,0 +1,611 @@
+{
+  "_source": "Required fields follow the BibTeX documentation (btxdoc, Patashnik 1988) and the BibLaTeX manual, section 2.1. Written for LaTeX Studio; 'a|b' means either field satisfies the rule.",
+  "bibtex": {
+    "article": [
+      "author",
+      "title",
+      "journal",
+      "year"
+    ],
+    "book": [
+      "author|editor",
+      "title",
+      "publisher",
+      "year"
+    ],
+    "booklet": [
+      "title"
+    ],
+    "conference": [
+      "author",
+      "title",
+      "booktitle",
+      "year"
+    ],
+    "inbook": [
+      "author|editor",
+      "title",
+      "chapter|pages",
+      "publisher",
+      "year"
+    ],
+    "incollection": [
+      "author",
+      "title",
+      "booktitle",
+      "publisher",
+      "year"
+    ],
+    "inproceedings": [
+      "author",
+      "title",
+      "booktitle",
+      "year"
+    ],
+    "manual": [
+      "title"
+    ],
+    "mastersthesis": [
+      "author",
+      "title",
+      "school",
+      "year"
+    ],
+    "misc": [],
+    "phdthesis": [
+      "author",
+      "title",
+      "school",
+      "year"
+    ],
+    "proceedings": [
+      "title",
+      "year"
+    ],
+    "techreport": [
+      "author",
+      "title",
+      "institution",
+      "year"
+    ],
+    "unpublished": [
+      "author",
+      "title",
+      "note"
+    ],
+    "online": [
+      "title",
+      "url"
+    ],
+    "electronic": [
+      "title",
+      "url"
+    ]
+  },
+  "biblatex": {
+    "article": [
+      "author",
+      "title",
+      "journaltitle|journal",
+      "year|date"
+    ],
+    "book": [
+      "author",
+      "title",
+      "year|date"
+    ],
+    "mvbook": [
+      "author",
+      "title",
+      "year|date"
+    ],
+    "inbook": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "bookinbook": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "suppbook": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "booklet": [
+      "author|editor",
+      "title",
+      "year|date"
+    ],
+    "collection": [
+      "editor",
+      "title",
+      "year|date"
+    ],
+    "mvcollection": [
+      "editor",
+      "title",
+      "year|date"
+    ],
+    "incollection": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "suppcollection": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "dataset": [
+      "author|editor",
+      "title",
+      "year|date"
+    ],
+    "manual": [
+      "author|editor",
+      "title",
+      "year|date"
+    ],
+    "misc": [
+      "author|editor",
+      "title",
+      "year|date"
+    ],
+    "online": [
+      "author|editor",
+      "title",
+      "year|date",
+      "doi|eprint|url"
+    ],
+    "patent": [
+      "author",
+      "title",
+      "number",
+      "year|date"
+    ],
+    "periodical": [
+      "editor",
+      "title",
+      "year|date"
+    ],
+    "suppperiodical": [
+      "author",
+      "title",
+      "journaltitle|journal",
+      "year|date"
+    ],
+    "proceedings": [
+      "title",
+      "year|date"
+    ],
+    "mvproceedings": [
+      "title",
+      "year|date"
+    ],
+    "inproceedings": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "reference": [
+      "editor",
+      "title",
+      "year|date"
+    ],
+    "mvreference": [
+      "editor",
+      "title",
+      "year|date"
+    ],
+    "inreference": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "report": [
+      "author",
+      "title",
+      "type",
+      "institution|school",
+      "year|date"
+    ],
+    "software": [
+      "author|editor",
+      "title",
+      "year|date"
+    ],
+    "thesis": [
+      "author",
+      "title",
+      "type",
+      "institution|school",
+      "year|date"
+    ],
+    "unpublished": [
+      "author",
+      "title",
+      "year|date"
+    ],
+    "set": [],
+    "xdata": [],
+    "conference": [
+      "author",
+      "title",
+      "booktitle",
+      "year|date"
+    ],
+    "electronic": [
+      "author|editor",
+      "title",
+      "year|date",
+      "doi|eprint|url"
+    ],
+    "mastersthesis": [
+      "author",
+      "title",
+      "institution|school",
+      "year|date"
+    ],
+    "phdthesis": [
+      "author",
+      "title",
+      "institution|school",
+      "year|date"
+    ],
+    "techreport": [
+      "author",
+      "title",
+      "institution|school",
+      "year|date"
+    ],
+    "www": [
+      "author|editor",
+      "title",
+      "year|date",
+      "doi|eprint|url"
+    ]
+  },
+  "recommended": {
+    "minimal": {},
+    "standard": {
+      "article": [
+        "doi",
+        "volume",
+        "pages|eid"
+      ],
+      "inproceedings": [
+        "pages|eid",
+        "doi"
+      ],
+      "conference": [
+        "pages|eid"
+      ],
+      "book": [
+        "isbn"
+      ],
+      "incollection": [
+        "pages"
+      ],
+      "online": [
+        "urldate"
+      ]
+    },
+    "strict": {
+      "article": [
+        "doi",
+        "volume",
+        "number|issue",
+        "pages|eid"
+      ],
+      "inproceedings": [
+        "pages|eid",
+        "doi",
+        "publisher|organization"
+      ],
+      "conference": [
+        "pages|eid",
+        "doi"
+      ],
+      "book": [
+        "isbn",
+        "address|location"
+      ],
+      "incollection": [
+        "pages",
+        "editor",
+        "address|location"
+      ],
+      "phdthesis": [
+        "address|location"
+      ],
+      "online": [
+        "urldate"
+      ],
+      "misc": [
+        "url|doi|howpublished"
+      ]
+    }
+  },
+  "knownFields": [
+    "abstract",
+    "addendum",
+    "address",
+    "afterword",
+    "annotation",
+    "annote",
+    "archiveprefix",
+    "author",
+    "authortype",
+    "bookauthor",
+    "booksubtitle",
+    "booktitle",
+    "booktitleaddon",
+    "chapter",
+    "commentator",
+    "crossref",
+    "date",
+    "doi",
+    "edition",
+    "editor",
+    "editora",
+    "editorb",
+    "editorc",
+    "editortype",
+    "eid",
+    "entrysubtype",
+    "eprint",
+    "eprintclass",
+    "eprinttype",
+    "eventdate",
+    "eventtitle",
+    "file",
+    "foreword",
+    "holder",
+    "howpublished",
+    "ids",
+    "indextitle",
+    "institution",
+    "introduction",
+    "isan",
+    "isbn",
+    "ismn",
+    "isrn",
+    "issn",
+    "issue",
+    "issuesubtitle",
+    "issuetitle",
+    "iswc",
+    "journal",
+    "journalsubtitle",
+    "journaltitle",
+    "key",
+    "keywords",
+    "label",
+    "langid",
+    "language",
+    "library",
+    "location",
+    "mainsubtitle",
+    "maintitle",
+    "month",
+    "note",
+    "number",
+    "options",
+    "organization",
+    "origdate",
+    "origlanguage",
+    "origlocation",
+    "origpublisher",
+    "origtitle",
+    "pages",
+    "pagetotal",
+    "pagination",
+    "part",
+    "primaryclass",
+    "publisher",
+    "pubstate",
+    "related",
+    "relatedtype",
+    "school",
+    "series",
+    "shortauthor",
+    "shorthand",
+    "shorttitle",
+    "subtitle",
+    "title",
+    "titleaddon",
+    "translator",
+    "type",
+    "url",
+    "urldate",
+    "venue",
+    "version",
+    "volume",
+    "volumes",
+    "xdata",
+    "year",
+    "pmid",
+    "pmcid",
+    "lccn",
+    "mrnumber",
+    "zblnumber",
+    "copyright",
+    "timestamp",
+    "owner",
+    "groups",
+    "mendeley-tags",
+    "date-added",
+    "date-modified",
+    "bdsk-url-1",
+    "keyword"
+  ],
+  "noiseFields": [
+    "abstract",
+    "file",
+    "keywords",
+    "mendeley-tags",
+    "groups",
+    "timestamp",
+    "owner",
+    "date-added",
+    "date-modified"
+  ],
+  "optional": {
+    "_note": "Optional fields per BibTeX entry type as described in the BibTeX documentation (btxdoc), plus doi/url which most styles accept. Used to group fields in the entry form.",
+    "article": [
+      "volume",
+      "number",
+      "pages",
+      "month",
+      "note",
+      "doi",
+      "url",
+      "issn"
+    ],
+    "book": [
+      "volume|number",
+      "series",
+      "address",
+      "edition",
+      "month",
+      "note",
+      "isbn",
+      "doi",
+      "url"
+    ],
+    "booklet": [
+      "author",
+      "howpublished",
+      "address",
+      "month",
+      "year",
+      "note",
+      "url"
+    ],
+    "inbook": [
+      "volume|number",
+      "series",
+      "type",
+      "address",
+      "edition",
+      "month",
+      "note",
+      "isbn",
+      "doi"
+    ],
+    "incollection": [
+      "editor",
+      "volume|number",
+      "series",
+      "type",
+      "chapter",
+      "pages",
+      "address",
+      "edition",
+      "month",
+      "note",
+      "doi"
+    ],
+    "inproceedings": [
+      "editor",
+      "volume|number",
+      "series",
+      "pages",
+      "address",
+      "month",
+      "organization",
+      "publisher",
+      "note",
+      "doi",
+      "url"
+    ],
+    "conference": [
+      "editor",
+      "volume|number",
+      "series",
+      "pages",
+      "address",
+      "month",
+      "organization",
+      "publisher",
+      "note",
+      "doi"
+    ],
+    "manual": [
+      "author",
+      "organization",
+      "address",
+      "edition",
+      "month",
+      "year",
+      "note",
+      "url"
+    ],
+    "mastersthesis": [
+      "type",
+      "address",
+      "month",
+      "note",
+      "url"
+    ],
+    "misc": [
+      "author",
+      "title",
+      "howpublished",
+      "month",
+      "year",
+      "note",
+      "url",
+      "doi"
+    ],
+    "phdthesis": [
+      "type",
+      "address",
+      "month",
+      "note",
+      "url",
+      "doi"
+    ],
+    "proceedings": [
+      "editor",
+      "volume|number",
+      "series",
+      "address",
+      "month",
+      "organization",
+      "publisher",
+      "note",
+      "doi"
+    ],
+    "techreport": [
+      "type",
+      "number",
+      "address",
+      "month",
+      "note",
+      "url"
+    ],
+    "unpublished": [
+      "month",
+      "year",
+      "url"
+    ],
+    "online": [
+      "author",
+      "editor",
+      "date|year",
+      "urldate",
+      "note"
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "_source": "Written for LaTeX Studio. Each entry is matched against the error or warning message with a regular expression. Users can add entries through the latexstudio.errors.extra setting.",
+  "entries": [
+    {
+      "id": "undefined-control-sequence",
+      "pattern": "Undefined control sequence",
+      "title": "Unknown command",
+      "meaning": "TeX met a command it does not know. Usually a typo, or the package that defines the command is not loaded.",
+      "causes": ["A spelling mistake in the command name", "A missing \\usepackage line", "A command defined in a file that is not \\input"],
+      "fix": "Check the spelling of the command shown at the end of the message. If it comes from a package, add \\usepackage{...} to the preamble."
+    },
+    {
+      "id": "missing-dollar",
+      "pattern": "Missing \\$ inserted",
+      "title": "Math symbol outside math mode",
+      "meaning": "A character or command that only works in math (such as _, ^ or \\alpha) was used in normal text, or a math formula was not closed.",
+      "causes": ["An underscore in text, e.g. a file name", "\\alpha or x^2 written without $...$", "A blank line inside a display equation"],
+      "fix": "Wrap the formula in $...$, or write \\_ for a literal underscore. Remove blank lines inside equations."
+    },
+    {
+      "id": "file-not-found",
+      "pattern": "File `([^']+)' not found|LaTeX Error: File",
+      "title": "File not found",
+      "meaning": "LaTeX could not find a file it was asked to read: a package, a class, an included .tex file or an image.",
+      "causes": ["A typo in the file name", "The file is in another folder", "A package that is not installed"],
+      "fix": "Check the path. For a missing package, install it with your TeX distribution's package manager (tlmgr install <name> for TeX Live, or the MiKTeX Console)."
+    },
+    {
+      "id": "runaway-argument",
+      "pattern": "Runaway argument|Paragraph ended before",
+      "title": "Argument not closed",
+      "meaning": "A command argument started with { but the closing } is missing, so LaTeX read on until it hit a paragraph break.",
+      "causes": ["A missing closing brace", "A blank line inside a command argument"],
+      "fix": "Find the command on the reported line and add the missing }."
+    },
+    {
+      "id": "extra-alignment-tab",
+      "pattern": "Extra alignment tab",
+      "title": "Too many & in a table row",
+      "meaning": "A row of a table or aligned equation has more & separators than the column specification allows.",
+      "causes": ["One & too many in a row", "A missing \\\\ at the end of the previous row", "Column specification with too few columns"],
+      "fix": "Count the columns in the {lcr} specification and the & in the row, and make them match."
+    },
+    {
+      "id": "missing-begin-document",
+      "pattern": "Missing \\\\begin\\{document\\}",
+      "title": "Text before \\begin{document}",
+      "meaning": "Something that produces output appears in the preamble, before \\begin{document}.",
+      "causes": ["A stray character in the preamble", "The root file is not the main document", "A corrupt .aux file"],
+      "fix": "Remove text from the preamble. If the error persists, clean auxiliary files and rebuild."
+    },
+    {
+      "id": "environment-undefined",
+      "pattern": "Environment (\\S+) undefined",
+      "title": "Unknown environment",
+      "meaning": "\\begin{...} names an environment that is not defined.",
+      "causes": ["A typo in the environment name", "The package that defines it is not loaded"],
+      "fix": "Check the spelling, or load the package (for example amsmath for align, amsthm for proof)."
+    },
+    {
+      "id": "begin-ended-by",
+      "pattern": "\\\\begin\\{([^}]*)\\} on input line \\d+ ended by \\\\end\\{([^}]*)\\}|ended by \\\\end",
+      "title": "Mismatched \\begin / \\end",
+      "meaning": "An environment was closed with the wrong name, so the environments are not nested properly.",
+      "causes": ["A typo in \\end{...}", "An inner environment that was never closed"],
+      "fix": "Make every \\begin{x} have a matching \\end{x}, closing inner environments first."
+    },
+    {
+      "id": "unicode-not-set-up",
+      "pattern": "Unicode character .* not set up for use with LaTeX",
+      "title": "Unsupported Unicode character",
+      "meaning": "pdfLaTeX does not know how to print this Unicode character with the current fonts.",
+      "causes": ["Copy-pasted text with special characters (e.g. non-breaking or zero-width spaces)", "Characters from a script the font does not cover"],
+      "fix": "Replace the character with a LaTeX command, use \\DeclareUnicodeCharacter, or build with XeLaTeX/LuaLaTeX and a font that has it."
+    },
+    {
+      "id": "citation-undefined",
+      "pattern": "Citation [`']([^']+)' .*undefined|didn't find a database entry",
+      "title": "Citation not found",
+      "meaning": "The key isn't in any bibliography file available to the document, or BibTeX/Biber has not run since you added it.",
+      "causes": ["A typo in the citation key", "The entry is missing from the .bib file", "The bibliography tool has not run yet"],
+      "fix": "Search your bibliographies for the key. If the entry exists, rebuild so BibTeX/Biber runs again."
+    },
+    {
+      "id": "reference-undefined",
+      "pattern": "Reference [`']([^']+)' .*undefined",
+      "title": "Reference to an unknown label",
+      "meaning": "\\ref (or a similar command) points to a label that does not exist, or the document needs another LaTeX run.",
+      "causes": ["A typo in the label name", "The label is in a file that is not included", "A pass is still needed"],
+      "fix": "Check the label name. If it exists, build again."
+    },
+    {
+      "id": "rerun",
+      "pattern": "Label\\(s\\) may have changed|Rerun to get",
+      "title": "Another pass needed",
+      "meaning": "Cross-references changed during this run. One more LaTeX pass resolves them.",
+      "causes": ["Normal after editing labels, citations or the table of contents"],
+      "fix": "Build again. latexmk does this automatically."
+    },
+    {
+      "id": "overfull-hbox",
+      "pattern": "Overfull \\\\hbox",
+      "title": "Line too wide",
+      "meaning": "A line sticks out into the margin because TeX could not break it nicely.",
+      "causes": ["A long word, URL or formula that cannot be hyphenated", "A figure wider than \\linewidth"],
+      "fix": "Rephrase the sentence, allow a break with \\- or \\linebreak, or scale the content to \\linewidth."
+    },
+    {
+      "id": "underfull-hbox",
+      "pattern": "Underfull \\\\[hv]box",
+      "title": "Line or page too loose",
+      "meaning": "TeX had to stretch spaces more than it likes. Usually harmless.",
+      "causes": ["Forced line breaks with \\\\", "Short lines in narrow columns"],
+      "fix": "Usually no action is needed. Avoid \\\\ in running text."
+    },
+    {
+      "id": "missing-brace",
+      "pattern": "Missing \\} inserted|Missing \\{ inserted|Extra \\}, or forgotten",
+      "title": "Unbalanced braces",
+      "meaning": "Braces { } do not pair up near this line.",
+      "causes": ["A missing or extra brace", "A brace closed inside math that was opened outside"],
+      "fix": "Check the braces on and above the reported line."
+    },
+    {
+      "id": "too-many-unprocessed-floats",
+      "pattern": "Too many unprocessed floats",
+      "title": "Too many figures waiting",
+      "meaning": "LaTeX could not place figures and tables quickly enough and ran out of space to hold them.",
+      "causes": ["Many figures in a row with little text", "Restrictive placement like [h]"],
+      "fix": "Add \\clearpage after some figures, or use a less restrictive placement such as [tbp]."
+    },
+    {
+      "id": "option-clash",
+      "pattern": "Option clash for package",
+      "title": "Package loaded twice with different options",
+      "meaning": "A package was loaded again with options that differ from the first load (often the class already loads it).",
+      "causes": ["\\usepackage[opt]{pkg} after the class or another package loaded pkg"],
+      "fix": "Pass the option once, before the first load, e.g. with \\PassOptionsToPackage{opt}{pkg} before \\documentclass."
+    },
+    {
+      "id": "font-shape",
+      "pattern": "Font shape .* undefined|Some font shapes were not available",
+      "title": "Font shape substituted",
+      "meaning": "The requested font variant is not available, so LaTeX used a similar one.",
+      "causes": ["Bold small caps or similar combinations the font lacks"],
+      "fix": "Usually harmless. Load a font package that provides the shape if the look matters."
+    },
+    {
+      "id": "emergency-stop",
+      "pattern": "Emergency stop|Fatal error occurred",
+      "title": "LaTeX stopped",
+      "meaning": "The run ended early, usually because of an earlier error or a missing file in nonstop mode.",
+      "causes": ["See the first error above this one"],
+      "fix": "Fix the first error in the log; later errors are often consequences."
+    },
+    {
+      "id": "bibtex-database",
+      "pattern": "I couldn't open database file",
+      "title": "Bibliography file not found",
+      "meaning": "BibTeX could not open the .bib file named in \\bibliography{...}.",
+      "causes": ["Wrong file name or folder", "The .bib extension was written inside \\bibliography{}"],
+      "fix": "Write \\bibliography{refs} for refs.bib, with the path relative to the root document."
+    },
+    {
+      "id": "bibtex-empty-field",
+      "pattern": "empty (\\w+) in (\\S+)",
+      "title": "Empty field in a bibliography entry",
+      "meaning": "BibTeX expected this field for the entry type but it is missing or empty.",
+      "causes": ["Incomplete entry exported from a reference manager"],
+      "fix": "Fill in the field in the .bib file. The Bib Manager lists every incomplete entry."
+    }
+  ]
+}

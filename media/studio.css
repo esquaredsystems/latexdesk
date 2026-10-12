@@ -1,0 +1,91 @@
+/* LaTeX Studio webview visual language: ink, paper and one red accent; square edges. */
+:root {
+  --ink: #201e1d;
+  --paper: #ffffff;
+  --surface: #f3f2f2;
+  --rule: #d6d3d2;
+  --muted: #77716f;
+  --accent: #ec3013;
+  --accent-soft: #fde8e4;
+  --warn: #b26a00;
+  --ok: #1d7a3a;
+  --mono: var(--vscode-editor-font-family, ui-monospace, Menlo, Consolas, monospace);
+  --sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+}
+body.vscode-dark,
+body.vscode-high-contrast {
+  --ink: #f1efee;
+  --paper: #1e1c1b;
+  --surface: #2a2726;
+  --rule: #46413f;
+  --muted: #a8a19e;
+  --accent: #ff5a3c;
+  --accent-soft: #4a221b;
+  --warn: #e0a040;
+  --ok: #5cc27a;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 13px/1.45 var(--sans);
+}
+button, select, input {
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 3px 8px;
+}
+button { cursor: pointer; }
+button:hover { background: var(--surface); }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+button.primary:hover { filter: brightness(0.95); }
+button.ghost { border-color: transparent; background: transparent; }
+button:disabled { opacity: 0.5; cursor: default; }
+input[type="search"], input[type="text"] { border-color: var(--rule); }
+
+.mono { font-family: var(--mono); font-size: 12px; }
+.muted { color: var(--muted); }
+.err { color: var(--accent); }
+.warn { color: var(--warn); }
+.ok { color: var(--ok); }
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+}
+.chip {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--surface);
+  border: 1px solid transparent;
+  font-size: 11px;
+  cursor: pointer;
+  user-select: none;
+}
+.chip.active { background: var(--ink); color: var(--paper); }
+.chip.alert { background: var(--accent-soft); color: var(--accent); }
+.badge {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 4px;
+  text-align: center;
+  font-size: 11px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.card { border: 1.5px solid var(--ink); background: var(--paper); }
+.card > header { padding: 8px 12px; border-bottom: 1px solid var(--ink); }
+.section-title { padding: 10px 12px 6px; border-bottom: 1px solid var(--rule); }
+.bar { height: 6px; background: var(--surface); position: relative; min-width: 60px; }
+.bar > span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--ink); }
+.bar.low > span { background: var(--accent); }
+.empty { padding: 24px; color: var(--muted); }

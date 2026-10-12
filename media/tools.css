@@ -1,0 +1,41 @@
+/* Mini bar: compact square buttons in the VS Code side bar colours. */
+body { padding: 6px 8px; background: transparent; color: var(--vscode-foreground); }
+section { margin-bottom: 10px; }
+.caps { margin: 2px 0 4px; }
+.row { display: flex; gap: 3px; margin-bottom: 3px; }
+.row.wrap { flex-wrap: wrap; }
+.tool {
+  width: 30px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: 14px/1 Georgia, 'Times New Roman', serif;
+  color: var(--vscode-foreground);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.tool:hover { background: var(--vscode-toolbar-hoverBackground); border-color: var(--vscode-toolbar-hoverOutline, transparent); }
+.tool:active { background: var(--vscode-toolbar-activeBackground); }
+.tool sup, .tool sub { font-size: 9px; }
+.tool.wide { width: auto; padding: 0 8px; font-family: var(--sans); font-size: 12px; border-color: var(--vscode-button-border, var(--rule)); }
+.hl { background: #f2cc60; color: #201e1d; padding: 0 2px; font-weight: 700; font-size: 12px; }
+.matrix { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; font-size: 12px; }
+.matrix input { width: 34px; padding: 1px 2px; }
+.matrix select { padding: 1px; }
+#q, #cat { width: 100%; margin-bottom: 4px; padding: 2px 4px; background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border, var(--rule)); }
+#grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(28px, 1fr)); gap: 2px; }
+.sym { height: 28px; padding: 0; font-size: 15px; color: var(--vscode-foreground); background: transparent; border: 1px solid var(--vscode-widget-border, var(--rule)); border-radius: 3px; cursor: pointer; }
+.sym:hover { border-color: var(--vscode-focusBorder); background: var(--vscode-toolbar-hoverBackground); }
+#info { margin-top: 4px; min-height: 18px; font-size: 12px; }
+
+.mainbar { position: relative; padding-bottom: 6px; border-bottom: 1px solid var(--vscode-widget-border, var(--rule)); }
+.mainbar .row { gap: 1px; margin-bottom: 1px; }
+.tool.icon { width: 26px; height: 24px; }
+.tool.icon img { width: 16px; height: 16px; }
+.menu { position: absolute; z-index: 10; display: flex; flex-direction: column; min-width: 150px; padding: 3px 0; background: var(--vscode-menu-background, var(--paper)); color: var(--vscode-menu-foreground, var(--ink)); border: 1px solid var(--vscode-menu-border, var(--rule)); box-shadow: 0 2px 8px var(--vscode-widget-shadow, rgba(0, 0, 0, 0.2)); }
+.menu button { text-align: left; padding: 3px 12px; border: none; background: transparent; color: inherit; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+.menu button:hover { background: var(--vscode-menu-selectionBackground, var(--surface)); color: var(--vscode-menu-selectionForeground, inherit); }

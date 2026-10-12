@@ -1,0 +1,443 @@
+{
+  "Section": {
+    "prefix": "sec",
+    "body": [
+      "\\section{${1:title}}\\label{sec:${2:${1/\\s+/-/g}}}",
+      "$0"
+    ],
+    "description": "Section with label"
+  },
+  "Subsection": {
+    "prefix": "ssec",
+    "body": [
+      "\\subsection{${1:title}}\\label{sec:${2:${1/\\s+/-/g}}}",
+      "$0"
+    ],
+    "description": "Subsection with label"
+  },
+  "Subsubsection": {
+    "prefix": "sssec",
+    "body": [
+      "\\subsubsection{${1:title}}",
+      "$0"
+    ],
+    "description": "Sub-subsection"
+  },
+  "Chapter": {
+    "prefix": "chap",
+    "body": [
+      "\\chapter{${1:title}}\\label{ch:${2:${1/\\s+/-/g}}}",
+      "$0"
+    ],
+    "description": "Chapter with label"
+  },
+  "Abstract": {
+    "prefix": "abs",
+    "body": [
+      "\\begin{abstract}",
+      "\t$0",
+      "\\end{abstract}"
+    ],
+    "description": "Abstract"
+  },
+  "Acknowledgments": {
+    "prefix": "ack",
+    "body": [
+      "\\section*{Acknowledgments}",
+      "$0"
+    ],
+    "description": "Acknowledgments section"
+  },
+  "Equation": {
+    "prefix": "eq",
+    "body": [
+      "\\begin{equation}",
+      "\t$1",
+      "\t\\label{eq:${2}}",
+      "\\end{equation}",
+      "$0"
+    ],
+    "description": "Numbered equation"
+  },
+  "Equation*": {
+    "prefix": "eq*",
+    "body": [
+      "\\begin{equation*}",
+      "\t$1",
+      "\\end{equation*}",
+      "$0"
+    ],
+    "description": "Unnumbered equation"
+  },
+  "Display math": {
+    "prefix": "dm",
+    "body": [
+      "\\[",
+      "\t$1",
+      "\\]",
+      "$0"
+    ],
+    "description": "Display math \\[...\\]"
+  },
+  "Inline math": {
+    "prefix": "im",
+    "body": [
+      "\\($1\\)$0"
+    ],
+    "description": "Inline math"
+  },
+  "Align": {
+    "prefix": "ali",
+    "body": [
+      "\\begin{align}",
+      "\t${1:a} &= ${2:b} \\\\\\\\",
+      "\t${3:c} &= ${4:d}",
+      "\\end{align}",
+      "$0"
+    ],
+    "description": "Aligned equations"
+  },
+  "Cases": {
+    "prefix": "cases",
+    "body": [
+      "\\begin{cases}",
+      "\t${1:a} & \\text{if } ${2:x > 0} \\\\\\\\",
+      "\t${3:b} & \\text{otherwise}",
+      "\\end{cases}"
+    ],
+    "description": "Piecewise cases"
+  },
+  "Fraction": {
+    "prefix": "//",
+    "body": [
+      "\\frac{$1}{$2}$0"
+    ],
+    "description": "Fraction"
+  },
+  "Sum": {
+    "prefix": "sumlim",
+    "body": [
+      "\\sum_{${1:i=1}}^{${2:n}} $0"
+    ],
+    "description": "Sum with limits"
+  },
+  "Integral": {
+    "prefix": "intlim",
+    "body": [
+      "\\int_{${1:a}}^{${2:b}} ${3:f(x)}\\,\\mathrm{d}${4:x}$0"
+    ],
+    "description": "Definite integral"
+  },
+  "Limit": {
+    "prefix": "limit",
+    "body": [
+      "\\lim_{${1:n \\to \\infty}} $0"
+    ],
+    "description": "Limit"
+  },
+  "Derivative": {
+    "prefix": "dv",
+    "body": [
+      "\\frac{\\mathrm{d}${1:y}}{\\mathrm{d}${2:x}}$0"
+    ],
+    "description": "Derivative"
+  },
+  "Partial derivative": {
+    "prefix": "pdv",
+    "body": [
+      "\\frac{\\partial ${1:f}}{\\partial ${2:x}}$0"
+    ],
+    "description": "Partial derivative"
+  },
+  "Matrix": {
+    "prefix": "pmat",
+    "body": [
+      "\\begin{pmatrix}",
+      "\t${1:a} & ${2:b} \\\\\\\\",
+      "\t${3:c} & ${4:d}",
+      "\\end{pmatrix}$0"
+    ],
+    "description": "2×2 matrix"
+  },
+  "Theorem": {
+    "prefix": "thm",
+    "body": [
+      "\\begin{theorem}\\label{thm:${1}}",
+      "\t$0",
+      "\\end{theorem}"
+    ],
+    "description": "Theorem"
+  },
+  "Lemma": {
+    "prefix": "lem",
+    "body": [
+      "\\begin{lemma}\\label{lem:${1}}",
+      "\t$0",
+      "\\end{lemma}"
+    ],
+    "description": "Lemma"
+  },
+  "Proposition": {
+    "prefix": "prop",
+    "body": [
+      "\\begin{proposition}\\label{prop:${1}}",
+      "\t$0",
+      "\\end{proposition}"
+    ],
+    "description": "Proposition"
+  },
+  "Corollary": {
+    "prefix": "cor",
+    "body": [
+      "\\begin{corollary}\\label{cor:${1}}",
+      "\t$0",
+      "\\end{corollary}"
+    ],
+    "description": "Corollary"
+  },
+  "Definition": {
+    "prefix": "defn",
+    "body": [
+      "\\begin{definition}\\label{def:${1}}",
+      "\t$0",
+      "\\end{definition}"
+    ],
+    "description": "Definition"
+  },
+  "Proof": {
+    "prefix": "proof",
+    "body": [
+      "\\begin{proof}",
+      "\t$0",
+      "\\end{proof}"
+    ],
+    "description": "Proof"
+  },
+  "Itemize": {
+    "prefix": "itemize",
+    "body": [
+      "\\begin{itemize}",
+      "\t\\item $0",
+      "\\end{itemize}"
+    ],
+    "description": "Bulleted list"
+  },
+  "Enumerate": {
+    "prefix": "enumerate",
+    "body": [
+      "\\begin{enumerate}",
+      "\t\\item $0",
+      "\\end{enumerate}"
+    ],
+    "description": "Numbered list"
+  },
+  "Description": {
+    "prefix": "desc",
+    "body": [
+      "\\begin{description}",
+      "\t\\item[${1:term}] $0",
+      "\\end{description}"
+    ],
+    "description": "Description list"
+  },
+  "Figure": {
+    "prefix": "figure",
+    "body": [
+      "\\begin{figure}[${1:tbp}]",
+      "\t\\centering",
+      "\t\\includegraphics[width=${2:\\linewidth}]{${3:file}}",
+      "\t\\caption{${4:caption}}",
+      "\t\\label{fig:${5:${3/[^a-zA-Z0-9]/-/g}}}",
+      "\\end{figure}",
+      "$0"
+    ],
+    "description": "Figure with caption and label"
+  },
+  "Subfigures": {
+    "prefix": "subfig",
+    "body": [
+      "\\begin{figure}[${1:tbp}]",
+      "\t\\centering",
+      "\t\\begin{subfigure}{0.48\\linewidth}",
+      "\t\t\\includegraphics[width=\\linewidth]{${2:left}}",
+      "\t\t\\caption{${3}}\\label{fig:${4}}",
+      "\t\\end{subfigure}\\hfill",
+      "\t\\begin{subfigure}{0.48\\linewidth}",
+      "\t\t\\includegraphics[width=\\linewidth]{${5:right}}",
+      "\t\t\\caption{${6}}\\label{fig:${7}}",
+      "\t\\end{subfigure}",
+      "\t\\caption{${8:caption}}\\label{fig:${9}}",
+      "\\end{figure}"
+    ],
+    "description": "Two subfigures side by side (subcaption)"
+  },
+  "Table": {
+    "prefix": "table",
+    "body": [
+      "\\begin{table}[${1:tbp}]",
+      "\t\\centering",
+      "\t\\caption{${2:caption}}",
+      "\t\\label{tab:${3}}",
+      "\t\\begin{tabular}{${4:lcc}}",
+      "\t\t\\toprule",
+      "\t\t${5:A} & ${6:B} & ${7:C} \\\\\\\\",
+      "\t\t\\midrule",
+      "\t\t$0 \\\\\\\\",
+      "\t\t\\bottomrule",
+      "\t\\end{tabular}",
+      "\\end{table}"
+    ],
+    "description": "Table with booktabs rules"
+  },
+  "Tabular": {
+    "prefix": "tabular",
+    "body": [
+      "\\begin{tabular}{${1:ll}}",
+      "\t$0",
+      "\\end{tabular}"
+    ],
+    "description": "Tabular"
+  },
+  "Cite": {
+    "prefix": "cite",
+    "body": [
+      "\\cite{$1}$0"
+    ],
+    "description": "Citation"
+  },
+  "Reference": {
+    "prefix": "ref",
+    "body": [
+      "\\ref{$1}$0"
+    ],
+    "description": "Reference"
+  },
+  "Cref": {
+    "prefix": "cref",
+    "body": [
+      "\\cref{$1}$0"
+    ],
+    "description": "Clever reference"
+  },
+  "Label": {
+    "prefix": "lbl",
+    "body": [
+      "\\label{$1}$0"
+    ],
+    "description": "Label"
+  },
+  "Bold": {
+    "prefix": "tbf",
+    "body": [
+      "\\textbf{${1:${TM_SELECTED_TEXT}}}$0"
+    ],
+    "description": "Bold"
+  },
+  "Italic": {
+    "prefix": "tit",
+    "body": [
+      "\\textit{${1:${TM_SELECTED_TEXT}}}$0"
+    ],
+    "description": "Italic"
+  },
+  "Emphasis": {
+    "prefix": "temph",
+    "body": [
+      "\\emph{${1:${TM_SELECTED_TEXT}}}$0"
+    ],
+    "description": "Emphasis"
+  },
+  "Monospace": {
+    "prefix": "ttt",
+    "body": [
+      "\\texttt{${1:${TM_SELECTED_TEXT}}}$0"
+    ],
+    "description": "Monospace"
+  },
+  "Blackboard": {
+    "prefix": "mbb",
+    "body": [
+      "\\mathbb{${1:R}}$0"
+    ],
+    "description": "Blackboard bold"
+  },
+  "Calligraphic": {
+    "prefix": "mcal",
+    "body": [
+      "\\mathcal{${1}}$0"
+    ],
+    "description": "Calligraphic"
+  },
+  "Algorithm": {
+    "prefix": "alg",
+    "body": [
+      "\\begin{algorithm}",
+      "\t\\caption{${1:name}}\\label{alg:${2}}",
+      "\t\\begin{algorithmic}[1]",
+      "\t\t\\Require ${3:input}",
+      "\t\t\\Ensure ${4:output}",
+      "\t\t\\State $0",
+      "\t\\end{algorithmic}",
+      "\\end{algorithm}"
+    ],
+    "description": "Algorithm (algorithm + algpseudocode)"
+  },
+  "Listing": {
+    "prefix": "lst",
+    "body": [
+      "\\begin{lstlisting}[language=${1:Python}, caption={${2}}]",
+      "$0",
+      "\\end{lstlisting}"
+    ],
+    "description": "Code listing"
+  },
+  "Minted": {
+    "prefix": "mint",
+    "body": [
+      "\\begin{minted}{${1:python}}",
+      "$0",
+      "\\end{minted}"
+    ],
+    "description": "Minted code block"
+  },
+  "TikZ": {
+    "prefix": "tikz",
+    "body": [
+      "\\begin{tikzpicture}",
+      "\t$0",
+      "\\end{tikzpicture}"
+    ],
+    "description": "TikZ picture"
+  },
+  "Frame": {
+    "prefix": "frame",
+    "body": [
+      "\\begin{frame}{${1:title}}",
+      "\t$0",
+      "\\end{frame}"
+    ],
+    "description": "Beamer frame"
+  },
+  "Article": {
+    "prefix": "article",
+    "body": [
+      "\\documentclass[11pt,a4paper]{article}",
+      "\\usepackage[utf8]{inputenc}",
+      "\\usepackage[T1]{fontenc}",
+      "\\usepackage{amsmath,amssymb}",
+      "\\usepackage{graphicx}",
+      "\\usepackage{hyperref}",
+      "",
+      "\\title{${1:Title}}",
+      "\\author{${2:Author}}",
+      "",
+      "\\begin{document}",
+      "\\maketitle",
+      "",
+      "$0",
+      "",
+      "\\end{document}"
+    ],
+    "description": "Article skeleton"
+  }
+}

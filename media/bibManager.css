@@ -1,0 +1,63 @@
+body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+#top { display: flex; gap: 6px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+#query { flex: 1; font-family: var(--mono); font-size: 12px; padding: 4px 8px; }
+.tabs { display: inline-flex; margin-left: 6px; }
+.tab { border-color: var(--rule); }
+.tab.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+#presets { display: flex; gap: 6px; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+#bulk { display: flex; gap: 6px; align-items: center; padding: 5px 10px; background: var(--ink); color: var(--paper); }
+#bulk button { background: transparent; color: var(--paper); border: none; text-decoration: underline; padding: 0 4px; }
+
+#tableView { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+#thead { display: flex; border-bottom: 1.5px solid var(--ink); font-weight: 600; user-select: none; }
+#thead .cell { cursor: pointer; }
+#tbody { flex: 1; overflow: auto; position: relative; min-height: 80px; }
+#spacer { width: 1px; }
+#rows { position: absolute; top: 0; left: 0; right: 0; }
+.row { display: flex; height: 26px; border-bottom: 1px solid var(--rule); cursor: default; }
+.row:hover { background: var(--surface); }
+.row.current { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.cell { padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; }
+.cell.check { width: 28px; flex: none; }
+.cell .bar { width: 100%; }
+
+#drawer { display: flex; border-top: 1.5px solid var(--ink); max-height: 42vh; min-height: 160px; }
+.drawer-main { flex: 3; padding: 10px; overflow: auto; border-right: 1px solid var(--rule); }
+.drawer-side { flex: 2; padding: 10px; overflow: auto; display: flex; flex-direction: column; gap: 4px; }
+.drawer-head { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.drawer-head button { white-space: nowrap; }
+.drawer-head .grow { flex: 1; }
+.fields { display: grid; grid-template-columns: 110px 1fr; gap: 4px 10px; align-items: center; }
+.field { display: flex; }
+.field input { flex: 1; border-color: var(--rule); font-family: var(--mono); font-size: 12px; }
+.field .remove { opacity: 0.4; }
+.field .remove:hover { opacity: 1; }
+.issue { display: flex; justify-content: space-between; gap: 6px; align-items: center; padding: 2px 0; }
+.issue.error, .issue.warning { color: var(--ink); }
+.issue.error span:first-child::first-letter { color: var(--accent); }
+.drawer-side a { color: var(--ink); }
+
+#healthView { flex: 1; overflow: auto; padding: 14px; }
+.health-head { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 14px; }
+.health-head .grow { flex: 1; }
+.big { font-size: 22px; font-weight: 700; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--ink); }
+.stats > div { padding: 10px; border-right: 1px solid var(--rule); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 14px; }
+.line { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; border-bottom: 1px solid var(--rule); cursor: pointer; }
+.small { font-size: 11px; margin-top: 16px; }
+
+#triageView { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.triage-head { display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+.triage-head .grow { flex: 1; }
+.triage-cols { flex: 1; display: grid; grid-template-columns: minmax(180px, 1fr) minmax(200px, 1.2fr) 2fr; min-height: 0; }
+.triage-cols > div { overflow: auto; padding: 10px; border-right: 1px solid var(--rule); }
+.triage-cols .line.active { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.triage-cols .line .muted { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60%; }
+.triage-rules .error::before, .triage-rules .warning::before { content: '● '; color: var(--accent); }
+.entry-preview { font-family: var(--mono); font-size: 12px; background: var(--surface); padding: 8px; white-space: pre-wrap; border: 1px solid var(--rule); }
+.triage-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+@media (max-width: 900px) {
+  .triage-cols { grid-template-columns: 1fr 1fr; grid-auto-rows: min-content; overflow: auto; }
+  .triage-detail { grid-column: 1 / -1; border-top: 1px solid var(--rule); }
+}

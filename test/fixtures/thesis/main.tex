@@ -1,0 +1,28 @@
+\documentclass[11pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[numbers]{natbib}
+\usepackage{makeidx}
+\usepackage{hyperref}
+\graphicspath{{figures/}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\makeindex
+
+\title{A Small Thesis}
+\author{Test Author}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\include{chapters/introduction}
+\include{chapters/methodology}
+%\include{chapters/dedication}
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+\printindex
+\end{document}
