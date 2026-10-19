@@ -79,9 +79,16 @@ is excluded from the packaged extension by `.vscodeignore`.
 ## README images
 
 The screenshots and GIFs in `images/` show the real extension running a small demo paper (heat
-diffusion in composite panels). They are referenced from `README.md` with relative paths. When the
-extension is published, `vsce` rewrites those paths to GitHub, so `images/` must be pushed to the
-default branch of a **public** repository. Images are not shipped inside the `.vsix`.
+diffusion in composite panels). `README.md` refers to them, and to `docs/`, `LICENSE` and this guide,
+with relative paths, so they work when browsing this repository.
+
+This repository is private, so the Marketplace and VS Code can't load files from it. The public
+repository [esquaredsystems/latexdesk-resources](https://github.com/esquaredsystems/latexdesk-resources)
+holds copies in its `latexdesk/` folder, and `npm run package` passes `--baseImagesUrl` and
+`--baseContentUrl` so the packaged README points there. Images are not shipped inside the `.vsix`.
+
+Whenever you add or change an image or a linked document, copy it to the same path under
+`latexdesk/` in latexdesk-resources and push that repository **before** publishing.
 
 When the UI changes, retake the affected image at the same size (1440 × 860 window; still images
 at 2× pixel density, GIFs at about 1100 px wide and 12 fps) so the README stays consistent.
@@ -90,9 +97,11 @@ at 2× pixel density, GIFs at about 1100 px wide and 12 fps) so the README stays
 
 1. Update `version` in `package.json` and add an entry to `CHANGELOG.md`.
 2. `npm run lint && npm run typecheck && npm test`
-3. `npm run package` and install the `.vsix` in a clean VS Code profile to smoke-test it
+3. Copy any new or changed README images and linked documents to `latexdesk/` in
+   latexdesk-resources and push it.
+4. `npm run package` and install the `.vsix` in a clean VS Code profile to smoke-test it
    (**Extensions: Install from VSIX…**).
-4. Publish under the `esquaredsystems` publisher:
+5. Publish under the `esquaredsystems` publisher:
 
    ```sh
    npx vsce login esquaredsystems        # once; needs an Azure DevOps token with Marketplace › Manage
@@ -101,7 +110,7 @@ at 2× pixel density, GIFs at about 1100 px wide and 12 fps) so the README stays
 
    Alternatively, upload the `.vsix` at
    [marketplace.visualstudio.com/manage](https://marketplace.visualstudio.com/manage).
-5. Tag the release: `git tag v<version> && git push --tags`.
+6. Tag the release: `git tag v<version> && git push --tags`.
 
 ## Reporting issues
 

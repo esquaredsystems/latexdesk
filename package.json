@@ -1,8 +1,8 @@
 {
   "name": "latexdesk",
   "displayName": "LaTeX Desk",
-  "description": "All the LaTeX power, none of the setup, and no limits on how long your build can run. Build, preview with SyncTeX, fix your bibliography and export for submission, all inside VS Code.",
-  "version": "0.1.0",
+  "description": "All the LaTeX power, none of the setup, and no limits on your builds. Build, preview, fix your bibliography and export for submission, all inside Visual Studio Code.",
+  "version": "0.2.1",
   "publisher": "esquaredsystems",
   "icon": "media/marketplace-icon.png",
   "galleryBanner": {
@@ -1464,7 +1464,7 @@
     "test": "vitest run",
     "bench": "node scripts/bench.mjs",
     "gate:dissertation": "node esbuild.mjs && node scripts/dissertation-gate.mjs",
-    "package": "node esbuild.mjs --production && vsce package --no-dependencies",
+    "package": "node esbuild.mjs --production && vsce package --no-dependencies --baseImagesUrl https://raw.githubusercontent.com/esquaredsystems/latexdesk-resources/master/latexdesk --baseContentUrl https://github.com/esquaredsystems/latexdesk-resources/blob/master/latexdesk",
     "vscode:prepublish": "node esbuild.mjs --production"
   },
   "dependencies": {

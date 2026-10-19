@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.2.1
+
+### Fixed
+
+- **Pictures on the extension page.** The screenshots, animations and icon in the README now load on
+  the Marketplace and in VS Code's extension details, and the README's links to the privacy,
+  performance and bibliography-rule pages open again.
+
+## 0.2.0
+
+### Fixed
+
+- **Accented names in the bibliography.** Authors, titles and other fields written with TeX accents
+  now display as real letters everywhere: the Bib Manager, citation hovers, citation search and the
+  side bar. `{\"O}zi{\c{s}}ik` now reads *Özişik* instead of `\"Ozicsik`. All standard accents are
+  covered (`` \' \` \^ \" \~ \= \. \u \v \H \c \k \r \d \b ``, including dotless `\i` and `\j`), as well as
+  special letters such as `\ss`, `\o`, `\aa`, `\ae` and `\l`.
+- **Escaped characters.** `\&`, `\%`, `\$`, `\#` and `\_` in bibliography fields show as plain
+  characters. Web addresses keep a literal `\~` as written.
+
+### Improved
+
+- **Duplicate detection ignores accents.** Entries such as `M{\"u}ller`, `Müller` and `Muller` with the
+  same title and year are now flagged as possible duplicates.
+- **New README** with screenshots and short animations of the main features, and a separate
+  developer guide (`README_DEV.md`) for contributors.
+
 ## 0.1.0
 
 First release.
