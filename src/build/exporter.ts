@@ -62,7 +62,7 @@ export function planExport(project: Project, outDir: string, jobName: string, op
   if (options.usedFilesOnly && fls) {
     for (const m of fls.matchAll(/^INPUT (.+)$/gm)) {
       const file = path.resolve(rootDir, m[1].trim());
-      if (inside(file) && !GENERATED.test(file) && !file.includes(`${path.sep}.latexstudio${path.sep}`)) sources.add(file);
+      if (inside(file) && !GENERATED.test(file) && !file.includes(`${path.sep}.latexdesk${path.sep}`)) sources.add(file);
     }
     // .bib files are read by bibtex/biber, not by the engine, so the .fls does not list them.
     project.bibFiles.forEach((b) => sources.add(b));
@@ -150,7 +150,7 @@ export async function writeExport(plan: ExportPlan, target: string, format: 'fol
 
 /** Compiles the export in a fresh temporary folder. Returns whether a PDF was produced, plus the log tail. */
 export async function verifyExport(plan: ExportPlan, rootTarget: string, jobName: string, executablePaths: Record<string, string> = {}): Promise<{ ok: boolean; message: string; dir: string }> {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'latexstudio-verify-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'latexdesk-verify-'));
   await writeExport(plan, path.join(dir, 'src'), 'folder');
   const src = path.join(dir, 'src');
   const rootDir = path.dirname(path.join(src, rootTarget));

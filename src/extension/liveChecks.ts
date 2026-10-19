@@ -17,7 +17,7 @@ const OBSOLETE: { pattern: RegExp; message: string; replacement?: string }[] = [
 ];
 
 export class LiveChecks implements vscode.Disposable {
-  private readonly collection = vscode.languages.createDiagnosticCollection('latexstudio-checks');
+  private readonly collection = vscode.languages.createDiagnosticCollection('latexdesk-checks');
   private disposables: vscode.Disposable[] = [];
 
   constructor(private readonly projects: ProjectManager, private readonly bibHealth: BibHealth) {
@@ -28,7 +28,7 @@ export class LiveChecks implements vscode.Disposable {
       bibHealth.onDidChange(schedule),
       vscode.workspace.onDidOpenTextDocument((d) => isTex(d) && schedule()),
       vscode.workspace.onDidCloseTextDocument((d) => this.collection.delete(d.uri)),
-      vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexstudio.checks') && schedule()),
+      vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexdesk.checks') && schedule()),
       vscode.languages.registerCodeActionsProvider([{ language: 'latex' }], { provideCodeActions: (doc, range, ctx) => this.codeActions(doc, ctx) }),
     );
   }
@@ -52,7 +52,7 @@ export class LiveChecks implements vscode.Disposable {
     const at = (offset: number, length: number) => new vscode.Range(doc.positionAt(offset), doc.positionAt(offset + length));
     const add = (range: vscode.Range, message: string, code: string, severity = vscode.DiagnosticSeverity.Warning) => {
       const d = new vscode.Diagnostic(range, message, severity);
-      d.source = 'LaTeX Studio';
+      d.source = 'LaTeX Desk';
       d.code = code;
       diags.push(d);
     };
@@ -114,13 +114,13 @@ export class LiveChecks implements vscode.Disposable {
       }
       if (d.source === 'LaTeX' || d.source === 'bibtex' || d.source === 'biber') {
         const explain = new vscode.CodeAction('Explain this error', vscode.CodeActionKind.QuickFix);
-        explain.command = { command: 'latexstudio.explainError', title: 'Explain this error', arguments: [d.message] };
+        explain.command = { command: 'latexdesk.explainError', title: 'Explain this error', arguments: [d.message] };
         explain.diagnostics = [d];
         actions.push(explain);
       }
       if (d.code === 'tex/undefined-cite') {
         const search = new vscode.CodeAction('Search bibliographies…', vscode.CodeActionKind.QuickFix);
-        search.command = { command: 'latexstudio.citationBrowser', title: 'Search', arguments: [doc.getText(d.range)] };
+        search.command = { command: 'latexdesk.citationBrowser', title: 'Search', arguments: [doc.getText(d.range)] };
         actions.push(search);
       }
     }

@@ -25,7 +25,7 @@ export class ExportPanel implements vscode.Disposable {
   async show() {
     await this.projects.refresh();
     if (!this.projects.project) {
-      void vscode.window.showWarningMessage('LaTeX Studio: no root document found.');
+      void vscode.window.showWarningMessage('LaTeX Desk: no root document found.');
       return;
     }
     if (this.panel) {
@@ -33,7 +33,7 @@ export class ExportPanel implements vscode.Disposable {
       this.post();
       return;
     }
-    this.panel = vscode.window.createWebviewPanel('latexstudio.export', 'Export for submission', vscode.ViewColumn.Active, {
+    this.panel = vscode.window.createWebviewPanel('latexdesk.export', 'Export for submission', vscode.ViewColumn.Active, {
       enableScripts: true,
       localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'dist'), vscode.Uri.joinPath(this.context.extensionUri, 'media')],
     });

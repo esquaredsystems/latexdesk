@@ -7,9 +7,9 @@ First release.
 - **Build:** recipes (latexmk, pdflatex → bibtex → makeindex, XeLaTeX, LuaLaTeX, Tectonic, your own),
   magic comments, build on save, stop, clean, separate output folder, and extra passes only when
   needed. Fast preview builds (draft images) and "Build This Chapter Only" for `\include`d chapters
-  run in `.latexstudio/` without touching the full build.
+  run in `.latexdesk/` without touching the full build.
 - **Problems and log:** LaTeX, BibTeX and Biber messages in the Problems view, a log viewer with the
-  file stack, and plain-language explanations of common errors (extendable with `latexstudio.errors.extra`).
+  file stack, and plain-language explanations of common errors (extendable with `latexdesk.errors.extra`).
 - **PDF viewer:** zoom, fit, layouts, search, outline, links and dark pages, keeping your place
   across rebuilds; forward and reverse SyncTeX read in-process.
 - **Editor window:** buttons in the editor title bar (Undo, Redo, Compile, Build & View, View Log,

@@ -84,7 +84,7 @@ export class SyncTexService implements vscode.Disposable {
   private async reverse(pdf: string, page: number, x: number, y: number) {
     const data = await this.load(this.viewer.shownFile(pdf));
     if (!data) {
-      void vscode.window.showWarningMessage('LaTeX Studio: no SyncTeX data for this PDF. Rebuild to enable source navigation.');
+      void vscode.window.showWarningMessage('LaTeX Desk: no SyncTeX data for this PDF. Rebuild to enable source navigation.');
       return;
     }
     const t0 = Date.now();
@@ -92,7 +92,7 @@ export class SyncTexService implements vscode.Disposable {
     this.log.appendLine(`[synctex] reverse page ${page} (${x.toFixed(0)}, ${y.toFixed(0)}) -> ${result ? `${path.basename(result.file)}:${result.line}` : 'no match'} (${Date.now() - t0} ms)`);
     if (!result) return;
     if (!fs.existsSync(result.file)) {
-      void vscode.window.showWarningMessage(`LaTeX Studio: SyncTeX points to ${result.file}, which does not exist.`);
+      void vscode.window.showWarningMessage(`LaTeX Desk: SyncTeX points to ${result.file}, which does not exist.`);
       return;
     }
     const doc = await vscode.workspace.openTextDocument(result.file);

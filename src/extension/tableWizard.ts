@@ -33,9 +33,9 @@ export class TableWizard implements vscode.Disposable {
   register() {
     this.context.subscriptions.push(
       this,
-      vscode.commands.registerCommand('latexstudio.tableWizard', () => this.open('cursor')),
-      vscode.commands.registerCommand('latexstudio.pasteTable', () => this.open('clipboard')),
-      vscode.commands.registerCommand('latexstudio.importCsv', () => this.open('csv')),
+      vscode.commands.registerCommand('latexdesk.tableWizard', () => this.open('cursor')),
+      vscode.commands.registerCommand('latexdesk.pasteTable', () => this.open('clipboard')),
+      vscode.commands.registerCommand('latexdesk.importCsv', () => this.open('csv')),
     );
   }
 
@@ -55,7 +55,7 @@ export class TableWizard implements vscode.Disposable {
       if (existing) {
         const parsed = parseTable(doc.getText(existing));
         if ('error' in parsed) {
-          void vscode.window.showWarningMessage(`LaTeX Studio: ${parsed.error}`);
+          void vscode.window.showWarningMessage(`LaTeX Desk: ${parsed.error}`);
           return;
         }
         model = parsed;
@@ -83,7 +83,7 @@ export class TableWizard implements vscode.Disposable {
 
   private show(model: TableModel, note: string) {
     if (!this.panel) {
-      this.panel = vscode.window.createWebviewPanel('latexstudio.tableWizard', 'Table wizard', vscode.ViewColumn.Beside, {
+      this.panel = vscode.window.createWebviewPanel('latexdesk.tableWizard', 'Table wizard', vscode.ViewColumn.Beside, {
         enableScripts: true,
         localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'dist'), vscode.Uri.joinPath(this.context.extensionUri, 'media')],
       });

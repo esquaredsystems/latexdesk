@@ -1,4 +1,4 @@
-// Local project history: snapshots of the project's source files in `.latexstudio/history/`.
+// Local project history: snapshots of the project's source files in `.latexdesk/history/`.
 // File contents are stored once per distinct content (named by SHA-256, gzipped), so a
 // snapshot that changes one chapter only adds that chapter.
 import * as fs from 'fs';
@@ -26,7 +26,7 @@ export class HistoryStore {
   private readonly indexFile: string;
 
   constructor(readonly projectDir: string) {
-    this.dir = path.join(projectDir, '.latexstudio', 'history');
+    this.dir = path.join(projectDir, '.latexdesk', 'history');
     this.indexFile = path.join(this.dir, 'index.json');
   }
 

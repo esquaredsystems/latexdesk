@@ -3,5 +3,31 @@ dist/
 *.vsix
 .vscode-test/
 reports/
-dissertation-test/
+# The thesis in thesis/ is part of the repository; its build output is not.
+# The compiled PDF is published as a release asset instead.
+thesis/*.aux
+thesis/*.bbl
+thesis/*.blg
+thesis/*.fdb_latexmk
+thesis/*.fls
+thesis/*.idx
+thesis/*.ilg
+thesis/*.ind
+thesis/*.loa
+thesis/*.lof
+thesis/*.log
+thesis/*.lot
+thesis/*.nlo
+thesis/*.nls
+thesis/*.out
+thesis/*.toc
+thesis/*.pdf
+thesis/*.synctex.gz
+thesis/build/
+thesis/.latexdesk/
+thesis/.latexstudio/
+thesis/.vscode/
+# Placeholder images that came with the thesis template and are not used.
+thesis/Figs/minion.*
+thesis/Figs/University_Crest.*
 .DS_Store

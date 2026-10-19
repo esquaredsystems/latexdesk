@@ -1,7 +1,7 @@
-// Final validation gate: build the author's thesis (Dissertation/) to main.pdf with the
+// Final validation gate: build the author's thesis (thesis/) to main.pdf with the
 // extension's own build code, in a temporary copy, and write a report outside the fixture.
 //
-//   npm run gate:dissertation            (fixture path: $LATEXSTUDIO_DISSERTATION or ./Dissertation)
+//   npm run gate:dissertation            (thesis path: $LATEXDESK_DISSERTATION or ./thesis)
 //
 // The thesis is never modified: sources are hashed before and after, and every build runs in a temp copy.
 import { createRequire } from 'node:module';
@@ -16,7 +16,7 @@ const require = createRequire(import.meta.url);
 const core = require('../dist/gatecore.js');
 
 const repo = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const fixture = path.resolve(process.env.LATEXSTUDIO_DISSERTATION ?? path.join(repo, 'Dissertation'));
+const fixture = path.resolve(process.env.LATEXDESK_DISSERTATION ?? path.join(repo, 'thesis'));
 const reportDir = path.join(repo, 'reports');
 const report = { startedAt: new Date().toISOString(), fixture: '<fixture>', platform: `${process.platform} ${process.arch}`, node: process.version, verdict: 'FAIL', reasons: [] };
 const log = (...a) => console.log('[gate]', ...a);
@@ -86,16 +86,16 @@ async function build(dir, outDir, recipeName) {
 }
 
 // ---------------------------------------------------------------- steps
-// The gate runs as a list of steps. With LATEXSTUDIO_GATE_BUDGET_S set (for shells that limit how
+// The gate runs as a list of steps. With LATEXDESK_GATE_BUDGET_S set (for shells that limit how
 // long a command may run), it stops after the step that exceeds the budget, saves its state in
 // reports/.gate-state.json and exits with code 75; running it again continues where it stopped.
 const statePath = path.join(reportDir, '.gate-state.json');
-const budgetMs = Number(process.env.LATEXSTUDIO_GATE_BUDGET_S ?? 0) * 1000;
+const budgetMs = Number(process.env.LATEXDESK_GATE_BUDGET_S ?? 0) * 1000;
 const started = Date.now();
 
 if (!fs.existsSync(path.join(fixture, 'main.tex'))) {
   report.verdict = 'SKIPPED';
-  report.reasons.push(`fixture not found (set LATEXSTUDIO_DISSERTATION or place it at ./Dissertation)`);
+  report.reasons.push(`fixture not found (set LATEXDESK_DISSERTATION or place it at ./thesis)`);
   finish();
 }
 
@@ -392,7 +392,7 @@ async function rebuilds() {
   const eol = introText.includes('\r\n') ? '\r\n' : '\n';
   fs.writeFileSync(intro, introText.replace(/(\\section\{[^}]*\}[^\n]*\n)/, `$1This sentence was added by the gate to time a rebuild.${eol}`));
   const preview = async (kind, preTex) => {
-    const out = path.join(dir, '.latexstudio', kind);
+    const out = path.join(dir, '.latexdesk', kind);
     core.seedFromFullBuild(dir, out, 'main');
     const tool = core.previewTool('-pdf', preTex);
     const t = Date.now();
@@ -421,7 +421,7 @@ async function rebuilds() {
     secondEdit: { incrementalMs: incremental2Ms, incrementalRules: incremental2.passes, fastPreview: fast },
     speedupFastVsIncremental: +(incremental2Ms / Math.max(1, fast.ms)).toFixed(2),
     speedupPartialVsIncremental: +(incrementalMs / Math.max(1, partial.ms)).toFixed(2),
-    note: 'Fast preview and partial builds start from the full build\'s auxiliary files and run in .latexstudio/ of the temporary copy.',
+    note: 'Fast preview and partial builds start from the full build\'s auxiliary files and run in .latexdesk/ of the temporary copy.',
   };
   log(`rebuilds: incremental ${incrementalMs} ms, first fast preview ${fastFirst.ms} ms, partial ${partial.ms} ms (${partial.pages} pp); second edit: incremental ${incremental2Ms} ms, fast preview ${fast.ms} ms (${fast.pages} pp)`);
 

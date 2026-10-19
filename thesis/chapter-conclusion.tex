@@ -1,0 +1,39 @@
+\chapter{Conclusion and Future Work}
+\label{chp:conclusion}
+
+This research encompasses a few aspects of the vast field of graph analysis and mining. Specifically we focus on the identification and discovery of most influential nodes, which have the capability to trigger a ripple effect of any event (news, disease spread, political movement, viral content, etc.) in a real-world connected system.
+
+The problem of identifying influential nodes often termed as influence maximization is a complex problem, and the closest polynomial-time solution is Hill-climbing greedy-based approach which exploits the monotone property and the sub-modular property of the problem. The manuscript then moves to perform three experiments to practically evaluate the problem and propose interim solutions to further the state-of-art.
+
+	\section{Conclusion}
+	The first experiment scrutinized a popular phenomenon that is various methods and heuristics used to discover influential nodes produce  inconsistent results on different types of networks. The experiments concluded that although these complex networks (both real and synthetic) show some structural similarities, there are stark differences that result in the inconsistent behavior of various methods and heuristics. For example: a complex network can have dense communities and another complex network can be a stark contrast with low community structure; small-world networks have high clustering coefficients; on average betweenness centrality is better among centrality-based methods for influence maximization problem. Nevertheless, the conclusion derived was that it is in fact not the structure of the network, but rather the method of selecting seed nodes, which affects the diffusion process on different networks.
+	
+	Second experiment evaluated two snapshots of a real-world network of global business ties from year 2010 and 2013, to analyze the diversity, strength and centrality of cities. In this experiment, the resilience test was used to identify the most influential cities. Our results gave not only new insights about the role of cities in the global economic network, but also validated resilience test with ground truth. For example, Paris, London and New York turned out to be most important cities. Lastly and most importantly, we witnessed that a state-of-art method performed below three classical methods which reinstated that in real scenarios, there is no guarantee that a particular heuristic will surely be effective.
+	
+	From the experiments, we established three facts:
+	
+	\begin{enumerate}
+		\item In complex networks, each seed selection method has different effect on the influence maximization problem.
+		
+		\item There is no algorithm which is accurate, scalable, and has low time and space requirements for the influence maximization problem.
+		
+		\item Influence test is not the only test to benchmark seed nodes. Resilience test is also widely used test to evaluate performance of an influence function.
+		
+	\end{enumerate}    
+	
+	In spite of there being lack of a single method which is highly accurate, scalable, and has low memory requirements research community proposed numerous different approaches, each with their pros and cons. We took a novel approach of applying machine learning techniques for influence mining by training on 367 complex networks with variation in structural attributes. The experiment not only used public networks frequently used in literature, but also two newly extracted networks from online social networks, and 120 synthetically generated networks. The results suggested that eXtreme Gradient Boosting model outperformed both classic and state-of-art heuristics in identifying most influential nodes. However, this approach had two key problems:
+	
+	\begin{enumerate}
+		\item the model would only work on the sizes of networks included in training set, and perform poorly on a network of size significantly different than those used during training.
+		
+		\item in order to rigorously train the models, we first needed to provide the set of optimal seed nodes as target nodes. This is because eXtreme Gradient Boosting is a supervised machine learning method. Finding an optimal set of seed nodes is possible even on mid-sized networks, and even the greedy method would become impractical on large-scale networks.
+	\end{enumerate}
+	
+	The final part of the research proposes a response to these dimensions - the IMine Framework. This framework enables customization of the implementation of IM problem. Instead of assuming that the budget, i.e. the number of seed nodes to extract as the only criteria to stop the IM process, IMine accepts the stoppage criteria function and its respective threshold as a parameter to the IM algorithm. Thus, providing a horizontal platform to lay the custom implementations. With IMine, the implementer is not forced to adopt one algorithm for influence mining, but change the algorithm based on the stoppage criteria. Therefore, for a use case where the time is primary constraint, the influence method to be passed should be the one which is most efficient, rather than most accurate. There is no realistic limit to how many criteria there can be, therefore an implementer can try and test several heuristics using IMine and choose the one closest to the use case.
+	
+	\section{Future work}
+	The work presented in this thesis is ripe for researchers focusing in this area. First, the empirical study can be expanded to more real networks and state-of-art algorithms.
+	
+	The machine learning experiment was not comprehensive, and merely provides a proof of concept. It will be worthwhile to investigate whether with the help of deep learning on Big data, the machine learning solution converges to a particular network trait which solves the problem for 99\% of the time. Moreover, the time complexity to train the model itself is to be considered; the experiment presented assumes that the learning data will have known ground truth, either by using domain knowledge or finding out the optimal seed set. This is obviously impractical for large scale experiments. Furthermore, the technique seems to remain infaffective for smaller networks, while it can be argued that there is an abundance of methods which perform very well on small networks out of the box, it would be fruitful to train a model which will perform better on small networks of a wide variety so as to achieve generalization. The work presented focuses either on Time complexity or Accuracy, the study steered clear of an important aspect, i.e. space complexity. Therefore in that manner, there is an induced bias towards the heuristics and methods which are either efficient, or accurate. The same series of experiments can be modified to include memory consumption data for new insights. An important constraint which the IMine framework suffers from, is that most of the state-of-art algorithms require reconstruction with added stoppage criteria, since they were not originally designed for objectives other than budget. While we did modify Collective Influence, Pagerank and CELF++, some notable algorithms like TIM, SIMPATH, IMM, EasyIM are a must because of their unique selling points and strengths. Among the most prominent enhancements that can be made is learning from the feedback from raw data collected as results in the final experiment and developing a recommendation system, which suggests the most appropriate heuristic for a given criteria and threshold. IMIne is a fitting framework to setup a very large scale experiment on these lines.
+	
+	In order to aid the researchers willing to build on the IMine framework, the complete source code and all the data sets are made publicly available at \cite{hussain2020}.

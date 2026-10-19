@@ -6,35 +6,35 @@ import { ProjectManager } from './projectManager';
 import { config, isBib, isTex } from './util';
 
 export class StatusBar implements vscode.Disposable {
-  private root = vscode.window.createStatusBarItem('latexstudio.root', vscode.StatusBarAlignment.Left, 50);
-  private build = vscode.window.createStatusBarItem('latexstudio.buildState', vscode.StatusBarAlignment.Left, 49);
-  private recipe = vscode.window.createStatusBarItem('latexstudio.recipe', vscode.StatusBarAlignment.Left, 48);
-  private issues = vscode.window.createStatusBarItem('latexstudio.issues', vscode.StatusBarAlignment.Left, 47);
-  private fast = vscode.window.createStatusBarItem('latexstudio.fast', vscode.StatusBarAlignment.Left, 46);
-  private words = vscode.window.createStatusBarItem('latexstudio.words', vscode.StatusBarAlignment.Right, 100);
+  private root = vscode.window.createStatusBarItem('latexdesk.root', vscode.StatusBarAlignment.Left, 50);
+  private build = vscode.window.createStatusBarItem('latexdesk.buildState', vscode.StatusBarAlignment.Left, 49);
+  private recipe = vscode.window.createStatusBarItem('latexdesk.recipe', vscode.StatusBarAlignment.Left, 48);
+  private issues = vscode.window.createStatusBarItem('latexdesk.issues', vscode.StatusBarAlignment.Left, 47);
+  private fast = vscode.window.createStatusBarItem('latexdesk.fast', vscode.StatusBarAlignment.Left, 46);
+  private words = vscode.window.createStatusBarItem('latexdesk.words', vscode.StatusBarAlignment.Right, 100);
   private timer?: NodeJS.Timeout;
   private disposables: vscode.Disposable[] = [];
 
   constructor(private readonly projects: ProjectManager, private readonly builds: BuildManager, private readonly context: vscode.ExtensionContext) {
-    this.root.name = 'LaTeX Studio: root document';
-    this.root.command = 'latexstudio.selectRoot';
-    this.build.name = 'LaTeX Studio: build';
-    this.build.command = 'latexstudio.compileMenu';
-    this.recipe.name = 'LaTeX Studio: recipe';
-    this.recipe.command = 'latexstudio.selectRecipe';
-    this.issues.name = 'LaTeX Studio: issues';
+    this.root.name = 'LaTeX Desk: root document';
+    this.root.command = 'latexdesk.selectRoot';
+    this.build.name = 'LaTeX Desk: build';
+    this.build.command = 'latexdesk.compileMenu';
+    this.recipe.name = 'LaTeX Desk: recipe';
+    this.recipe.command = 'latexdesk.selectRecipe';
+    this.issues.name = 'LaTeX Desk: issues';
     this.issues.command = 'workbench.actions.view.problems';
-    this.fast.name = 'LaTeX Studio: fast preview';
-    this.fast.command = 'latexstudio.toggleFastPreview';
-    this.words.name = 'LaTeX Studio: word count';
-    this.words.command = 'latexstudio.wordCount';
+    this.fast.name = 'LaTeX Desk: fast preview';
+    this.fast.command = 'latexdesk.toggleFastPreview';
+    this.words.name = 'LaTeX Desk: word count';
+    this.words.command = 'latexdesk.wordCount';
     this.words.tooltip = 'Approximate word count of the project (click for details)';
 
     this.disposables.push(
       projects.onDidChange(() => this.update()),
       builds.onDidChangeState(() => this.update()),
       vscode.window.onDidChangeActiveTextEditor(() => this.update()),
-      vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexstudio') && this.update()),
+      vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexdesk') && this.update()),
     );
     this.update();
   }
@@ -90,7 +90,7 @@ export class StatusBar implements vscode.Disposable {
     }
     this.build.tooltip = s.message ?? 'Compile options';
 
-    const recipe = s.recipe ?? this.context.workspaceState.get<string>('latexstudio.recipe') ?? config().get<string>('build.recipe') ?? '';
+    const recipe = s.recipe ?? this.context.workspaceState.get<string>('latexdesk.recipe') ?? config().get<string>('build.recipe') ?? '';
     this.recipe.text = recipe.replace(/^latexmk \((\w+)\)$/, 'latexmk · $1');
     this.recipe.tooltip = `Recipe: ${recipe} (click to change)`;
 

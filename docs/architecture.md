@@ -9,7 +9,7 @@ src/core/       pure logic, no vscode and no file system: parsers, scanners, tra
 src/build/      Node only (child processes, files): build runner, recipes, history, export
 src/extension/  VS Code integration: providers, commands, views, panels
 src/webview/    browser code for the panels (PDF viewer, Bib Manager, forms, wizards)
-src/cli/        latexstudio-bibcheck and the bundle used by scripts/
+src/cli/        latexdesk-bibcheck and the bundle used by scripts/
 data/           JSON tables: commands, symbols, error explanations, BibTeX field rules
 ```
 
@@ -45,9 +45,9 @@ skips work that is not needed (no `\bibdata` â†’ no BibTeX; references stable â†
 `%%EOF`.
 
 Fast preview and partial builds use the same runner with a latexmk tool that adds TeX code before
-the root file (`-usepretex`), in `.latexstudio/fast` or `.latexstudio/partial`.
+the root file (`-usepretex`), in `.latexdesk/fast` or `.latexdesk/partial`.
 
-`HistoryStore` keeps snapshots in `.latexstudio/history/`: an `index.json` and gzipped objects
+`HistoryStore` keeps snapshots in `.latexdesk/history/`: an `index.json` and gzipped objects
 named by content hash. `exporter.ts` plans, writes and verifies submission packages.
 
 ## Extension (`src/extension`)

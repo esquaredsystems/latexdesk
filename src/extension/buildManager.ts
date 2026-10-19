@@ -48,7 +48,7 @@ export class BuildManager implements vscode.Disposable {
   private current?: BuildRun;
   private snapshotted = new Set<string>();
   private previews = new Map<string, PdfSource>();
-  private readonly diagnostics = vscode.languages.createDiagnosticCollection('latexstudio-build');
+  private readonly diagnostics = vscode.languages.createDiagnosticCollection('latexdesk-build');
   private readonly stateChanged = new vscode.EventEmitter<BuildState>();
   readonly onDidChangeState = this.stateChanged.event;
   private readonly pdfReady = new vscode.EventEmitter<string>();
@@ -95,11 +95,11 @@ export class BuildManager implements vscode.Disposable {
 
   /** When on, "Build" and build-on-save produce a fast preview instead of a full build. */
   get fastPreview(): boolean {
-    return this.context.workspaceState.get<boolean>('latexstudio.fastPreview') ?? false;
+    return this.context.workspaceState.get<boolean>('latexdesk.fastPreview') ?? false;
   }
 
   async setFastPreview(on: boolean) {
-    await this.context.workspaceState.update('latexstudio.fastPreview', on);
+    await this.context.workspaceState.update('latexdesk.fastPreview', on);
     this.setState({ ...this.state });
   }
 
@@ -120,14 +120,14 @@ export class BuildManager implements vscode.Disposable {
 
   async build(options: { recipe?: string; fromScratch?: boolean; mode?: BuildMode } = {}): Promise<BuildResult | undefined> {
     if (!vscode.workspace.isTrusted) {
-      void vscode.window.showWarningMessage('LaTeX Studio: building is disabled in Restricted Mode. Trust this workspace to build.');
+      void vscode.window.showWarningMessage('LaTeX Desk: building is disabled in Restricted Mode. Trust this workspace to build.');
       return undefined;
     }
     await this.projects.refresh();
     const root = this.projects.root;
     const out = this.projects.output();
     if (!root || !out) {
-      void vscode.window.showWarningMessage('LaTeX Studio: no root document found. Open a .tex file with \\documentclass, or run "Select Root Document".');
+      void vscode.window.showWarningMessage('LaTeX Desk: no root document found. Open a .tex file with \\documentclass, or run "Select Root Document".');
       return undefined;
     }
 
@@ -146,10 +146,10 @@ export class BuildManager implements vscode.Disposable {
     const choice = chooseRecipe(this.recipes(), {
       explicit: options.recipe,
       magic: rootIndex?.magic ?? {},
-      configured: this.context.workspaceState.get<string>('latexstudio.recipe') ?? config().get<string>('build.recipe') ?? 'latexmk (pdf)',
+      configured: this.context.workspaceState.get<string>('latexdesk.recipe') ?? config().get<string>('build.recipe') ?? 'latexmk (pdf)',
       latexmkAvailable: await this.tools.has('latexmk'),
     });
-    if (choice.problem) void vscode.window.showWarningMessage(`LaTeX Studio: ${choice.problem}`);
+    if (choice.problem) void vscode.window.showWarningMessage(`LaTeX Desk: ${choice.problem}`);
     if (!choice.recipe) return undefined;
 
     const mode = options.mode ?? 'full';
@@ -203,7 +203,7 @@ export class BuildManager implements vscode.Disposable {
       lastGoodAt: this.state.lastGoodAt,
       message: undefined,
     });
-    void vscode.commands.executeCommand('setContext', 'latexstudio.building', true);
+    void vscode.commands.executeCommand('setContext', 'latexdesk.building', true);
 
     this.output.appendLine(`\n[build] ${new Date().toLocaleTimeString()} ${path.basename(root)} with "${recipe.name}" (${mode === 'full' ? choice.reason : label})`);
     run.on('output', (text: string) => this.output.append(text));
@@ -221,7 +221,7 @@ export class BuildManager implements vscode.Disposable {
     const result = await run.run();
     if (this.current !== run) return result; // superseded; the newer build owns the state
     this.current = undefined;
-    void vscode.commands.executeCommand('setContext', 'latexstudio.building', false);
+    void vscode.commands.executeCommand('setContext', 'latexdesk.building', false);
 
     this.readLogs(root, outDir, out.jobName);
     const pdfFile = path.join(outDir, out.jobName + '.pdf');
@@ -230,8 +230,8 @@ export class BuildManager implements vscode.Disposable {
     const producedNow = pdfOk && fs.statSync(pdfFile).mtimeMs >= (this.state.startedAt ?? 0) - 1000;
 
     let message: string | undefined;
-    if (result.missingExecutable) message = `${result.missingExecutable} was not found. Install a TeX distribution or set latexstudio.tools.paths.`;
-    else if (result.timedOut) message = 'The build took longer than latexstudio.build.timeout and was stopped.';
+    if (result.missingExecutable) message = `${result.missingExecutable} was not found. Install a TeX distribution or set latexdesk.tools.paths.`;
+    else if (result.timedOut) message = 'The build took longer than latexdesk.build.timeout and was stopped.';
     else if (result.cancelled) message = 'Build stopped.';
     else if (!pdfOk) message = 'The build did not produce a PDF.';
 
@@ -248,8 +248,8 @@ export class BuildManager implements vscode.Disposable {
     this.output.appendLine(`[build] ${this.state.phase} in ${(result.durationMs / 1000).toFixed(1)} s · ${this.state.errors} errors, ${this.state.warnings} warnings`);
 
     if (result.missingExecutable) {
-      const pick = await vscode.window.showErrorMessage(`LaTeX Studio: ${message}`, 'Check LaTeX Tools');
-      if (pick) void vscode.commands.executeCommand('latexstudio.checkTools');
+      const pick = await vscode.window.showErrorMessage(`LaTeX Desk: ${message}`, 'Check LaTeX Tools');
+      if (pick) void vscode.commands.executeCommand('latexdesk.checkTools');
     }
     // Even a build with errors may produce a usable PDF (nonstopmode), so show it.
     if (producedNow) {
@@ -261,12 +261,12 @@ export class BuildManager implements vscode.Disposable {
   }
 
   /**
-   * Fast preview and partial builds run latexmk in `.latexstudio/fast` or `.latexstudio/partial`
+   * Fast preview and partial builds run latexmk in `.latexdesk/fast` or `.latexdesk/partial`
    * with extra TeX code before the root file, so the full build's files are never touched.
    */
   private async previewSetup(mode: BuildMode, root: string, base: Recipe) {
     if (!(await this.tools.has('latexmk'))) {
-      void vscode.window.showWarningMessage('LaTeX Studio: fast preview and partial builds need latexmk.');
+      void vscode.window.showWarningMessage('LaTeX Desk: fast preview and partial builds need latexmk.');
       return undefined;
     }
     let preTex: string;
@@ -277,7 +277,7 @@ export class BuildManager implements vscode.Disposable {
     } else {
       const chapter = this.includedChapter(vscode.window.activeTextEditor?.document.fileName, root);
       if (!chapter) {
-        void vscode.window.showWarningMessage('LaTeX Studio: open a chapter that the root document loads with \\include to build it alone.');
+        void vscode.window.showWarningMessage('LaTeX Desk: open a chapter that the root document loads with \\include to build it alone.');
         return undefined;
       }
       preTex = `\\includeonly{${chapter}}`;
@@ -369,7 +369,7 @@ export class BuildManager implements vscode.Disposable {
       d.source = e.tool === 'latex' ? 'LaTeX' : e.tool;
       const explanation = explain(e.message, config().get<Rule[]>('errors.extra') ?? []);
       if (explanation) {
-        d.code = { value: explanation.id, target: vscode.Uri.parse('command:latexstudio.explainError?' + encodeURIComponent(JSON.stringify([e.message]))) };
+        d.code = { value: explanation.id, target: vscode.Uri.parse('command:latexdesk.explainError?' + encodeURIComponent(JSON.stringify([e.message]))) };
         d.relatedInformation = [new vscode.DiagnosticRelatedInformation(new vscode.Location(vscode.Uri.file(file), range), `${explanation.title}: ${explanation.fix}`)];
       }
       if (lineNo === undefined) d.message += ' (no line number in the log)';

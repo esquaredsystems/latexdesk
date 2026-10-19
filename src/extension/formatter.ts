@@ -41,7 +41,7 @@ export function registerFormatter(context: vscode.ExtensionContext) {
     const indent = options.insertSpaces ? ' '.repeat(options.tabSize) : '\t';
     if (tool === 'builtin') return formatLatex(text, { indent });
     if (!vscode.workspace.isTrusted) {
-      void vscode.window.showWarningMessage('LaTeX Studio: external formatters are disabled in Restricted Mode; using the built-in formatter.');
+      void vscode.window.showWarningMessage('LaTeX Desk: external formatters are disabled in Restricted Mode; using the built-in formatter.');
       return formatLatex(text, { indent });
     }
     const paths = config().get<Record<string, string>>('tools.paths') ?? {};
@@ -50,7 +50,7 @@ export function registerFormatter(context: vscode.ExtensionContext) {
       if (tool === 'latexindent') return await runFormatter(paths.latexindent || 'latexindent', ['-'], text, cwd);
       return await runFormatter(paths['tex-fmt'] || 'tex-fmt', ['--stdin'], text, cwd);
     } catch (err) {
-      void vscode.window.showErrorMessage(`LaTeX Studio: ${(err as Error).message}`);
+      void vscode.window.showErrorMessage(`LaTeX Desk: ${(err as Error).message}`);
       return undefined;
     }
   }

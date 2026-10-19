@@ -19,7 +19,7 @@ export interface ScannedBib {
 }
 
 export class BibHealth implements vscode.Disposable {
-  private readonly collection = vscode.languages.createDiagnosticCollection('latexstudio-bib');
+  private readonly collection = vscode.languages.createDiagnosticCollection('latexdesk-bib');
   private scans = new Map<string, ScannedBib>();
   private findingsByDiagnostic = new WeakMap<vscode.Diagnostic, BibFinding>();
   private readonly changed = new vscode.EventEmitter<void>();
@@ -35,7 +35,7 @@ export class BibHealth implements vscode.Disposable {
       projects.onDidChange(rescanAll),
       vscode.workspace.onDidOpenTextDocument((d) => isBib(d) && this.scanDocument(d)),
       vscode.workspace.onDidChangeTextDocument((e) => isBib(e.document) && e.contentChanges.length && rescanDoc(e.document)),
-      vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexstudio.bib') && rescanAll()),
+      vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexdesk.bib') && rescanAll()),
     );
   }
 

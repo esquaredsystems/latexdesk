@@ -1,6 +1,6 @@
-// latexstudio-bibcheck: the same bibliography checker as the extension, for CI and pre-commit hooks.
+// latexdesk-bibcheck: the same bibliography checker as the extension, for CI and pre-commit hooks.
 //
-//   latexstudio-bibcheck refs.bib [more.bib] [--profile minimal|standard|strict]
+//   latexdesk-bibcheck refs.bib [more.bib] [--profile minimal|standard|strict]
 //       [--dialect bibtex|biblatex] [--tex main.tex] [--format text|json|sarif] [--fail-on error|warning|none]
 import * as fs from 'fs';
 import * as path from 'path';
@@ -28,7 +28,7 @@ function parseArgs(argv: string[]): Options {
     else if (a === '--format') options.format = next() as Options['format'];
     else if (a === '--fail-on') options.failOn = next() as Options['failOn'];
     else if (a === '--help' || a === '-h') {
-      console.log('Usage: latexstudio-bibcheck <file.bib...> [--profile minimal|standard|strict] [--dialect bibtex|biblatex] [--tex main.tex] [--format text|json|sarif] [--fail-on error|warning|none]');
+      console.log('Usage: latexdesk-bibcheck <file.bib...> [--profile minimal|standard|strict] [--dialect bibtex|biblatex] [--tex main.tex] [--format text|json|sarif] [--fail-on error|warning|none]');
       process.exit(0);
     } else options.files.push(a);
   }
@@ -102,7 +102,7 @@ function toSarif(results: { file: string; findings: (BibFinding & { line: number
     $schema: 'https://json.schemastore.org/sarif-2.1.0.json',
     runs: [
       {
-        tool: { driver: { name: 'latexstudio-bibcheck', informationUri: 'https://github.com/latexstudio/latexstudio' } },
+        tool: { driver: { name: 'latexdesk-bibcheck', informationUri: 'https://github.com/esquaredsystems/latexdesk' } },
         results: results.flatMap((r) =>
           r.findings.map((f) => ({
             ruleId: f.code,

@@ -12,7 +12,7 @@ import { countWords } from '../core/wordCount';
 import { HistoryStore } from '../build/history';
 
 type Kind = 'dashboard' | 'log' | 'tools';
-const TITLES: Record<Kind, string> = { dashboard: 'Project Dashboard', log: 'LaTeX Log', tools: 'Set up LaTeX Studio' };
+const TITLES: Record<Kind, string> = { dashboard: 'Project Dashboard', log: 'LaTeX Log', tools: 'Set up LaTeX Desk' };
 
 export class Panels implements vscode.Disposable {
   private panels = new Map<Kind, vscode.WebviewPanel>();
@@ -46,7 +46,7 @@ export class Panels implements vscode.Disposable {
       void this.post(kind);
       return;
     }
-    panel = vscode.window.createWebviewPanel(`latexstudio.${kind}`, TITLES[kind], vscode.ViewColumn.Active, {
+    panel = vscode.window.createWebviewPanel(`latexdesk.${kind}`, TITLES[kind], vscode.ViewColumn.Active, {
       enableScripts: true,
       localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'dist'), vscode.Uri.joinPath(this.context.extensionUri, 'media')],
     });
@@ -85,7 +85,7 @@ export class Panels implements vscode.Disposable {
         void vscode.env.openExternal(vscode.Uri.parse(msg.url));
         break;
       case 'setPath':
-        void vscode.commands.executeCommand('workbench.action.openSettings', 'latexstudio.tools.paths');
+        void vscode.commands.executeCommand('workbench.action.openSettings', 'latexdesk.tools.paths');
         break;
       case 'copyReport':
         await vscode.env.clipboard.writeText(await this.troubleshootingReport());
@@ -139,11 +139,11 @@ export class Panels implements vscode.Disposable {
       pages = undefined;
     }
     const blockers: { text: string; severity: string; action?: { label: string; command: string } }[] = [];
-    if (s.errors) blockers.push({ text: `${s.errors} build error${s.errors > 1 ? 's' : ''}`, severity: 'error', action: { label: 'Open log', command: 'latexstudio.openLogViewer' } });
-    if (unresolved.length) blockers.push({ text: `${unresolved.length} citation${unresolved.length > 1 ? 's' : ''} with no entry`, severity: 'error', action: { label: 'Show', command: 'latexstudio.citations.focus' } });
-    if (incomplete) blockers.push({ text: `${incomplete} bibliography entr${incomplete > 1 ? 'ies' : 'y'} missing required fields`, severity: 'warning', action: { label: 'Bib Manager', command: 'latexstudio.openBibManager' } });
-    if (missingDoi && this.health.profile !== 'minimal') blockers.push({ text: `${missingDoi} entr${missingDoi === 1 ? 'y' : 'ies'} missing a DOI (profile: ${this.health.profile})`, severity: 'warning', action: { label: 'Bib Manager', command: 'latexstudio.openBibManager' } });
-    if (project && project.unresolved.length) blockers.push({ text: `${project.unresolved.length} unresolved include/bibliography/graphic reference${project.unresolved.length > 1 ? 's' : ''}`, severity: 'warning', action: { label: 'Files', command: 'latexstudio.files.focus' } });
+    if (s.errors) blockers.push({ text: `${s.errors} build error${s.errors > 1 ? 's' : ''}`, severity: 'error', action: { label: 'Open log', command: 'latexdesk.openLogViewer' } });
+    if (unresolved.length) blockers.push({ text: `${unresolved.length} citation${unresolved.length > 1 ? 's' : ''} with no entry`, severity: 'error', action: { label: 'Show', command: 'latexdesk.citations.focus' } });
+    if (incomplete) blockers.push({ text: `${incomplete} bibliography entr${incomplete > 1 ? 'ies' : 'y'} missing required fields`, severity: 'warning', action: { label: 'Bib Manager', command: 'latexdesk.openBibManager' } });
+    if (missingDoi && this.health.profile !== 'minimal') blockers.push({ text: `${missingDoi} entr${missingDoi === 1 ? 'y' : 'ies'} missing a DOI (profile: ${this.health.profile})`, severity: 'warning', action: { label: 'Bib Manager', command: 'latexdesk.openBibManager' } });
+    if (project && project.unresolved.length) blockers.push({ text: `${project.unresolved.length} unresolved include/bibliography/graphic reference${project.unresolved.length > 1 ? 's' : ''}`, severity: 'warning', action: { label: 'Files', command: 'latexdesk.files.focus' } });
     const topTodo = [...todoByFile].sort((a, b) => b[1] - a[1])[0];
     return {
       root: project ? `${path.basename(project.rootDir)} / ${path.basename(project.root)}` : undefined,
@@ -194,9 +194,9 @@ export class Panels implements vscode.Disposable {
 
   async troubleshootingReport(): Promise<string> {
     const tools = await this.tools.list();
-    const ext = vscode.extensions.getExtension('latexstudio.latexstudio');
+    const ext = vscode.extensions.getExtension('esquaredsystems.latexdesk');
     return [
-      `LaTeX Studio ${ext?.packageJSON.version ?? ''} on VS Code ${vscode.version} (${process.platform} ${process.arch}, Node ${process.version})`,
+      `LaTeX Desk ${ext?.packageJSON.version ?? ''} on VS Code ${vscode.version} (${process.platform} ${process.arch}, Node ${process.version})`,
       `Activation: ${this.activation.activatedInMs} ms`,
       `Root: ${this.projects.root ?? 'none'}; files: ${this.projects.project?.files.length ?? 0}; bib files: ${this.projects.bibs.size}`,
       `Recipe: ${this.builds.state.recipe ?? config().get('build.recipe')}; last build: ${this.builds.state.phase} ${this.builds.state.durationMs ?? ''} ms`,

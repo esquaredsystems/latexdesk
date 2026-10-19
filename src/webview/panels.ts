@@ -51,7 +51,7 @@ function dashboard(d: any) {
         ? d.blockers.map((b: any) => `<div class="blocker"><span class="${b.severity === 'error' ? 'err' : 'warn'}">${b.severity === 'error' ? '⊗' : '⚠'}</span> ${esc(b.text)}${b.action ? `<button data-command="${esc(b.action.command)}">${esc(b.action.label)}</button>` : ''}</div>`).join('')
         : '<div class="blocker muted">Nothing blocking.</div>'
     }
-    <div class="footer"><button class="primary" data-command="latexstudio.exportSubmission">Export for submission</button><button data-command="latexstudio.history.label">Label version</button><button data-command="latexstudio.wordCount">Statistics</button><button data-command="latexstudio.build">▶ Build</button></div>
+    <div class="footer"><button class="primary" data-command="latexdesk.exportSubmission">Export for submission</button><button data-command="latexdesk.history.label">Label version</button><button data-command="latexdesk.wordCount">Statistics</button><button data-command="latexdesk.build">▶ Build</button></div>
   </div>`;
   wire();
 }
@@ -135,7 +135,7 @@ function tools(d: any) {
   ];
   app.innerHTML = `
   <div class="card tools">
-    <header class="caps">Set up LaTeX Studio</header>
+    <header class="caps">Set up LaTeX Desk</header>
     ${d.trusted ? '' : '<div class="banner">Building disabled in Restricted Mode. Trust this workspace to build.</div>'}
     <div class="pad">
       ${

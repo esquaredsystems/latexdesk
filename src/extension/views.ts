@@ -48,7 +48,7 @@ class BuildTree extends SimpleTree {
   }
   protected roots(): Node[] {
     const s = this.builds.state;
-    const recipe = this.context.workspaceState.get<string>('latexstudio.recipe') ?? config().get<string>('build.recipe') ?? 'latexmk (pdf)';
+    const recipe = this.context.workspaceState.get<string>('latexdesk.recipe') ?? config().get<string>('build.recipe') ?? 'latexmk (pdf)';
     const auto = config().get('build.autoBuild') === 'onSave';
     const status =
       s.phase === 'building'
@@ -62,22 +62,22 @@ class BuildTree extends SimpleTree {
               : 'Not built yet';
     const icon = s.phase === 'building' ? 'sync~spin' : s.phase === 'succeeded' ? 'pass' : s.phase === 'failed' ? 'error' : 'circle-outline';
     const nodes: Node[] = [
-      item('Build project', { iconPath: new vscode.ThemeIcon('play'), description: process.platform === 'darwin' ? '⌘⌥B' : 'Ctrl+Alt+B', command: { command: 'latexstudio.build', title: 'Build' } }),
-      item('Fast preview build', { iconPath: new vscode.ThemeIcon('zap'), description: 'draft images', command: { command: 'latexstudio.buildFast', title: 'Fast preview' } }),
-      item('Build this chapter only', { iconPath: new vscode.ThemeIcon('split-horizontal'), description: 'partial', command: { command: 'latexstudio.buildPartial', title: 'Partial build' } }),
-      item('Rebuild from scratch', { iconPath: new vscode.ThemeIcon('refresh'), command: { command: 'latexstudio.rebuild', title: 'Rebuild' } }),
+      item('Build project', { iconPath: new vscode.ThemeIcon('play'), description: process.platform === 'darwin' ? '⌘⌥B' : 'Ctrl+Alt+B', command: { command: 'latexdesk.build', title: 'Build' } }),
+      item('Fast preview build', { iconPath: new vscode.ThemeIcon('zap'), description: 'draft images', command: { command: 'latexdesk.buildFast', title: 'Fast preview' } }),
+      item('Build this chapter only', { iconPath: new vscode.ThemeIcon('split-horizontal'), description: 'partial', command: { command: 'latexdesk.buildPartial', title: 'Partial build' } }),
+      item('Rebuild from scratch', { iconPath: new vscode.ThemeIcon('refresh'), command: { command: 'latexdesk.rebuild', title: 'Rebuild' } }),
     ];
-    if (s.phase === 'building') nodes.push(item('Stop build', { iconPath: new vscode.ThemeIcon('debug-stop'), command: { command: 'latexstudio.stopBuild', title: 'Stop' } }));
+    if (s.phase === 'building') nodes.push(item('Stop build', { iconPath: new vscode.ThemeIcon('debug-stop'), command: { command: 'latexdesk.stopBuild', title: 'Stop' } }));
     nodes.push(
-      item('Clean aux files', { iconPath: new vscode.ThemeIcon('trash'), command: { command: 'latexstudio.clean', title: 'Clean' } }),
-      item('View PDF', { iconPath: new vscode.ThemeIcon('open-preview'), command: { command: 'latexstudio.viewPdf', title: 'View PDF' } }),
-      item(`Recipe ▸ ${recipe}`, { iconPath: new vscode.ThemeIcon('list-ordered'), command: { command: 'latexstudio.selectRecipe', title: 'Select recipe' } }),
-      item(`Build on save: ${auto ? 'on' : 'off'}`, { iconPath: new vscode.ThemeIcon(auto ? 'check' : 'circle-slash'), command: { command: 'latexstudio.toggleAutoBuild', title: 'Toggle' } }),
-      item(`Root ▸ ${this.projects.root ? path.basename(this.projects.root) : 'none'}`, { iconPath: new vscode.ThemeIcon('home'), command: { command: 'latexstudio.selectRoot', title: 'Select root' } }),
+      item('Clean aux files', { iconPath: new vscode.ThemeIcon('trash'), command: { command: 'latexdesk.clean', title: 'Clean' } }),
+      item('View PDF', { iconPath: new vscode.ThemeIcon('open-preview'), command: { command: 'latexdesk.viewPdf', title: 'View PDF' } }),
+      item(`Recipe ▸ ${recipe}`, { iconPath: new vscode.ThemeIcon('list-ordered'), command: { command: 'latexdesk.selectRecipe', title: 'Select recipe' } }),
+      item(`Build on save: ${auto ? 'on' : 'off'}`, { iconPath: new vscode.ThemeIcon(auto ? 'check' : 'circle-slash'), command: { command: 'latexdesk.toggleAutoBuild', title: 'Toggle' } }),
+      item(`Root ▸ ${this.projects.root ? path.basename(this.projects.root) : 'none'}`, { iconPath: new vscode.ThemeIcon('home'), command: { command: 'latexdesk.selectRoot', title: 'Select root' } }),
       item(status, {
         iconPath: new vscode.ThemeIcon(icon),
         description: s.phase !== 'idle' ? `${s.errors} errors · ${s.warnings} warnings` : undefined,
-        command: { command: 'latexstudio.openLogViewer', title: 'Open log' },
+        command: { command: 'latexdesk.openLogViewer', title: 'Open log' },
       }),
     );
     return nodes;
@@ -108,7 +108,7 @@ class StructureTree extends SimpleTree {
     const header = item(`§ ${counts.sections} · label ${counts.labels} · float ${counts.floats} · eq ${counts.equations} · TODO ${counts.todos}`, {
       iconPath: new vscode.ThemeIcon('filter'),
       tooltip: 'Click to choose what the structure shows',
-      command: { command: 'latexstudio.structureFilter', title: 'Filter' },
+      command: { command: 'latexdesk.structureFilter', title: 'Filter' },
     });
 
     // Walk the project in document order, following includes where they appear.
@@ -323,7 +323,7 @@ class OutputsTree extends SimpleTree {
         resourceUri: vscode.Uri.file(file),
         description: size > 1024 * 1024 ? `${(size / 1024 / 1024).toFixed(1)} MB` : `${Math.ceil(size / 1024)} KB`,
         contextValue: 'outputFile',
-        command: file.endsWith('.pdf') ? { command: 'latexstudio.viewPdf', title: 'View' } : file.endsWith('.gz') ? undefined : openAt(file, 0),
+        command: file.endsWith('.pdf') ? { command: 'latexdesk.viewPdf', title: 'View' } : file.endsWith('.gz') ? undefined : openAt(file, 0),
       });
     });
   }
@@ -339,12 +339,12 @@ export function registerViews(context: vscode.ExtensionContext, projects: Projec
   const refreshProject = debounce(() => [structure, files, citations, labels, build].forEach((t) => t.refresh()), 150);
 
   context.subscriptions.push(
-    vscode.window.registerTreeDataProvider('latexstudio.build', build),
-    vscode.window.registerTreeDataProvider('latexstudio.structure', structure),
-    vscode.window.registerTreeDataProvider('latexstudio.files', files),
-    vscode.window.registerTreeDataProvider('latexstudio.citations', citations),
-    vscode.window.registerTreeDataProvider('latexstudio.labels', labels),
-    vscode.window.registerTreeDataProvider('latexstudio.outputs', outputs),
+    vscode.window.registerTreeDataProvider('latexdesk.build', build),
+    vscode.window.registerTreeDataProvider('latexdesk.structure', structure),
+    vscode.window.registerTreeDataProvider('latexdesk.files', files),
+    vscode.window.registerTreeDataProvider('latexdesk.citations', citations),
+    vscode.window.registerTreeDataProvider('latexdesk.labels', labels),
+    vscode.window.registerTreeDataProvider('latexdesk.outputs', outputs),
     projects.onDidChange(refreshProject),
     health.onDidChange(() => citations.refresh()),
     builds.onDidChangeState((s) => {
@@ -354,12 +354,12 @@ export function registerViews(context: vscode.ExtensionContext, projects: Projec
         structure.refresh();
       }
     }),
-    vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexstudio') && build.refresh()),
-    vscode.commands.registerCommand('latexstudio.refreshViews', async () => {
+    vscode.workspace.onDidChangeConfiguration((e) => e.affectsConfiguration('latexdesk') && build.refresh()),
+    vscode.commands.registerCommand('latexdesk.refreshViews', async () => {
       await projects.refresh();
       [build, structure, files, citations, labels, outputs].forEach((t) => t.refresh());
     }),
-    vscode.commands.registerCommand('latexstudio.structureFilter', async () => {
+    vscode.commands.registerCommand('latexdesk.structureFilter', async () => {
       const kinds: { label: string; value: StructureKind }[] = [
         { label: 'Sections', value: 'sections' },
         { label: 'Figures and tables', value: 'floats' },

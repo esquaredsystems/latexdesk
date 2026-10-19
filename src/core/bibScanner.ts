@@ -1,7 +1,7 @@
 // Rule engine that checks a parsed bibliography for missing fields, bad values and duplicates.
 // Every finding has a stable code (bib/...), a severity and an exact text range.
 import fields from '../../data/bibFields.json';
-import { BibEntry, BibField, BibFile, getField, resolvedValue, MONTH_MACROS, authorSurnames } from './bibParser';
+import { BibEntry, BibField, BibFile, getField, resolvedValue, MONTH_MACROS, authorSurnames, foldForComparison } from './bibParser';
 
 export type Severity = 'error' | 'warning' | 'info' | 'hint';
 export type Dialect = 'bibtex' | 'biblatex';
@@ -357,7 +357,7 @@ function completenessScore(file: BibFile, entry: BibEntry, options: ScanOptions,
 }
 
 function normalizeTitle(s: string): string {
-  return s.toLowerCase().replace(/\\[a-z]+/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  return foldForComparison(s).replace(/\\[a-z]+/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
 export function findDuplicateWorks(file: BibFile) {
@@ -390,7 +390,7 @@ export function findDuplicateWorks(file: BibFile) {
     const author = getField(e, 'author', 'editor');
     const year = getField(e, 'year', 'date');
     if (!title || !author || !year) continue;
-    const surname = authorSurnames(resolvedValue(file, author))[0]?.toLowerCase() ?? '';
+    const surname = foldForComparison(authorSurnames(resolvedValue(file, author))[0] ?? '');
     const sig = `${normalizeTitle(resolvedValue(file, title))}|${surname}|${resolvedValue(file, year).slice(0, 4)}`;
     fuzzy.set(sig, [...(fuzzy.get(sig) ?? []), e.key]);
   }

@@ -36,7 +36,7 @@ describe.skipIf(!hasLatexmk)('builds', () => {
   }, 120_000);
 
   it('fast preview writes a separate PDF with draft graphics', async () => {
-    const outDir = path.join(dir, '.latexstudio', 'fast');
+    const outDir = path.join(dir, '.latexdesk', 'fast');
     seedFromFullBuild(dir, outDir, 'main');
     expect(existsSync(path.join(outDir, 'main.aux'))).toBe(true);
     const fullPdfTime = statSync(path.join(dir, 'main.pdf')).mtimeMs;
@@ -55,7 +55,7 @@ describe.skipIf(!hasLatexmk)('builds', () => {
   }, 120_000);
 
   it('partial build includes only the chosen chapter and keeps references', async () => {
-    const outDir = path.join(dir, '.latexstudio', 'partial');
+    const outDir = path.join(dir, '.latexdesk', 'partial');
     seedFromFullBuild(dir, outDir, 'main');
     const tool = previewTool('-pdf', '\\includeonly{chapters/methodology}');
     const result = await new BuildRun({ recipe: { name: 'partial', tools: [tool.name] }, tools: [tool], placeholders: placeholders(dir, outDir) }).run();

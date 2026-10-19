@@ -1,0 +1,93 @@
+%!TEX root = ../glossary.tex
+% ******************************* Thesis Appendix A: Glossaries ****************************
+
+\chapter{Glossary}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{longtable}
+% Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
+
+In ascending order; abbreviations are followed by their respective acronyms in parenthesis.
+
+Action: An activity performed by a user in a network.
+
+Adjacency Matrix: $n\times n$ matrix of nodes showing edges between them.
+
+APL (Average Path Length): Average number of edges between shortest paths among nodes, given as $l\dfrac{1}{n(n-1)}\sum_{i,j}d_{i,j}$ where $i,j$ is any pair of nodes, $l$ is the number of nodes in the path between $i$ and $j$ and $n$ is total number of nodes in the network.
+
+Assortativity: Pearson correlation coefficient of nodes at any side of an edge. Ranging between -1 and 1, negative value means that the high degree nodes tend to connect with low degree nodes, positive value means that the nodes connect with respect to degree similarity.
+
+Average Degree: Average number of edges for each node.
+
+Average Distance: Average number of edges between any pair of nodes in a network.
+
+Betweenness Centrality: Number of shortest paths between all pairs of nodes passing through a nodes.
+
+Centrality: A measure of central tendency of a node in a network.
+
+CC (Clustering Coefficient): Ratio of number of Triads connected to a node to possible number of Triads.
+
+CC (global): Global CC or Clique-ness of a network given as $C_{global}=\dfrac{3\times |triads|}{|possible triads}$.
+
+CES: Consumer Electronics Show is organized by the Consumer Technology Association annually for electronics traders.
+
+CI (Collective Influence): Heuristic for seed selection, scalable on large networks.
+
+Clique: Completely connected network, i.e. every node has an edge with every other node (number of triads in a clique are $3^{n-3}$).
+
+Closeness Centrality: Number of steps required to reach every node in a network from a node. Calculated as $\dfrac{1}{\sum_{i\in V}d_{u,i}}$, where $d_{u,i}$ is the distance from node $u$ to all other nodes $i\in V$.
+
+Connected Network: A network in which each node can reach any other node.
+
+Coreness: Measure that defines how many neighbours a node has. A node is in core $k$ if its degree is k, not $k-1$ or $k+1$.
+
+DAC (Directed Acyclic Graph): A directed graph with no directed cycles.
+
+Degree: Number of edges of a node.
+
+Degree of Influence: Percentage of influence of a node on its neighbours.
+
+Density: Ratio between existing network edges and all possible edges among nodes.
+
+Diameter: Number of edges in longest path that exists from two most distinct nodes.
+
+Diffusion: Spread of an event or action in a network.
+
+E3: Electronic Entertainment Expo is an international video game industry event held annually by The Entertainment Software Association (ESA).
+
+Edge Betweenness: Number of shortest paths on which an edge lies.
+
+Highest Degree: Maximum number of connections of any individual node in a network.
+	
+IC (Independent Cascade): Diffusion model, which assumes that an active node can attempt to activate another inactive node in its neighbourhood, independent of past actions and other active nodes.
+
+In-Degree: Number of edges directing towards a node in a directed network.
+
+Influence: Tendency of a node to trigger another node to repeat an action performed initially by itself in a network.
+
+IM (Influence Maximization): Phenomenon of maximizing influence of a set of nodes or actions on a network.
+
+LT (Linear Threshold): Diffusion model, which assumes that an inactive node can become active only when a certain activation threshold is met.
+
+MWC: Mobile World Congress is an annual conference specific to mobile phone industry. It is organized by GSMA each year.
+
+Neighbour: A node adjacent (directly connected) to a node.
+
+Network: A graph consisting of nodes and edges between them.
+
+Network Diameter: \textit{see Diameter}.
+
+Normalization: Method to normalize data.
+
+Out-Degree: Number of edges directing from a node to others in a network.
+
+Path: Set of edges from one node to another.
+
+SIR (Susceptible-Infected-Recovered): an epidemiology model in which an individual susceptible to a disease becomes infected with some probability, then Recovered with some recovery probability, then is not infected again.
+
+SIS (Susceptible-Infected-Susceptible): an epidemiology model in which an individual susceptible to a disease becomes infected with some probability, then becomes Susceptible again.
+
+Triad/Triangle: Set of 3 interconnected nodes in a network.
+
+WC (Weighted Cascade): Diffusion model, which assumes that an active node can attempt to activate another node with some probability (weight) learned from past progressions.

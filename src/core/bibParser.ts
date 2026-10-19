@@ -250,8 +250,50 @@ export function resolvedValue(file: BibFile, field: BibField): string {
     if (macro) v = macro.value;
     else if (MONTH_MACROS[v.toLowerCase()]) v = MONTH_MACROS[v.toLowerCase()];
   }
+  // Addresses keep \~ as a literal tilde; everything else gets its accents turned into letters.
+  v = LITERAL_FIELDS.has(field.name) ? unescapeTex(v) : decodeTexAccents(v);
   // Drop braces and simple commands such as {\TeX}book -> TeXbook, for display and comparison.
-  return v.replace(/\\([a-zA-Z]+)\s*/g, '$1').replace(/[{}]/g, '').replace(/\s+/g, ' ').trim();
+  return v
+    .replace(/\\([a-zA-Z]+)\s*/g, '$1')
+    .replace(/[{}]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Combining marks for TeX accent commands: \"o -> ö, \c{s} -> ş, \v{c} -> č.
+const SYMBOL_ACCENTS: Record<string, string> = {
+  '`': '\u0300', "'": '\u0301', '^': '\u0302', '~': '\u0303', '=': '\u0304', '.': '\u0307', '"': '\u0308',
+};
+const LETTER_ACCENTS: Record<string, string> = {
+  u: '\u0306', r: '\u030A', H: '\u030B', v: '\u030C', d: '\u0323', c: '\u0327', k: '\u0328', b: '\u0331',
+};
+const SPECIAL_LETTERS: Record<string, string> = {
+  ss: 'ß', o: 'ø', O: 'Ø', ae: 'æ', AE: 'Æ', oe: 'œ', OE: 'Œ', aa: 'å', AA: 'Å', l: 'ł', L: 'Ł', i: 'ı', j: 'ȷ',
+};
+
+/** Replaces TeX accents and special letters with Unicode: {\"O}zi{\c{s}}ik -> {Ö}zi{ş}ik. */
+export function decodeTexAccents(text: string): string {
+  // The dotless \i and \j are written under accents, as in \'{\i}; the accented letter is a plain i.
+  const base = (letter: string) => (letter === '\\i' ? 'i' : letter === '\\j' ? 'j' : letter);
+  const decoded = text
+    .replace(/\\([`'^~=."])\s*(?:\{\s*(\\[ij]|[A-Za-z])\s*\}|(\\[ij](?![A-Za-z])|[A-Za-z]))/g,
+      (_m, accent: string, braced?: string, bare?: string) => (base(braced ?? bare ?? '') + SYMBOL_ACCENTS[accent]).normalize('NFC'))
+    .replace(/\\([urHvdckb])(?:\s*\{\s*(\\[ij]|[A-Za-z])\s*\}|\s+([A-Za-z]))/g,
+      (_m, accent: string, braced?: string, bare?: string) => (base(braced ?? bare ?? '') + LETTER_ACCENTS[accent]).normalize('NFC'))
+    .replace(/\\(ss|ae|AE|oe|OE|aa|AA|[oOlLij])(?![A-Za-z])\s*/g, (_m, name: string) => SPECIAL_LETTERS[name]);
+  return unescapeTex(decoded);
+}
+
+const LITERAL_FIELDS = new Set(['url', 'doi', 'file', 'eprint']);
+
+/** \_ -> _, \% -> % and so on, leaving everything else as written. */
+function unescapeTex(text: string): string {
+  return text.replace(/\\([&%$#_])/g, '$1');
+}
+
+/** Lower case without accents, for comparing names and titles: "Özişik" -> "ozisik". */
+export function foldForComparison(text: string): string {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
 
 export function getField(entry: BibEntry, ...names: string[]): BibField | undefined {

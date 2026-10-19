@@ -130,7 +130,7 @@ export function registerLanguageFeatures(context: vscode.ExtensionContext, proje
     const root = projects.root ?? doc.fileName;
     const rootDir = path.dirname(root);
     const pattern = command === 'includegraphics' ? `**/*.{${GRAPHIC_EXTENSIONS.map((e) => e.slice(1).toLowerCase()).join(',')}}` : command.startsWith('bib') || command === 'addbibresource' ? '**/*.bib' : '**/*.tex';
-    const uris = await vscode.workspace.findFiles(new vscode.RelativePattern(rootDir, pattern), '**/{node_modules,.git,.latexstudio}/**', 2000);
+    const uris = await vscode.workspace.findFiles(new vscode.RelativePattern(rootDir, pattern), '**/{node_modules,.git,.latexdesk}/**', 2000);
     const graphicsPaths = projects.project?.files.flatMap((f) => f.index.graphicsPaths) ?? [];
     const items = new Map<string, vscode.CompletionItem>();
     for (const uri of uris) {

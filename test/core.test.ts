@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseTex } from '../src/core/texParser';
-import { parseBib } from '../src/core/bibParser';
-import { scanBib } from '../src/core/bibScanner';
+import { parseBib, describeEntry, decodeTexAccents, resolvedValue } from '../src/core/bibParser';
+import { scanBib, findDuplicateWorks } from '../src/core/bibScanner';
 import { parseLatexLog, parseBlg, missingCitationKeys } from '../src/core/logParser';
 import { countWords } from '../src/core/wordCount';
 import { explain } from '../src/core/explain';
@@ -224,3 +224,39 @@ $a + b$ and \label{y}
     expect(explain('Something odd happened')).toBeUndefined();
   });
 });
+
+describe('TeX accents in bibliography values', () => {
+  it('turns accent commands into Unicode letters', () => {
+    expect(decodeTexAccents(String.raw`{\"O}zi{\c{s}}ik`)).toBe('{Ö}zi{ş}ik');
+    expect(decodeTexAccents(String.raw`Erd{\H o}s, Dvo\v{r}{\'a}k, Pe\~na, \'{\i}ndice, \.{I}stanbul`)).toBe('Erd{ő}s, Dvoř{á}k, Peña, índice, İstanbul');
+    expect(decodeTexAccents(String.raw`Stra{\ss}e, {\O}stergaard, {\aa}se, \L{}ukasz, \"{\i}`)).toBe('Stra{ß}e, {Ø}stergaard, {å}se, Ł{}ukasz, ï');
+    expect(decodeTexAccents(String.raw`R\&D at 50\%`)).toBe('R&D at 50%');
+  });
+
+  it('leaves ordinary commands alone', () => {
+    expect(decodeTexAccents(String.raw`\cite{x} \label{y} \bf z \textbf{w}`)).toBe(String.raw`\cite{x} \label{y} \bf z \textbf{w}`);
+  });
+
+  it('shows decoded names and keeps URLs literal', () => {
+    const text = String.raw`@book{ozisik1993,
+  author = {{\"O}zi{\c{s}}ik, M. Necati},
+  title = {Heat Conduction},
+  url = {http://example.org/\~user/a\_b},
+  year = {1993}
+}`;
+    const file = parseBib(text);
+    const entry = file.entries[0];
+    expect(describeEntry(file, entry).author).toBe('Özişik, M. Necati');
+    const url = entry.fields.find((f) => f.name === 'url')!;
+    expect(resolvedValue(file, url)).toBe(String.raw`http://example.org/\~user/a_b`);
+  });
+
+  it('finds duplicates written with and without accents', () => {
+    const text = String.raw`@article{a, author = {M{\"u}ller, K.}, title = {{\"U}ber W{\"a}rme}, year = 2001}
+@article{b, author = {Müller, K.}, title = {Über Wärme}, year = 2001}
+@article{c, author = {Muller, K.}, title = {Uber Warme}, year = 2001}`;
+    const groups = findDuplicateWorks(parseBib(text));
+    expect(groups.some((g) => ['a', 'b', 'c'].every((k) => g.keys.includes(k)))).toBe(true);
+  });
+});
+

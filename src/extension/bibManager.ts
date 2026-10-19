@@ -11,7 +11,7 @@ import { debounce, webviewHtml } from './util';
 import { Profile } from '../core/bibScanner';
 
 export class BibManagerProvider implements vscode.CustomTextEditorProvider {
-  static readonly viewType = 'latexstudio.bibManager';
+  static readonly viewType = 'latexdesk.bibManager';
   /** Entry selected in each open Bib Manager (by file URI), so "Edit Entry in Form" can follow it. */
   static readonly selected = new Map<string, string>();
 
@@ -184,7 +184,7 @@ export class BibManagerProvider implements vscode.CustomTextEditorProvider {
         BibManagerProvider.selected.set(document.uri.toString(), msg.key);
         break;
       case 'editInForm':
-        await vscode.commands.executeCommand('latexstudio.openEntryForm', document.uri, msg.key);
+        await vscode.commands.executeCommand('latexdesk.openEntryForm', document.uri, msg.key);
         break;
       case 'copyKey':
         await vscode.env.clipboard.writeText(msg.key);

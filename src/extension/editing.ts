@@ -32,13 +32,13 @@ export function registerEditingCommands(context: vscode.ExtensionContext) {
       }),
     );
 
-  reg('latexstudio.insertEnvironment', async (editor) => {
+  reg('latexdesk.insertEnvironment', async (editor) => {
     const name = await pickEnvironment('Environment to insert');
     if (!name) return;
     await editor.insertSnippet(new vscode.SnippetString(`\\begin{${name}}\n\t$0\n\\end{${name}}`));
   });
 
-  reg('latexstudio.wrapEnvironment', async (editor) => {
+  reg('latexdesk.wrapEnvironment', async (editor) => {
     const name = await pickEnvironment('Wrap the selection in…');
     if (!name) return;
     await editor.edit((edit) => {
@@ -50,7 +50,7 @@ export function registerEditingCommands(context: vscode.ExtensionContext) {
     });
   });
 
-  reg('latexstudio.wrapCommand', async (editor) => {
+  reg('latexdesk.wrapCommand', async (editor) => {
     const commands = ['textbf', 'textit', 'emph', 'underline', 'texttt', 'textsc', 'mathbf', 'mathrm', 'boldsymbol', 'text', 'footnote', 'url'];
     const name = await vscode.window.showQuickPick(commands, { placeHolder: 'Wrap the selection in a command' });
     if (!name) return;
@@ -59,7 +59,7 @@ export function registerEditingCommands(context: vscode.ExtensionContext) {
     });
   });
 
-  reg('latexstudio.closeEnvironment', async (editor) => {
+  reg('latexdesk.closeEnvironment', async (editor) => {
     const index = parseTex(editor.document.getText());
     const name = innermostOpenEnvironment(index, editor.document.offsetAt(editor.selection.active));
     const open = index.environments.find((e) => e.name === name && e.endOffset === undefined);
@@ -70,7 +70,7 @@ export function registerEditingCommands(context: vscode.ExtensionContext) {
     await editor.insertSnippet(new vscode.SnippetString(`\\end{${name}}`));
   });
 
-  reg('latexstudio.renameEnvironment', async (editor) => {
+  reg('latexdesk.renameEnvironment', async (editor) => {
     const doc = editor.document;
     const index = parseTex(doc.getText());
     const offset = doc.offsetAt(editor.selection.active);
@@ -91,7 +91,7 @@ export function registerEditingCommands(context: vscode.ExtensionContext) {
     });
   });
 
-  reg('latexstudio.toggleDisplayMath', async (editor) => {
+  reg('latexdesk.toggleDisplayMath', async (editor) => {
     const doc = editor.document;
     const text = doc.getText();
     const offset = doc.offsetAt(editor.selection.active);
@@ -120,7 +120,7 @@ export function registerEditingCommands(context: vscode.ExtensionContext) {
   });
 
   // Enter on an \item line continues the list; Enter on an empty \item ends it.
-  reg('latexstudio.onEnter', async (editor) => {
+  reg('latexdesk.onEnter', async (editor) => {
     const sel = editor.selection;
     const line = editor.document.lineAt(sel.active.line);
     const m = /^(\s*)\\item\b(\[[^\]]*\])?\s*(.*)$/.exec(line.text);

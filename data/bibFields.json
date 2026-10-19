@@ -1,5 +1,5 @@
 {
-  "_source": "Required fields follow the BibTeX documentation (btxdoc, Patashnik 1988) and the BibLaTeX manual, section 2.1. Written for LaTeX Studio; 'a|b' means either field satisfies the rule.",
+  "_source": "Required fields follow the BibTeX documentation (btxdoc, Patashnik 1988) and the BibLaTeX manual, section 2.1. Written for LaTeX Desk; 'a|b' means either field satisfies the rule.",
   "bibtex": {
     "article": [
       "author",

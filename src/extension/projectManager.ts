@@ -27,7 +27,7 @@ export class ProjectManager implements vscode.Disposable {
   private refreshing?: Promise<void>;
 
   constructor(private readonly context: vscode.ExtensionContext, private readonly log: vscode.OutputChannel) {
-    this.manualRoot = context.workspaceState.get<string>('latexstudio.manualRoot');
+    this.manualRoot = context.workspaceState.get<string>('latexdesk.manualRoot');
     const scheduleRefresh = debounce(() => void this.refresh(), 250);
 
     this.disposables.push(
@@ -102,7 +102,7 @@ export class ProjectManager implements vscode.Disposable {
     }
     for (const key of [...this.bibs.keys()]) if (!this.project.bibFiles.includes(key)) this.bibs.delete(key);
     this.log.appendLine(`[project] ${path.basename(root)}: ${this.project.files.length} files, ${this.project.bibFiles.length} bib files, indexed in ${Date.now() - t0} ms`);
-    void vscode.commands.executeCommand('setContext', 'latexstudio.hasRoot', true);
+    void vscode.commands.executeCommand('setContext', 'latexdesk.hasRoot', true);
     this.changed.fire();
   }
 
@@ -128,7 +128,7 @@ export class ProjectManager implements vscode.Disposable {
       // Ask rather than silently building the wrong document.
       const pick = await vscode.window.showQuickPick(
         result.ambiguous.map((p) => ({ label: path.basename(p), description: vscode.workspace.asRelativePath(p), path: p })),
-        { placeHolder: `LaTeX Studio: choose the root document (${result.reason})` },
+        { placeHolder: `LaTeX Desk: choose the root document (${result.reason})` },
       );
       if (pick) {
         this.setManualRoot(pick.path);
@@ -162,7 +162,7 @@ export class ProjectManager implements vscode.Disposable {
 
   setManualRoot(file: string | undefined) {
     this.manualRoot = file;
-    void this.context.workspaceState.update('latexstudio.manualRoot', file);
+    void this.context.workspaceState.update('latexdesk.manualRoot', file);
   }
 
   async selectRoot() {

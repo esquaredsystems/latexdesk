@@ -1,5 +1,5 @@
 {
-  "_source": "Written for LaTeX Studio. Each entry is matched against the error or warning message with a regular expression. Users can add entries through the latexstudio.errors.extra setting.",
+  "_source": "Written for LaTeX Desk. Each entry is matched against the error or warning message with a regular expression. Users can add entries through the latexdesk.errors.extra setting.",
   "entries": [
     {
       "id": "undefined-control-sequence",

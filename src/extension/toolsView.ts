@@ -24,7 +24,7 @@ const EQUATIONS: Record<string, string> = {
 };
 
 export class ToolsView implements vscode.WebviewViewProvider {
-  static readonly viewId = 'latexstudio.tools';
+  static readonly viewId = 'latexdesk.tools';
   private recent: string[];
   private view?: vscode.WebviewView;
 
@@ -32,7 +32,7 @@ export class ToolsView implements vscode.WebviewViewProvider {
     private readonly context: vscode.ExtensionContext,
     private readonly toolbar: EditorToolbar,
   ) {
-    this.recent = context.globalState.get<string[]>('latexstudio.recentSymbols') ?? [];
+    this.recent = context.globalState.get<string[]>('latexdesk.recentSymbols') ?? [];
   }
 
   register() {
@@ -55,7 +55,7 @@ export class ToolsView implements vscode.WebviewViewProvider {
   }
 
   private async reveal() {
-    await vscode.commands.executeCommand('workbench.view.extension.latexstudio-tools');
+    await vscode.commands.executeCommand('workbench.view.extension.latexdesk-tools');
     await vscode.commands.executeCommand('workbench.action.focusActiveEditorGroup');
   }
 
@@ -70,7 +70,7 @@ export class ToolsView implements vscode.WebviewViewProvider {
           break;
         case 'command':
           // Only the editor toolbar's own commands can be run from the view.
-          if (/^latexstudio\.(format|tb|table|insert)\.[\w.]+$/.test(msg.id)) await vscode.commands.executeCommand(msg.id);
+          if (/^latexdesk\.(format|tb|table|insert)\.[\w.]+$/.test(msg.id)) await vscode.commands.executeCommand(msg.id);
           break;
         case 'equation':
           if (EQUATIONS[msg.name]) await this.snippet(EQUATIONS[msg.name]);
@@ -101,7 +101,7 @@ export class ToolsView implements vscode.WebviewViewProvider {
     if (!editor) return;
     await editor.edit((e) => editor.selections.forEach((s) => e.replace(s, command)));
     this.recent = [command, ...this.recent.filter((c) => c !== command)].slice(0, 16);
-    void this.context.globalState.update('latexstudio.recentSymbols', this.recent);
+    void this.context.globalState.update('latexdesk.recentSymbols', this.recent);
     void this.view?.webview.postMessage({ recent: this.recent });
     if (pkg) await this.toolbar.offerPackage(pkg);
   }

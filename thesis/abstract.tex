@@ -1,0 +1,34 @@
+% ************************** Thesis Abstract *****************************
+% Use `abstract' as an option in the document class to print only the titlepage and the abstract.
+
+% GUIDELINES
+% Abstract is supposed to be written in simple language, after the completion of thesis. Writing it at early stage might make you miss important details to include. Write the thesis abstract in past tense.
+% Restrict the thesis abstract to three paragraphs.
+% Write it in a concise manner that your reader should get a clear idea what should he expect in thesis.
+% Information in your thesis abstract and thesis must match. Remove any extra or unnecessary details.
+% Write full forms of abbreviations and acronyms when you use it first time.
+% The purpose of abstract is to give a quick and clear glimpse of thesis.
+
+\begin{abstract}
+In a connected network, there exist some influential nodes (people, events, places, or other entities) which possess the power to cause a ripple effect and disrupt the whole network. Once such influencers are identified, they can be exploited in spreading, as well as controlling, certain events in their close and distinct neighbourhood. This phenomenon is applied in different fields, such as controlling disease outbreaks, propaganda in social networks, identifying Achilles heel in computer networks, and finding super spreaders for viral marketing. Identifying such influential individuals (nodes) in a complex network is one of the most studied problems in network science. However, finding the optimal solution, i.e. a small set of nodes -- known as seed set -- capable of maximizing influence in a network, is an NP-complete problem and thus requires the use of alternative methodologies. To date, there is a lack of a single method, which guarantees high accuracy, and is also scalable on all types of complex networks. This thesis probes into the problem of mining out the most influence nodes in a complex network. First, theoretical proofs are given to show the hardness of the problem, followed by practical experiments from three aspects:
+
+\begin{enumerate}
+	\item The first experiment is to find out if it is the structure of a network that is a deciding factor for the influence of seed set, or the selection method also plays a vital role in the influence spread? The results of this experiment concluded that apart from a few occasions, it is indeed the structure of the network on which the performance of seed set is dependent and therefore a certain seed selection strategy might perform well on one network and poorly on another network of different structure.
+	
+	\item The second experiment applies the influence phenomenon on two instances of a real network where the ground truth about the nodes is known. The first objective is to know if a state-of-art seed selection heuristic performs better when contended against classical methods? The second objective is to verify whether the influence mining methodology actually finds a set of nodes that matches the ground truth or not by analysis of three measures, namely: diversity, strength and centrality of nodes. The results showed that influence maximization is indeed practical and is a simple yet effective way to identify vital nodes in a network where the ground truth is not known. Moreover, the state-of-art methods do not guarantee good results on all networks, as in this experiment, the best performing heuristic was Adaptive Betweenness, a classical method of seed set selection.
+	
+	\item Third experiment is an attempt to solve the problem of influence mining with the help of machine learning. A broad range of networks are selected as training data and five different binary classification models were trained. The best model based on eXtreme Gradient Boosting proved to be a better way to identify highly influential nodes. However, this experiment broadened the problem itself. First, a clear distinction was identified between the two frequently used ways to benchmark a method, i.e. influence test and resilience test. Second, a key weakness was identified that the de-facto criterion of the budget is not the only stoppage criteria, especially in real-world scenarios.
+\end{enumerate}
+
+This thesis responds to the key findings from experiments by proposing IMine, a framework for influence mining. The IMine comes with two novelties:
+% the inclusion of custom stoppage criteria, and liberty to supply benchmarking algorithm in order to quantify the influence of seed set.:
+
+\begin{enumerate}
+	\item Inclusion of custom stoppage criteria: IMine framework introduces the criteria to stop the influence mining process as a function rather than conventional fixture of budget. This novelty eliminates a major constraint in implementation of the IM methods which requires defining a budget as the only criteria to run the process.
+	
+	\item Influence quantifier for benchmarking: in the proposed framework, the method to quantify the influence of a set of nodes is also supplied as a function. The inclusion of this parameter allows the benchmarking of an IM method in more ways than offered in the original algorithm, thus making the cross-comparison of multiple methods easy as well as accurate for real world application.
+\end{enumerate}
+
+The proposed framework is finally evaluated on a relatively large and diverse data set of networks in which both the hypotheses for IMine are tested, both proven valid through empirical analysis as well as statistical significance testing.
+
+\end{abstract}

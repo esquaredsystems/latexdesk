@@ -15,7 +15,7 @@ import { PdfViewerManager } from './pdfViewer';
 import { ToolRegistry } from './toolRegistry';
 import { config } from './util';
 
-const SCHEME = 'latexstudio-history';
+const SCHEME = 'latexdesk-history';
 
 type Node = { snapshot: Snapshot; file?: string };
 
@@ -33,7 +33,7 @@ export class ProjectHistory implements vscode.TreeDataProvider<Node>, vscode.Tex
   ) {}
 
   register(context: vscode.ExtensionContext) {
-    this.view = vscode.window.createTreeView('latexstudio.history', { treeDataProvider: this, showCollapseAll: true });
+    this.view = vscode.window.createTreeView('latexdesk.history', { treeDataProvider: this, showCollapseAll: true });
     const command = (id: string, fn: (node?: Node) => unknown) => this.disposables.push(vscode.commands.registerCommand(id, fn));
     this.disposables.push(
       this.view,
@@ -45,16 +45,16 @@ export class ProjectHistory implements vscode.TreeDataProvider<Node>, vscode.Tex
         if (s.phase === 'succeeded' && s.mode !== 'fast' && s.mode !== 'partial') this.snapshot('successful build');
       }),
     );
-    command('latexstudio.history.snapshot', () => {
+    command('latexdesk.history.snapshot', () => {
       const s = this.snapshot('manual');
-      void vscode.window.setStatusBarMessage(s ? 'LaTeX Studio: snapshot saved' : 'LaTeX Studio: nothing changed since the last snapshot', 3000);
+      void vscode.window.setStatusBarMessage(s ? 'LaTeX Desk: snapshot saved' : 'LaTeX Desk: nothing changed since the last snapshot', 3000);
     });
-    command('latexstudio.history.label', (node) => this.label(node));
-    command('latexstudio.history.diff', (node) => node && this.diff(node));
-    command('latexstudio.history.restoreFile', (node) => node?.file && this.restore(node.snapshot, [node.file]));
-    command('latexstudio.history.restoreProject', (node) => node && this.restore(node.snapshot));
-    command('latexstudio.history.latexdiff', (node) => this.latexdiff(node?.snapshot));
-    command('latexstudio.history.refresh', () => this.refresh());
+    command('latexdesk.history.label', (node) => this.label(node));
+    command('latexdesk.history.diff', (node) => node && this.diff(node));
+    command('latexdesk.history.restoreFile', (node) => node?.file && this.restore(node.snapshot, [node.file]));
+    command('latexdesk.history.restoreProject', (node) => node && this.restore(node.snapshot));
+    command('latexdesk.history.latexdiff', (node) => this.latexdiff(node?.snapshot));
+    command('latexdesk.history.refresh', () => this.refresh());
     context.subscriptions.push(this);
   }
 
@@ -110,7 +110,7 @@ export class ProjectHistory implements vscode.TreeDataProvider<Node>, vscode.Tex
       item.description = changed ? 'changed since' : 'unchanged';
       item.iconPath = new vscode.ThemeIcon(changed ? 'diff-modified' : 'file');
       item.contextValue = 'historyFile';
-      item.command = { command: 'latexstudio.history.diff', title: 'Diff with current', arguments: [node] };
+      item.command = { command: 'latexdesk.history.diff', title: 'Diff with current', arguments: [node] };
       return item;
     }
     const s = node.snapshot;
@@ -179,7 +179,7 @@ export class ProjectHistory implements vscode.TreeDataProvider<Node>, vscode.Tex
     if (!store || !root || !vscode.workspace.isTrusted) return;
     const latexdiff = await this.tools.path('latexdiff');
     if (!latexdiff) {
-      void vscode.window.showWarningMessage('LaTeX Studio: latexdiff is not installed. It comes with TeX Live and MiKTeX (package "latexdiff").');
+      void vscode.window.showWarningMessage('LaTeX Desk: latexdiff is not installed. It comes with TeX Live and MiKTeX (package "latexdiff").');
       return;
     }
     if (!snapshot) {
@@ -190,7 +190,7 @@ export class ProjectHistory implements vscode.TreeDataProvider<Node>, vscode.Tex
     }
     const rootDir = path.dirname(root);
     const rootRel = path.relative(rootDir, root);
-    const diffDir = path.join(rootDir, '.latexstudio', 'diff');
+    const diffDir = path.join(rootDir, '.latexdesk', 'diff');
     const oldDir = path.join(diffDir, 'old');
     fs.rmSync(oldDir, { recursive: true, force: true });
     store.materialize(snapshot, oldDir);
@@ -211,7 +211,7 @@ export class ProjectHistory implements vscode.TreeDataProvider<Node>, vscode.Tex
       fs.writeFileSync(path.join(diffDir, job + '.tex'), tex);
 
       progress.report({ message: 'building the diff PDF…' });
-      // The diff file lives in .latexstudio/diff; TEXINPUTS/BIBINPUTS let it find figures, classes and .bib files.
+      // The diff file lives in .latexdesk/diff; TEXINPUTS/BIBINPUTS let it find figures, classes and .bib files.
       const search = rootDir + path.delimiter;
       const run = new BuildRun({
         recipe: { name: 'latexdiff', tools: ['latexmk'] },

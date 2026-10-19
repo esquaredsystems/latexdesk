@@ -20,17 +20,17 @@ export class PdfViewerManager implements vscode.Disposable {
     this.disposables.push(
       builds.onDidProducePdf((pdf) => {
         if (this.panels.has(pdf)) void this.load(pdf);
-        else if (config().get('viewer.openAfterBuild') && !this.context.workspaceState.get(`latexstudio.viewerOpened:${pdf}`)) {
-          void this.context.workspaceState.update(`latexstudio.viewerOpened:${pdf}`, true);
+        else if (config().get('viewer.openAfterBuild') && !this.context.workspaceState.get(`latexdesk.viewerOpened:${pdf}`)) {
+          void this.context.workspaceState.update(`latexdesk.viewerOpened:${pdf}`, true);
           void this.open(pdf);
         }
       }),
       builds.onDidChangeState(() => this.broadcastBuildState()),
       vscode.workspace.onDidChangeConfiguration((e) => {
-        if (e.affectsConfiguration('latexstudio.viewer')) for (const p of this.panels.values()) this.postSettings(p);
+        if (e.affectsConfiguration('latexdesk.viewer')) for (const p of this.panels.values()) this.postSettings(p);
       }),
       // Restore viewers after a window reload.
-      vscode.window.registerWebviewPanelSerializer('latexstudio.pdf', {
+      vscode.window.registerWebviewPanelSerializer('latexdesk.pdf', {
         deserializeWebviewPanel: async (panel, state: { pdf?: string }) => {
           if (state?.pdf && fs.existsSync(state.pdf)) this.attach(panel, state.pdf);
           else panel.dispose();
@@ -57,7 +57,7 @@ export class PdfViewerManager implements vscode.Disposable {
       return existing;
     }
     // retainContextWhenHidden keeps the document and its rendered pages alive while the tab is hidden.
-    const panel = vscode.window.createWebviewPanel('latexstudio.pdf', path.basename(pdf), { viewColumn: column, preserveFocus: true }, { retainContextWhenHidden: true });
+    const panel = vscode.window.createWebviewPanel('latexdesk.pdf', path.basename(pdf), { viewColumn: column, preserveFocus: true }, { retainContextWhenHidden: true });
     this.attach(panel, pdf);
     return panel;
   }
@@ -96,34 +96,34 @@ export class PdfViewerManager implements vscode.Disposable {
         this.onReverseSync?.(pdf, msg.page, msg.x, msg.y);
         break;
       case 'build':
-        void vscode.commands.executeCommand('latexstudio.build');
+        void vscode.commands.executeCommand('latexdesk.build');
         break;
       case 'rebuild':
-        void vscode.commands.executeCommand('latexstudio.rebuild');
+        void vscode.commands.executeCommand('latexdesk.rebuild');
         break;
       case 'stop':
-        void vscode.commands.executeCommand('latexstudio.stopBuild');
+        void vscode.commands.executeCommand('latexdesk.stopBuild');
         break;
       case 'toggleFastPreview':
-        void vscode.commands.executeCommand('latexstudio.toggleFastPreview');
+        void vscode.commands.executeCommand('latexdesk.toggleFastPreview');
         break;
       case 'buildPartial':
-        void vscode.commands.executeCommand('latexstudio.buildPartial');
+        void vscode.commands.executeCommand('latexdesk.buildPartial');
         break;
       case 'buildFull':
         void this.builds.build({ mode: 'full' });
         break;
       case 'toggleAutoBuild':
-        void vscode.commands.executeCommand('latexstudio.toggleAutoBuild');
+        void vscode.commands.executeCommand('latexdesk.toggleAutoBuild');
         break;
       case 'openLog':
-        void vscode.commands.executeCommand('latexstudio.openLogViewer');
+        void vscode.commands.executeCommand('latexdesk.openLogViewer');
         break;
       case 'openExternal':
         void vscode.env.openExternal(vscode.Uri.file(pdf));
         break;
       case 'chooseRoot':
-        void vscode.commands.executeCommand('latexstudio.selectRoot');
+        void vscode.commands.executeCommand('latexdesk.selectRoot');
         break;
       case 'showProblems':
         void vscode.commands.executeCommand('workbench.actions.view.problems');

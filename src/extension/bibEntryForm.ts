@@ -46,7 +46,7 @@ export class BibEntryForm implements vscode.Disposable {
     const cursorEntry = editor?.document === document ? this.entryAt(document, editor.selection.active) : undefined;
     this.key = key ?? cursorEntry?.key ?? BibManagerProvider.selected.get(document.uri.toString()) ?? this.health.scan(path.normalize(document.fileName), document.getText()).file.entries[0]?.key;
     if (!this.panel) {
-      this.panel = vscode.window.createWebviewPanel('latexstudio.bibEntryForm', 'Entry', { viewColumn: vscode.ViewColumn.Beside, preserveFocus: true }, { enableScripts: true, localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'dist'), vscode.Uri.joinPath(this.context.extensionUri, 'media')] });
+      this.panel = vscode.window.createWebviewPanel('latexdesk.bibEntryForm', 'Entry', { viewColumn: vscode.ViewColumn.Beside, preserveFocus: true }, { enableScripts: true, localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'dist'), vscode.Uri.joinPath(this.context.extensionUri, 'media')] });
       this.panel.webview.html = webviewHtml(this.panel.webview, this.context.extensionUri, { title: 'Entry', script: 'dist/webview/bibEntryForm.js', styles: ['media/bibEntryForm.css'] });
       this.panel.webview.onDidReceiveMessage((msg) => this.onMessage(msg));
       this.panel.onDidDispose(() => (this.panel = undefined));

@@ -54,26 +54,26 @@ const EQUATIONS: [string, string, string][] = [
 /** The main toolbar: [command, icon, tooltip]; 'part'/'label' open a list. */
 const TOOLBAR: [string, string, string][][] = [
   [
-    ['latexstudio.tb.undo', 'undo', 'Undo'],
-    ['latexstudio.tb.redo', 'redo', 'Redo'],
-    ['latexstudio.tb.cut', 'cut', 'Cut'],
-    ['latexstudio.tb.copy', 'copy', 'Copy'],
-    ['latexstudio.tb.paste', 'paste', 'Paste'],
+    ['latexdesk.tb.undo', 'undo', 'Undo'],
+    ['latexdesk.tb.redo', 'redo', 'Redo'],
+    ['latexdesk.tb.cut', 'cut', 'Cut'],
+    ['latexdesk.tb.copy', 'copy', 'Copy'],
+    ['latexdesk.tb.paste', 'paste', 'Paste'],
   ],
   [
-    ['latexstudio.tb.compile', 'compile', 'Compile'],
-    ['latexstudio.tb.buildView', 'build-view', 'Build & View'],
-    ['latexstudio.tb.log', 'log', 'View log'],
+    ['latexdesk.tb.compile', 'compile', 'Compile'],
+    ['latexdesk.tb.buildView', 'build-view', 'Build & View'],
+    ['latexdesk.tb.log', 'log', 'View log'],
     ['part', 'part', 'Part: \\part, \\chapter, \\section …'],
     ['label', 'label', 'Label: \\label, \\ref, \\cite …'],
   ],
   [
-    ['latexstudio.table.addRow', 'add-row', 'Add table row'],
-    ['latexstudio.table.deleteRow', 'delete-row', 'Delete table row'],
-    ['latexstudio.table.addColumn', 'add-column', 'Add table column'],
-    ['latexstudio.table.deleteColumn', 'delete-column', 'Delete table column'],
-    ['latexstudio.format.highlight', 'highlight', 'Highlight (\\hl, soul package)'],
-    ['latexstudio.tb.comment', 'comment', 'Comment / uncomment lines'],
+    ['latexdesk.table.addRow', 'add-row', 'Add table row'],
+    ['latexdesk.table.deleteRow', 'delete-row', 'Delete table row'],
+    ['latexdesk.table.addColumn', 'add-column', 'Add table column'],
+    ['latexdesk.table.deleteColumn', 'delete-column', 'Delete table column'],
+    ['latexdesk.format.highlight', 'highlight', 'Highlight (\\hl, soul package)'],
+    ['latexdesk.tb.comment', 'comment', 'Comment / uncomment lines'],
   ],
 ];
 const LISTS: Record<string, string[]> = {
@@ -90,12 +90,12 @@ app.innerHTML = `
   </section>
   <section>
     <div class="caps">Format</div>
-    <div class="row">${FORMAT.map(([id, label, title]) => `<button class="tool" data-cmd="latexstudio.format.${id}" title="${title}">${label}</button>`).join('')}</div>
-    <div class="row">${ALIGN.map(([id, title]) => `<button class="tool" data-cmd="latexstudio.format.align.${id}" title="${title}">${alignIcon(id)}</button>`).join('')}</div>
+    <div class="row">${FORMAT.map(([id, label, title]) => `<button class="tool" data-cmd="latexdesk.format.${id}" title="${title}">${label}</button>`).join('')}</div>
+    <div class="row">${ALIGN.map(([id, title]) => `<button class="tool" data-cmd="latexdesk.format.align.${id}" title="${title}">${alignIcon(id)}</button>`).join('')}</div>
     <div class="row">
-      <button class="tool" data-cmd="latexstudio.format.larger" title="Larger text (\\large, \\Large, …)">A<sup>+</sup></button>
-      <button class="tool" data-cmd="latexstudio.format.smaller" title="Smaller text (\\small, \\footnotesize, …)">A<sup>−</sup></button>
-      <button class="tool" data-cmd="latexstudio.format.highlight" title="Highlight (\\hl, soul package)"><span class="hl">ab</span></button>
+      <button class="tool" data-cmd="latexdesk.format.larger" title="Larger text (\\large, \\Large, …)">A<sup>+</sup></button>
+      <button class="tool" data-cmd="latexdesk.format.smaller" title="Smaller text (\\small, \\footnotesize, …)">A<sup>−</sup></button>
+      <button class="tool" data-cmd="latexdesk.format.highlight" title="Highlight (\\hl, soul package)"><span class="hl">ab</span></button>
     </div>
   </section>
   <section>
@@ -154,7 +154,7 @@ function openList(kind: string, anchor: HTMLElement) {
   menu.hidden = false;
   menu.querySelectorAll<HTMLElement>('[data-insert]').forEach((b) => (b.onclick = () => {
     menu.hidden = true;
-    vscode.postMessage({ type: 'command', id: `latexstudio.insert.${b.dataset.insert}` });
+    vscode.postMessage({ type: 'command', id: `latexdesk.insert.${b.dataset.insert}` });
   }));
 }
 document.addEventListener('click', (e) => {

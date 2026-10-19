@@ -2,7 +2,7 @@
 
 Every finding has a stable code, a default severity and an exact location: the field value, the
 field name, or the entry key when something is missing. Severities can be changed per rule with
-`latexstudio.bib.rules`, for example `{ "bib/missing-doi": "off", "bib/page-range": "warning" }`,
+`latexdesk.bib.rules`, for example `{ "bib/missing-doi": "off", "bib/page-range": "warning" }`,
 and a rule can be silenced for one entry with a comment line just above it:
 
 ```bibtex
@@ -40,11 +40,11 @@ and a rule can be silenced for one entry with a comment line just above it:
 | `bib/undefined-string` | error | A bare word used as a value (an `@string` macro) that is not defined and is not a month macro. | |
 | `bib/missing-crossref` | warning | `crossref` points to a key that is not in the file. | |
 | `bib/duplicate-work` | warning | Two entries describe the same work: same DOI, arXiv id or ISBN, or (marked "possible") the same normalised title, first author and year. Nothing is merged automatically. | |
-| `bib/uncited` | hint | The entry is never cited in the project. Set `latexstudio.bib.uncited` to `off` or `warning`. | |
+| `bib/uncited` | hint | The entry is never cited in the project. Set `latexdesk.bib.uncited` to `off` or `warning`. | |
 
 ## Profiles
 
-`latexstudio.bib.profile` decides which recommended fields are expected. The tables are in
+`latexdesk.bib.profile` decides which recommended fields are expected. The tables are in
 `data/bibFields.json`, so they can be read and reviewed in one place.
 
 | Profile | Adds |
@@ -66,10 +66,10 @@ the score per entry and the average per file.
 
 ## Command line
 
-`latexstudio-bibcheck` uses the same code:
+`latexdesk-bibcheck` uses the same code:
 
 ```
-latexstudio-bibcheck <file.bib...> [--profile minimal|standard|strict] [--dialect bibtex|biblatex]
+latexdesk-bibcheck <file.bib...> [--profile minimal|standard|strict] [--dialect bibtex|biblatex]
                      [--tex main.tex] [--format text|json|sarif] [--fail-on error|warning|none]
 ```
 

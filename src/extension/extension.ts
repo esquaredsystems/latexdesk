@@ -33,7 +33,7 @@ import { countWords } from '../core/wordCount';
 
 export function activate(context: vscode.ExtensionContext) {
   const started = Date.now();
-  const log = vscode.window.createOutputChannel('LaTeX Studio');
+  const log = vscode.window.createOutputChannel('LaTeX Desk');
   const tools = new ToolRegistry(log);
   const projects = new ProjectManager(context, log);
   const builds = new BuildManager(context, projects, tools, log);
@@ -69,48 +69,48 @@ export function activate(context: vscode.ExtensionContext) {
   const command = (id: string, fn: (...args: any[]) => unknown) => context.subscriptions.push(vscode.commands.registerCommand(id, fn));
 
   // ---- build ----
-  command('latexstudio.build', () => builds.build({ mode: builds.fastPreview ? 'fast' : 'full' }));
-  command('latexstudio.buildFast', () => builds.build({ mode: 'fast' }));
-  command('latexstudio.buildPartial', () => builds.build({ mode: 'partial' }));
-  command('latexstudio.toggleFastPreview', async () => {
+  command('latexdesk.build', () => builds.build({ mode: builds.fastPreview ? 'fast' : 'full' }));
+  command('latexdesk.buildFast', () => builds.build({ mode: 'fast' }));
+  command('latexdesk.buildPartial', () => builds.build({ mode: 'partial' }));
+  command('latexdesk.toggleFastPreview', async () => {
     await builds.setFastPreview(!builds.fastPreview);
-    void vscode.window.setStatusBarMessage(`LaTeX Studio: fast preview ${builds.fastPreview ? 'on — builds use draft images' : 'off'}`, 3000);
+    void vscode.window.setStatusBarMessage(`LaTeX Desk: fast preview ${builds.fastPreview ? 'on — builds use draft images' : 'off'}`, 3000);
   });
-  command('latexstudio.rebuild', () => builds.build({ fromScratch: true }));
-  command('latexstudio.stopBuild', () => builds.stop());
-  command('latexstudio.buildWithRecipe', async () => {
+  command('latexdesk.rebuild', () => builds.build({ fromScratch: true }));
+  command('latexdesk.stopBuild', () => builds.stop());
+  command('latexdesk.buildWithRecipe', async () => {
     const pick = await vscode.window.showQuickPick(builds.recipes().map((r) => ({ label: r.name, description: r.tools.join(' → ') })), { placeHolder: 'Build with recipe' });
     if (pick) await builds.build({ recipe: pick.label });
   });
-  command('latexstudio.selectRecipe', async () => {
+  command('latexdesk.selectRecipe', async () => {
     const pick = await vscode.window.showQuickPick(builds.recipes().map((r) => ({ label: r.name, description: r.tools.join(' → ') })), { placeHolder: 'Default recipe for this workspace' });
     if (!pick) return;
-    await context.workspaceState.update('latexstudio.recipe', pick.label);
-    void vscode.window.showInformationMessage(`LaTeX Studio: builds now use "${pick.label}".`);
+    await context.workspaceState.update('latexdesk.recipe', pick.label);
+    void vscode.window.showInformationMessage(`LaTeX Desk: builds now use "${pick.label}".`);
   });
-  command('latexstudio.toggleAutoBuild', async () => {
+  command('latexdesk.toggleAutoBuild', async () => {
     const next = config().get('build.autoBuild') === 'onSave' ? 'never' : 'onSave';
     await config().update('build.autoBuild', next, vscode.ConfigurationTarget.Workspace);
-    void vscode.window.setStatusBarMessage(`LaTeX Studio: build on save ${next === 'onSave' ? 'on' : 'off'}`, 3000);
+    void vscode.window.setStatusBarMessage(`LaTeX Desk: build on save ${next === 'onSave' ? 'on' : 'off'}`, 3000);
   });
-  command('latexstudio.compileMenu', async () => {
+  command('latexdesk.compileMenu', async () => {
     const auto = config().get('build.autoBuild') === 'onSave';
     const items = [
-      { label: '$(play) Recompile', id: 'latexstudio.build' },
-      { label: '$(refresh) Recompile from scratch', id: 'latexstudio.rebuild' },
-      ...(builds.isBuilding ? [{ label: '$(debug-stop) Stop build', id: 'latexstudio.stopBuild' }] : []),
-      { label: `${auto ? '$(check)' : '$(circle-slash)'} Build on save`, id: 'latexstudio.toggleAutoBuild' },
-      { label: `${builds.fastPreview ? '$(check)' : '$(circle-slash)'} Fast preview (draft images)`, id: 'latexstudio.toggleFastPreview' },
-      { label: '$(split-horizontal) Build this chapter only', id: 'latexstudio.buildPartial' },
-      { label: '$(list-ordered) Select recipe…', id: 'latexstudio.selectRecipe' },
-      { label: '$(trash) Clean auxiliary files', id: 'latexstudio.clean' },
-      { label: '$(output) Open log viewer', id: 'latexstudio.openLogViewer' },
-      { label: '$(open-preview) View PDF', id: 'latexstudio.viewPdf' },
+      { label: '$(play) Recompile', id: 'latexdesk.build' },
+      { label: '$(refresh) Recompile from scratch', id: 'latexdesk.rebuild' },
+      ...(builds.isBuilding ? [{ label: '$(debug-stop) Stop build', id: 'latexdesk.stopBuild' }] : []),
+      { label: `${auto ? '$(check)' : '$(circle-slash)'} Build on save`, id: 'latexdesk.toggleAutoBuild' },
+      { label: `${builds.fastPreview ? '$(check)' : '$(circle-slash)'} Fast preview (draft images)`, id: 'latexdesk.toggleFastPreview' },
+      { label: '$(split-horizontal) Build this chapter only', id: 'latexdesk.buildPartial' },
+      { label: '$(list-ordered) Select recipe…', id: 'latexdesk.selectRecipe' },
+      { label: '$(trash) Clean auxiliary files', id: 'latexdesk.clean' },
+      { label: '$(output) Open log viewer', id: 'latexdesk.openLogViewer' },
+      { label: '$(open-preview) View PDF', id: 'latexdesk.viewPdf' },
     ];
     const pick = await vscode.window.showQuickPick(items, { placeHolder: 'Compile options' });
     if (pick) await vscode.commands.executeCommand(pick.id);
   });
-  command('latexstudio.clean', async () => {
+  command('latexdesk.clean', async () => {
     await projects.refresh();
     const out = projects.output();
     if (!out) return;
@@ -124,60 +124,60 @@ export function activate(context: vscode.ExtensionContext) {
     if (ok !== 'Delete') return;
     const { removed, refused } = cleanFiles(files);
     log.appendLine(`[clean] removed ${removed.length} files${refused.length ? `; kept ${refused.join(', ')}` : ''}`);
-    void vscode.window.setStatusBarMessage(`LaTeX Studio: removed ${removed.length} files`, 3000);
+    void vscode.window.setStatusBarMessage(`LaTeX Desk: removed ${removed.length} files`, 3000);
   });
-  command('latexstudio.showLog', () => log.show(true));
-  command('latexstudio.openLogViewer', () => panels.show('log'));
-  command('latexstudio.explainError', (message?: string) => panels.show('log', { focusMessage: message }));
-  command('latexstudio.openDashboard', () => panels.show('dashboard'));
-  command('latexstudio.exportSubmission', () => exportPanel.show());
-  command('latexstudio.checkTools', () => panels.show('tools'));
-  command('latexstudio.selectRoot', () => projects.selectRoot());
-  command('latexstudio.newProject', () => newProject());
+  command('latexdesk.showLog', () => log.show(true));
+  command('latexdesk.openLogViewer', () => panels.show('log'));
+  command('latexdesk.explainError', (message?: string) => panels.show('log', { focusMessage: message }));
+  command('latexdesk.openDashboard', () => panels.show('dashboard'));
+  command('latexdesk.exportSubmission', () => exportPanel.show());
+  command('latexdesk.checkTools', () => panels.show('tools'));
+  command('latexdesk.selectRoot', () => projects.selectRoot());
+  command('latexdesk.newProject', () => newProject());
 
   // ---- PDF ----
   const currentPdf = async () => {
     await projects.refresh();
     const out = projects.output();
-    if (!out) void vscode.window.showWarningMessage('LaTeX Studio: no root document found.');
+    if (!out) void vscode.window.showWarningMessage('LaTeX Desk: no root document found.');
     return out?.pdf;
   };
-  command('latexstudio.viewPdf', async () => {
+  command('latexdesk.viewPdf', async () => {
     const pdf = await currentPdf();
     if (pdf) await viewer.open(pdf);
   });
-  command('latexstudio.viewPdfExternal', async () => {
+  command('latexdesk.viewPdfExternal', async () => {
     const pdf = await currentPdf();
     if (pdf) await vscode.env.openExternal(vscode.Uri.file(pdf));
   });
-  command('latexstudio.refreshPdf', async () => {
+  command('latexdesk.refreshPdf', async () => {
     const pdf = await currentPdf();
     if (pdf) await viewer.load(pdf);
   });
-  command('latexstudio.revealOutput', async () => {
+  command('latexdesk.revealOutput', async () => {
     const pdf = await currentPdf();
     if (pdf && fs.existsSync(pdf)) await vscode.commands.executeCommand('revealFileInOS', vscode.Uri.file(pdf));
   });
-  command('latexstudio.syncForward', () => synctex.forward());
+  command('latexdesk.syncForward', () => synctex.forward());
   builds.onDidProducePdf(() => {
     if (config().get('viewer.syncAfterBuild') && vscode.window.activeTextEditor && isTex(vscode.window.activeTextEditor.document)) void synctex.forward();
   });
 
   // ---- output files view ----
-  command('latexstudio.revealFile', (node: vscode.TreeItem) => node.resourceUri && vscode.commands.executeCommand('revealFileInOS', node.resourceUri));
-  command('latexstudio.copyPath', (node: vscode.TreeItem) => node.resourceUri && vscode.env.clipboard.writeText(node.resourceUri.fsPath));
-  command('latexstudio.deleteOutput', async (node: vscode.TreeItem) => {
+  command('latexdesk.revealFile', (node: vscode.TreeItem) => node.resourceUri && vscode.commands.executeCommand('revealFileInOS', node.resourceUri));
+  command('latexdesk.copyPath', (node: vscode.TreeItem) => node.resourceUri && vscode.env.clipboard.writeText(node.resourceUri.fsPath));
+  command('latexdesk.deleteOutput', async (node: vscode.TreeItem) => {
     if (!node.resourceUri) return;
     const ok = await vscode.window.showWarningMessage(`Delete ${path.basename(node.resourceUri.fsPath)}?`, { modal: true }, 'Delete');
     if (ok !== 'Delete') return;
     const { refused } = cleanFiles([node.resourceUri.fsPath]);
-    if (refused.length) void vscode.window.showWarningMessage('LaTeX Studio only deletes generated files.');
-    await vscode.commands.executeCommand('latexstudio.refreshViews');
+    if (refused.length) void vscode.window.showWarningMessage('LaTeX Desk only deletes generated files.');
+    await vscode.commands.executeCommand('latexdesk.refreshViews');
   });
 
   // ---- bibliography ----
-  command('latexstudio.citationBrowser', (initial?: string) => citationBrowser(projects, health, typeof initial === 'string' ? initial : undefined));
-  command('latexstudio.scanBibliography', async () => {
+  command('latexdesk.citationBrowser', (initial?: string) => citationBrowser(projects, health, typeof initial === 'string' ? initial : undefined));
+  command('latexdesk.scanBibliography', async () => {
     await projects.refresh();
     health.scanAll();
     const target = vscode.window.activeTextEditor && isBib(vscode.window.activeTextEditor.document) ? vscode.window.activeTextEditor.document.uri : projects.project?.bibFiles[0] ? vscode.Uri.file(projects.project.bibFiles[0]) : undefined;
@@ -187,13 +187,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
     await vscode.commands.executeCommand('vscode.openWith', target, BibManagerProvider.viewType);
   });
-  command('latexstudio.openBibManager', async (uri?: vscode.Uri) => {
+  command('latexdesk.openBibManager', async (uri?: vscode.Uri) => {
     const target = uri instanceof vscode.Uri ? uri : vscode.window.activeTextEditor && isBib(vscode.window.activeTextEditor.document) ? vscode.window.activeTextEditor.document.uri : projects.project?.bibFiles[0] ? vscode.Uri.file(projects.project.bibFiles[0]) : undefined;
     if (target) await vscode.commands.executeCommand('vscode.openWith', target, BibManagerProvider.viewType);
     else void vscode.window.showInformationMessage('Open a .bib file first.');
   });
 
-  command('latexstudio.openEntryForm', async (uri?: vscode.Uri, key?: string) => {
+  command('latexdesk.openEntryForm', async (uri?: vscode.Uri, key?: string) => {
     const doc = uri instanceof vscode.Uri ? await vscode.workspace.openTextDocument(uri) : undefined;
     await entryForm.show(doc, typeof key === 'string' ? key : undefined);
   });
@@ -209,7 +209,7 @@ export function activate(context: vscode.ExtensionContext) {
   };
   const updateWords = debounce(() => status.setWordCount(projects.project ? projectWords() : undefined), 1500);
   context.subscriptions.push(projects.onDidChange(updateWords));
-  command('latexstudio.wordCount', async () => {
+  command('latexdesk.wordCount', async () => {
     await projects.refresh();
     if (!projects.root) return;
     const ours = projectWords();
@@ -222,7 +222,7 @@ export function activate(context: vscode.ExtensionContext) {
         execFile(texcount, ['-merge', '-1', '-sum', path.basename(projects.root!)], { cwd: path.dirname(projects.root!), timeout: 20000 }, (err, out) => resolve(err ? '' : out.trim().split(/\s/)[0])),
       );
     }
-    const parts = [`Project: ≈${ours.toLocaleString()} words (LaTeX Studio)`];
+    const parts = [`Project: ≈${ours.toLocaleString()} words (LaTeX Desk)`];
     if (tc) parts.push(`texcount: ${Number(tc).toLocaleString()}`);
     if (fileWords !== undefined) parts.push(`this file: ≈${fileWords.toLocaleString()}`);
     void vscode.window.showInformationMessage(`${parts.join(' · ')}. Counts are approximate and may differ from publisher counts.`);

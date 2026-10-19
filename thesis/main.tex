@@ -1,0 +1,193 @@
+% ******************************* PhD Thesis Template **************************
+% Please have a look at the README.md file for info on how to use the template
+
+\documentclass[a4paper,10pt,times,numbered,print,index]{PhDThesisPSnPDF}
+
+% ******************************************************************************
+% ******************************* Class Options ********************************
+% *********************** See README for more details **************************
+% `a4paper'(The University of Cambridge PhD thesis guidelines recommends a page
+% size a4 - default option) or `a5paper': A5 Paper size is also allowed as per
+% the Cambridge University Engineering Deparment guidelines for PhD thesis
+%
+% `index': For index at the end of the thesis
+%
+% `draftclassic': For draft mode without loading any images (same as draft in book)
+%
+% `draft': Special draft mode with line numbers, images, and water mark with
+% timestamp and custom text. Position of the text can also be modified.
+%
+% `abstract': To generate only the title page and abstract page with
+% dissertation title and name, to submit to the Student Registry
+%
+% `chapter`: This option enables only the specified chapter and it's references
+%  Useful for review and corrections.
+%
+% ************************* Custom Page Margins ********************************
+% `custommargin`: Use `custommargin' in options to activate custom page margins,
+% which can be defined in the preamble.tex. Custom margin will override
+% print/online margin setup.
+%
+% *********************** Choosing the Fonts in Class Options ******************
+% `times' : Times font with math support. (The Cambridge University guidelines
+% recommend using times)
+%
+% `fourier': Utopia Font with Fourier Math font (Font has to be installed)
+%            It's a free font.
+%
+% `customfont': Use `customfont' option in the document class and load the
+% package in the preamble.tex
+%
+% default or leave empty: `Latin Modern' font will be loaded.
+%
+% ********************** Choosing the Bibliography style ***********************
+% `authoryear': For author-year citation eg., Krishna (2013)
+%
+% `numbered': (Default Option) For numbered and sorted citation e.g., [1,5,2]
+%
+% `custombib': Define your own bibliography style in the `preamble.tex' file.
+%              `\RequirePackage[square, sort, numbers, authoryear]{natbib}'.
+%              This can be also used to load biblatex instead of natbib
+%              (See Preamble)
+%
+% **************************** Choosing the Page Style *************************
+% `default (leave empty)': For Page Numbers in Header (Left Even, Right Odd) and
+% Chapter Name in Header (Right Even) and Section Name (Left Odd). Blank Footer.
+%
+% `PageStyleI': Chapter Name next & Page Number on Even Side (Left Even).
+% Section Name & Page Number in Header on Odd Side (Right Odd). Footer is empty.
+%
+% `PageStyleII': Chapter Name on Even Side (Left Even) in Header. Section Number
+% and Section Name in Header on Odd Side (Right Odd). Page numbering in footer
+
+% Uncomment to change page style
+%\pagestyle{PageStyleII}
+
+% Define path to graphics
+\ifpdf
+\graphicspath{{Figs/Raster/}{Figs/PDF/}{Figs/}}
+\else
+\graphicspath{{Figs/Vector/}{Figs/}}
+\fi
+
+% ********************************** Preamble **********************************
+% Preamble: Contains packages and user-defined commands and settings
+\input{preamble}
+
+\input{document-info}
+
+% ******************************** Front Matter ********************************
+\begin{document}
+	
+	\frontmatter
+	
+	\maketitle
+	
+	\include{declaration}
+	
+	% \include{dedication}
+	
+    \include{acknowledgement}
+	
+    \include{abstract}
+	
+	% *********************** Adding TOC and List of Figures ***********************
+	
+	\tableofcontents
+	
+	\listoftables
+
+	\listoffigures
+	
+	\listofalgorithmes
+	
+	% \printnomenclature[space] space can be set as 2em between symbol and description
+	%\printnomenclature[3em]
+	
+	% ******************************** Main Matter *********************************
+	\mainmatter
+	
+	% ******************************** Organization *********************************
+    
+    \chapter*{Document Organization}
+	This document is organized in seven chapters. First chapter opens the discussion; it describes the intuition behind the research presented in this document along with motivated real-life cases which encompass the importance of the matter under discussion.
+	
+	Chapter \ref{chp:domain} connects the reader with the problem domain and key concepts to understand the discussion on remaining part of the dissertation. This chapter covers the topic of complex networks, how they are analyzed, provides details on the phenomenon of information diffusion and its various models and ends with a briefing on network dismantling and resilience problem.
+	
+	Chapter \ref{chp:related-work} is composed of comprehensive review of past literature on various research areas in the field of complex networks. It goes to extra length by discussing the current state-of-the-art and shortcomings in existing knowledge base.
+	
+	Next, chapter \ref{chp:proof} presents the problem from mathematical perspective. It provides proofs of the difficulty of the optimal solution for the influence problem as well as for the network dismantling problem. A section is dedicated for the discussion around a near-optimal greedy approach to solve the problem.
+	
+	Chapter \ref{chp:inf-max} is dedicated to investigation of known theories about influence mining and reports various experiments performed to identify research gaps in the area of influence maximization. A map of all experimental activities is presented to briefly define what experiments were performed, followed by the details of each experiment, their results and conclusions respectively. This chapter builds a case for the solution proposed in this thesis, i.e. the gaps in criteria defined to stop the influence process and in quantifying the influence of seed nodes.
+    
+    Chapter \ref{chp:inf-framework} proposes the Influence Mining Framework, a method which unifies influence maximization and resilience in complex networks while providing flexibility in application using a variety of criteria for the influence process. This chapter lists the key limitations in the state-of-art and proposes the IMine framework. In section \ref{sec:inf-framework-validation}, a comprehensive experiment is described which validates the proposed framework on 27 networks of various sizes and scales. Last section motivates the reader by explaining various applications of this framework.
+
+	The dissertation is then concluded in chapter \ref{chp:conclusion} with some light shed on possible future work and the many research directions that require further exploration in this branch of network sciences.
+
+	At the end of this document are appendices comprising of a dictionary of technical terms maintained in alphabetical order; list of supplementary tables; figures and illustrations which have been presented as conclusions in chapters. Supplementary details are also provided along with links to the data sets and the source code, shared to aid the people interested in reproducing given experiments for future work.
+
+	% ******************************** Include Chapters *********************************
+
+    \include{chapter-intro}
+    
+    \include{chapter-domain}
+    
+	\include{chapter-related}
+    
+	\include{chapter-proof}
+
+	\include{chapter-experiment}
+
+	\include{chapter-framework}
+
+	\include{chapter-conclusion}
+	
+	% ********************************** References ******************************
+	\begin{spacing}{0.8}
+		
+		% To use the conventional natbib style referencing
+		% Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
+		% Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
+		
+		%\bibliographystyle{apalike}
+		\bibliographystyle{unsrt} % Use for unsorted references  
+        
+		%\bibliographystyle{plainnat} % use this to have URLs listed in References
+        
+		\cleardoublepage
+		\begin{small}
+		\bibliography{references} % Path to your References.bib file
+		\end{small}
+	
+		% If you would like to use BibLaTeX for your references, pass `custombib' as
+		% an option in the document class. The location of 'reference.bib' should be
+		% specified in the preamble.tex file in the custombib section.
+		% Comment out the lines related to natbib above and uncomment the following line.
+		
+		%\printbibliography[heading=bibintoc, title={References}]
+		
+		
+	\end{spacing}
+	
+	% ********************************** Appendices ********************************
+	
+	\begin{appendices} % Using appendices environment for more functionality
+		
+		\include{glossary}
+        
+        % Supplementary Tables
+        \include{appendix-B}
+		
+        % Supplementary Figures
+        \include{appendix-C}
+		\include{appendix-C2}
+
+	\end{appendices}
+	
+	% *************************************** Index ********************************
+	\printthesisindex % If index is present
+	
+\end{document}
+
+
+%TODO: refer the figures to the right subsections like (see figure 1.14 - 1.28) wherever applicable

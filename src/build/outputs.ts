@@ -45,14 +45,14 @@ export function cleanFiles(files: string[]): { removed: string[]; refused: strin
 }
 
 /**
- * Copies an existing PDF (and its SyncTeX file) into `<dir>/.latexstudio/snapshots/<time>/`
+ * Copies an existing PDF (and its SyncTeX file) into `<dir>/.latexdesk/snapshots/<time>/`
  * before the first build overwrites it. Returns the snapshot folder, or undefined if there was nothing to keep.
  */
 export function snapshotExistingPdf(outDir: string, jobName: string, snapshotRoot: string): string | undefined {
   const pdf = path.join(outDir, jobName + '.pdf');
   if (!fs.existsSync(pdf)) return undefined;
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const target = path.join(snapshotRoot, '.latexstudio', 'snapshots', stamp);
+  const target = path.join(snapshotRoot, '.latexdesk', 'snapshots', stamp);
   fs.mkdirSync(target, { recursive: true });
   for (const ext of ['.pdf', '.synctex.gz']) {
     const src = path.join(outDir, jobName + ext);
@@ -100,9 +100,9 @@ export function seedFromFullBuild(fullOutDir: string, previewOutDir: string, job
   copy(fullOutDir, '');
 }
 
-/** Creates `<dir>/.latexstudio/` with a .gitignore so build previews and snapshots are not committed. */
+/** Creates `<dir>/.latexdesk/` with a .gitignore so build previews and snapshots are not committed. */
 export function ensureStudioDir(rootDir: string): string {
-  const dir = path.join(rootDir, '.latexstudio');
+  const dir = path.join(rootDir, '.latexdesk');
   fs.mkdirSync(dir, { recursive: true });
   const ignore = path.join(dir, '.gitignore');
   if (!fs.existsSync(ignore)) fs.writeFileSync(ignore, 'fast/\npartial/\nsnapshots/\nhistory/\ndiff/\nexport/\n');

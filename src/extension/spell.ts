@@ -1,5 +1,5 @@
 // Offline spell checking of LaTeX prose (Hunspell dictionaries through nspell, in a worker).
-// Language: `% !TeX spellcheck = en_GB` in the file, else the latexstudio.spell.language setting.
+// Language: `% !TeX spellcheck = en_GB` in the file, else the latexdesk.spell.language setting.
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -13,7 +13,7 @@ interface Pending {
 }
 
 export class SpellChecker implements vscode.Disposable {
-  private readonly diagnostics = vscode.languages.createDiagnosticCollection('latexstudio-spell');
+  private readonly diagnostics = vscode.languages.createDiagnosticCollection('latexdesk-spell');
   private worker?: Worker;
   private pending = new Map<number, Pending>();
   private nextId = 1;
@@ -33,11 +33,11 @@ export class SpellChecker implements vscode.Disposable {
       vscode.workspace.onDidCloseTextDocument((d) => this.diagnostics.delete(d.uri)),
       vscode.window.onDidChangeActiveTextEditor((e) => e && checkSoon(e.document)),
       vscode.workspace.onDidChangeConfiguration((e) => {
-        if (e.affectsConfiguration('latexstudio.spell')) this.recheckAll();
+        if (e.affectsConfiguration('latexdesk.spell')) this.recheckAll();
       }),
       vscode.languages.registerCodeActionsProvider([{ language: 'latex' }, { language: 'tex' }], { provideCodeActions: (doc, _range, ctx) => this.codeActions(doc, ctx) }),
-      vscode.commands.registerCommand('latexstudio.spell.addWord', (word: string, scope: 'user' | 'project') => this.addWord(word, scope)),
-      vscode.commands.registerCommand('latexstudio.spell.ignore', (uri: vscode.Uri, word: string) => {
+      vscode.commands.registerCommand('latexdesk.spell.addWord', (word: string, scope: 'user' | 'project') => this.addWord(word, scope)),
+      vscode.commands.registerCommand('latexdesk.spell.ignore', (uri: vscode.Uri, word: string) => {
         const set = this.ignored.get(uri.toString()) ?? new Set();
         set.add(word);
         this.ignored.set(uri.toString(), set);
@@ -83,7 +83,7 @@ export class SpellChecker implements vscode.Disposable {
 
   private projectDictionaryFile(): string | undefined {
     const dir = this.projects.project?.rootDir ?? vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-    return dir ? path.join(dir, '.latexstudio', 'dictionary.txt') : undefined;
+    return dir ? path.join(dir, '.latexdesk', 'dictionary.txt') : undefined;
   }
 
   private projectWords(): string[] {
@@ -127,7 +127,7 @@ export class SpellChecker implements vscode.Disposable {
     if (!dict) {
       if (!this.warnedLanguages.has(lang)) {
         this.warnedLanguages.add(lang);
-        void vscode.window.showWarningMessage(`LaTeX Studio: no dictionary for "${lang}". Put ${lang}.aff and ${lang}.dic in the folder set in latexstudio.spell.dictionaryPath.`);
+        void vscode.window.showWarningMessage(`LaTeX Desk: no dictionary for "${lang}". Put ${lang}.aff and ${lang}.dic in the folder set in latexdesk.spell.dictionaryPath.`);
       }
       return;
     }
@@ -168,9 +168,9 @@ export class SpellChecker implements vscode.Disposable {
         a.diagnostics = [d];
         actions.push(a);
       };
-      add(`Add "${word}" to the project dictionary`, 'latexstudio.spell.addWord', [word, 'project']);
-      add(`Add "${word}" to my dictionary`, 'latexstudio.spell.addWord', [word, 'user']);
-      add(`Ignore "${word}" in this file`, 'latexstudio.spell.ignore', [doc.uri, word]);
+      add(`Add "${word}" to the project dictionary`, 'latexdesk.spell.addWord', [word, 'project']);
+      add(`Add "${word}" to my dictionary`, 'latexdesk.spell.addWord', [word, 'user']);
+      add(`Ignore "${word}" in this file`, 'latexdesk.spell.ignore', [doc.uri, word]);
     }
     return actions;
   }

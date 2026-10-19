@@ -1,14 +1,23 @@
 {
-  "name": "latexstudio",
-  "displayName": "LaTeX Studio",
-  "description": "Build, preview, navigate and check LaTeX projects: PDF viewer with SyncTeX, completion, outline and a bibliography checker.",
+  "name": "latexdesk",
+  "displayName": "LaTeX Desk",
+  "description": "All the LaTeX power, none of the setup, and no limits on how long your build can run. Build, preview with SyncTeX, fix your bibliography and export for submission, all inside VS Code.",
   "version": "0.1.0",
-  "publisher": "latexstudio",
+  "publisher": "esquaredsystems",
+  "icon": "media/marketplace-icon.png",
+  "galleryBanner": {
+    "color": "#1E3A8A",
+    "theme": "dark"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/latexstudio/latexstudio"
+    "url": "https://github.com/esquaredsystems/latexdesk.git"
   },
+  "bugs": {
+    "url": "https://github.com/esquaredsystems/latexdesk/issues"
+  },
+  "homepage": "https://github.com/esquaredsystems/latexdesk#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -22,19 +31,24 @@
     "latex",
     "tex",
     "bibtex",
+    "biblatex",
     "pdf",
-    "synctex"
+    "synctex",
+    "latexmk",
+    "thesis",
+    "arxiv",
+    "academic writing"
   ],
   "main": "./dist/extension.js",
   "bin": {
-    "latexstudio-bibcheck": "./dist/bibcheck.js"
+    "latexdesk-bibcheck": "./dist/bibcheck.js"
   },
   "activationEvents": [
     "onLanguage:latex",
     "onLanguage:tex",
     "onLanguage:bibtex",
     "workspaceContains:**/*.tex",
-    "onWebviewPanel:latexstudio.pdf"
+    "onWebviewPanel:latexdesk.pdf"
   ],
   "capabilities": {
     "untrustedWorkspaces": {
@@ -70,69 +84,69 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "latexstudio",
-          "title": "LaTeX Studio",
+          "id": "latexdesk",
+          "title": "LaTeX Desk",
           "icon": "media/icon.svg"
         },
         {
-          "id": "latexstudio-tools",
+          "id": "latexdesk-tools",
           "title": "LaTeX Tools",
           "icon": "media/tools-icon.svg"
         }
       ]
     },
     "views": {
-      "latexstudio": [
+      "latexdesk": [
         {
-          "id": "latexstudio.build",
+          "id": "latexdesk.build",
           "name": "Build"
         },
         {
-          "id": "latexstudio.structure",
+          "id": "latexdesk.structure",
           "name": "Structure"
         },
         {
-          "id": "latexstudio.files",
+          "id": "latexdesk.files",
           "name": "Files"
         },
         {
-          "id": "latexstudio.citations",
+          "id": "latexdesk.citations",
           "name": "Bibliography & Citations",
           "visibility": "collapsed"
         },
         {
-          "id": "latexstudio.labels",
+          "id": "latexdesk.labels",
           "name": "Labels & References",
           "visibility": "collapsed"
         },
         {
-          "id": "latexstudio.outputs",
+          "id": "latexdesk.outputs",
           "name": "Output Files",
           "visibility": "collapsed"
         },
         {
-          "id": "latexstudio.history",
+          "id": "latexdesk.history",
           "name": "History",
           "visibility": "collapsed"
         }
       ],
-      "latexstudio-tools": [
+      "latexdesk-tools": [
         {
           "type": "webview",
-          "id": "latexstudio.tools",
+          "id": "latexdesk.tools",
           "name": "Format & Symbols"
         }
       ]
     },
     "viewsWelcome": [
       {
-        "view": "latexstudio.build",
-        "contents": "No LaTeX root document found in this workspace.\n[New LaTeX Project](command:latexstudio.newProject)\n[Check LaTeX Tools](command:latexstudio.checkTools)"
+        "view": "latexdesk.build",
+        "contents": "No LaTeX root document found in this workspace.\n[New LaTeX Project](command:latexdesk.newProject)\n[Check LaTeX Tools](command:latexdesk.checkTools)"
       }
     ],
     "customEditors": [
       {
-        "viewType": "latexstudio.bibManager",
+        "viewType": "latexdesk.bibManager",
         "displayName": "Bib Manager",
         "selector": [
           {
@@ -144,929 +158,929 @@
     ],
     "commands": [
       {
-        "command": "latexstudio.build",
+        "command": "latexdesk.build",
         "title": "Build LaTeX Project",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(play)"
       },
       {
-        "command": "latexstudio.buildWithRecipe",
+        "command": "latexdesk.buildWithRecipe",
         "title": "Build with Recipe…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.selectRecipe",
+        "command": "latexdesk.selectRecipe",
         "title": "Select Default Recipe",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.rebuild",
+        "command": "latexdesk.rebuild",
         "title": "Rebuild from Scratch",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.buildFast",
+        "command": "latexdesk.buildFast",
         "title": "Fast Preview Build (draft images)",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(zap)"
       },
       {
-        "command": "latexstudio.buildPartial",
+        "command": "latexdesk.buildPartial",
         "title": "Build This Chapter Only",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.toggleFastPreview",
+        "command": "latexdesk.toggleFastPreview",
         "title": "Toggle Fast Preview Mode",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.stopBuild",
+        "command": "latexdesk.stopBuild",
         "title": "Stop Build",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(debug-stop)"
       },
       {
-        "command": "latexstudio.toggleAutoBuild",
+        "command": "latexdesk.toggleAutoBuild",
         "title": "Toggle Build on Save",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.clean",
+        "command": "latexdesk.clean",
         "title": "Clean Auxiliary Files",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.showLog",
+        "command": "latexdesk.showLog",
         "title": "Show Build Log",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.revealOutput",
+        "command": "latexdesk.revealOutput",
         "title": "Reveal PDF in File Explorer",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.selectRoot",
+        "command": "latexdesk.selectRoot",
         "title": "Select Root Document",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.checkTools",
+        "command": "latexdesk.checkTools",
         "title": "Check LaTeX Tools",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.viewPdf",
+        "command": "latexdesk.viewPdf",
         "title": "View PDF",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(open-preview)"
       },
       {
-        "command": "latexstudio.viewPdfExternal",
+        "command": "latexdesk.viewPdfExternal",
         "title": "View PDF in External Viewer",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.refreshPdf",
+        "command": "latexdesk.refreshPdf",
         "title": "Refresh PDF",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.syncForward",
+        "command": "latexdesk.syncForward",
         "title": "Show Position in PDF (SyncTeX)",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insertEnvironment",
+        "command": "latexdesk.insertEnvironment",
         "title": "Insert Environment…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.wrapEnvironment",
+        "command": "latexdesk.wrapEnvironment",
         "title": "Wrap Selection in Environment…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.wrapCommand",
+        "command": "latexdesk.wrapCommand",
         "title": "Wrap Selection in Command…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.closeEnvironment",
+        "command": "latexdesk.closeEnvironment",
         "title": "Close Current Environment",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.renameEnvironment",
+        "command": "latexdesk.renameEnvironment",
         "title": "Rename Current Environment",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.toggleDisplayMath",
+        "command": "latexdesk.toggleDisplayMath",
         "title": "Toggle \\[…\\] / equation",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.wordCount",
+        "command": "latexdesk.wordCount",
         "title": "Count Words",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.citationBrowser",
+        "command": "latexdesk.citationBrowser",
         "title": "Insert Citation…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.scanBibliography",
+        "command": "latexdesk.scanBibliography",
         "title": "Check Bibliography",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.openBibManager",
+        "command": "latexdesk.openBibManager",
         "title": "Open in Bib Manager",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(table)"
       },
       {
-        "command": "latexstudio.openEntryForm",
+        "command": "latexdesk.openEntryForm",
         "title": "Edit Entry in Form",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(list-flat)"
       },
       {
-        "command": "latexstudio.explainError",
+        "command": "latexdesk.explainError",
         "title": "Explain This Error",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.newProject",
+        "command": "latexdesk.newProject",
         "title": "New LaTeX Project…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.refreshViews",
+        "command": "latexdesk.refreshViews",
         "title": "Refresh",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(refresh)"
       },
       {
-        "command": "latexstudio.openDashboard",
+        "command": "latexdesk.openDashboard",
         "title": "Open Project Dashboard",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(dashboard)"
       },
       {
-        "command": "latexstudio.openLogViewer",
+        "command": "latexdesk.openLogViewer",
         "title": "Open Log Viewer",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.revealFile",
+        "command": "latexdesk.revealFile",
         "title": "Reveal in File Explorer",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.copyPath",
+        "command": "latexdesk.copyPath",
         "title": "Copy Path",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.deleteOutput",
+        "command": "latexdesk.deleteOutput",
         "title": "Delete File…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.structureFilter",
+        "command": "latexdesk.structureFilter",
         "title": "Filter Structure…",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(filter)"
       },
       {
-        "command": "latexstudio.onEnter",
+        "command": "latexdesk.onEnter",
         "title": "Enter (list aware)",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.compileMenu",
+        "command": "latexdesk.compileMenu",
         "title": "Compile Options…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.history.snapshot",
+        "command": "latexdesk.history.snapshot",
         "title": "Take Snapshot",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(device-camera)"
       },
       {
-        "command": "latexstudio.history.label",
+        "command": "latexdesk.history.label",
         "title": "Label Version…",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(tag)"
       },
       {
-        "command": "latexstudio.history.diff",
+        "command": "latexdesk.history.diff",
         "title": "Diff with Current",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(diff)"
       },
       {
-        "command": "latexstudio.history.restoreFile",
+        "command": "latexdesk.history.restoreFile",
         "title": "Restore File…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.history.restoreProject",
+        "command": "latexdesk.history.restoreProject",
         "title": "Restore Project…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.history.latexdiff",
+        "command": "latexdesk.history.latexdiff",
         "title": "latexdiff PDF Against Snapshot…",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(file-pdf)"
       },
       {
-        "command": "latexstudio.history.refresh",
+        "command": "latexdesk.history.refresh",
         "title": "Refresh History",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(refresh)"
       },
       {
-        "command": "latexstudio.exportSubmission",
+        "command": "latexdesk.exportSubmission",
         "title": "Export for Submission…",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(package)"
       },
       {
-        "command": "latexstudio.spell.addWord",
+        "command": "latexdesk.spell.addWord",
         "title": "Add Word to Dictionary",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.spell.ignore",
+        "command": "latexdesk.spell.ignore",
         "title": "Ignore Word",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.tableWizard",
+        "command": "latexdesk.tableWizard",
         "title": "Table Wizard (new or table at cursor)",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": "$(table)"
       },
       {
-        "command": "latexstudio.pasteTable",
+        "command": "latexdesk.pasteTable",
         "title": "Paste Table from Spreadsheet",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.importCsv",
+        "command": "latexdesk.importCsv",
         "title": "Import CSV as Table…",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.tb.undo",
+        "command": "latexdesk.tb.undo",
         "title": "Undo",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/undo-light.svg",
           "dark": "media/toolbar/undo-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.redo",
+        "command": "latexdesk.tb.redo",
         "title": "Redo",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/redo-light.svg",
           "dark": "media/toolbar/redo-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.cut",
+        "command": "latexdesk.tb.cut",
         "title": "Cut",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/cut-light.svg",
           "dark": "media/toolbar/cut-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.copy",
+        "command": "latexdesk.tb.copy",
         "title": "Copy",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/copy-light.svg",
           "dark": "media/toolbar/copy-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.paste",
+        "command": "latexdesk.tb.paste",
         "title": "Paste",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/paste-light.svg",
           "dark": "media/toolbar/paste-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.compile",
+        "command": "latexdesk.tb.compile",
         "title": "Compile",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/compile-light.svg",
           "dark": "media/toolbar/compile-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.buildView",
+        "command": "latexdesk.tb.buildView",
         "title": "Build & View",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/build-view-light.svg",
           "dark": "media/toolbar/build-view-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.log",
+        "command": "latexdesk.tb.log",
         "title": "View Log",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/log-light.svg",
           "dark": "media/toolbar/log-dark.svg"
         }
       },
       {
-        "command": "latexstudio.table.addRow",
+        "command": "latexdesk.table.addRow",
         "title": "Add Table Row",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/add-row-light.svg",
           "dark": "media/toolbar/add-row-dark.svg"
         }
       },
       {
-        "command": "latexstudio.table.deleteRow",
+        "command": "latexdesk.table.deleteRow",
         "title": "Delete Table Row",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/delete-row-light.svg",
           "dark": "media/toolbar/delete-row-dark.svg"
         }
       },
       {
-        "command": "latexstudio.table.addColumn",
+        "command": "latexdesk.table.addColumn",
         "title": "Add Table Column",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/add-column-light.svg",
           "dark": "media/toolbar/add-column-dark.svg"
         }
       },
       {
-        "command": "latexstudio.table.deleteColumn",
+        "command": "latexdesk.table.deleteColumn",
         "title": "Delete Table Column",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/delete-column-light.svg",
           "dark": "media/toolbar/delete-column-dark.svg"
         }
       },
       {
-        "command": "latexstudio.format.highlight",
+        "command": "latexdesk.format.highlight",
         "title": "Highlight",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/highlight-light.svg",
           "dark": "media/toolbar/highlight-dark.svg"
         }
       },
       {
-        "command": "latexstudio.tb.comment",
+        "command": "latexdesk.tb.comment",
         "title": "Comment / Uncomment",
-        "category": "LaTeX Studio",
+        "category": "LaTeX Desk",
         "icon": {
           "light": "media/toolbar/comment-light.svg",
           "dark": "media/toolbar/comment-dark.svg"
         }
       },
       {
-        "command": "latexstudio.insert.part",
+        "command": "latexdesk.insert.part",
         "title": "\\part",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.chapter",
+        "command": "latexdesk.insert.chapter",
         "title": "\\chapter",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.section",
+        "command": "latexdesk.insert.section",
         "title": "\\section",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.subsection",
+        "command": "latexdesk.insert.subsection",
         "title": "\\subsection",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.subsubsection",
+        "command": "latexdesk.insert.subsubsection",
         "title": "\\subsubsection",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.paragraph",
+        "command": "latexdesk.insert.paragraph",
         "title": "\\paragraph",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.subparagraph",
+        "command": "latexdesk.insert.subparagraph",
         "title": "\\subparagraph",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.label",
+        "command": "latexdesk.insert.label",
         "title": "\\label{…}",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.ref",
+        "command": "latexdesk.insert.ref",
         "title": "\\ref{…}",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.eqref",
+        "command": "latexdesk.insert.eqref",
         "title": "\\eqref{…}",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.pageref",
+        "command": "latexdesk.insert.pageref",
         "title": "\\pageref{…}",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.cref",
+        "command": "latexdesk.insert.cref",
         "title": "\\cref{…}",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.insert.cite",
+        "command": "latexdesk.insert.cite",
         "title": "\\cite{…}",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.bold",
+        "command": "latexdesk.format.bold",
         "title": "Bold",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.italic",
+        "command": "latexdesk.format.italic",
         "title": "Italic",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.underline",
+        "command": "latexdesk.format.underline",
         "title": "Underline",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.strikeout",
+        "command": "latexdesk.format.strikeout",
         "title": "Strikeout",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.align.left",
+        "command": "latexdesk.format.align.left",
         "title": "Align Left",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.align.center",
+        "command": "latexdesk.format.align.center",
         "title": "Centre",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.align.right",
+        "command": "latexdesk.format.align.right",
         "title": "Align Right",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.align.justify",
+        "command": "latexdesk.format.align.justify",
         "title": "Justify",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.larger",
+        "command": "latexdesk.format.larger",
         "title": "Larger Text",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       },
       {
-        "command": "latexstudio.format.smaller",
+        "command": "latexdesk.format.smaller",
         "title": "Smaller Text",
-        "category": "LaTeX Studio"
+        "category": "LaTeX Desk"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "latexstudio.tb.undo",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "command": "latexdesk.tb.undo",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@1"
         },
         {
-          "command": "latexstudio.tb.redo",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "command": "latexdesk.tb.redo",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@2"
         },
         {
-          "command": "latexstudio.tb.cut",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@1"
+          "command": "latexdesk.tb.cut",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@1"
         },
         {
-          "command": "latexstudio.tb.copy",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@2"
+          "command": "latexdesk.tb.copy",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@2"
         },
         {
-          "command": "latexstudio.tb.paste",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@3"
+          "command": "latexdesk.tb.paste",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@3"
         },
         {
-          "command": "latexstudio.tb.compile",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "command": "latexdesk.tb.compile",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@3"
         },
         {
-          "command": "latexstudio.tb.buildView",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "command": "latexdesk.tb.buildView",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@4"
         },
         {
-          "command": "latexstudio.tb.log",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "command": "latexdesk.tb.log",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@5"
         },
         {
-          "submenu": "latexstudio.partMenu",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "submenu": "latexdesk.partMenu",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@6"
         },
         {
-          "submenu": "latexstudio.labelMenu",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
+          "submenu": "latexdesk.labelMenu",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
           "group": "navigation@7"
         },
         {
-          "command": "latexstudio.table.addRow",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@4"
+          "command": "latexdesk.table.addRow",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@4"
         },
         {
-          "command": "latexstudio.table.deleteRow",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@5"
+          "command": "latexdesk.table.deleteRow",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@5"
         },
         {
-          "command": "latexstudio.table.addColumn",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@6"
+          "command": "latexdesk.table.addColumn",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@6"
         },
         {
-          "command": "latexstudio.table.deleteColumn",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@7"
+          "command": "latexdesk.table.deleteColumn",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@7"
         },
         {
-          "command": "latexstudio.format.highlight",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@8"
+          "command": "latexdesk.format.highlight",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@8"
         },
         {
-          "command": "latexstudio.tb.comment",
-          "when": "editorLangId == latex && config.latexstudio.toolbar.enabled",
-          "group": "1_latexstudio@9"
+          "command": "latexdesk.tb.comment",
+          "when": "editorLangId == latex && config.latexdesk.toolbar.enabled",
+          "group": "1_latexdesk@9"
         },
         {
-          "command": "latexstudio.openBibManager",
+          "command": "latexdesk.openBibManager",
           "when": "editorLangId == bibtex",
           "group": "navigation@1"
         },
         {
-          "command": "latexstudio.openEntryForm",
+          "command": "latexdesk.openEntryForm",
           "when": "editorLangId == bibtex",
           "group": "navigation@2"
         }
       ],
       "editor/context": [
         {
-          "command": "latexstudio.syncForward",
+          "command": "latexdesk.syncForward",
           "when": "editorLangId == latex",
-          "group": "latexstudio@1"
+          "group": "latexdesk@1"
         },
         {
-          "command": "latexstudio.wrapEnvironment",
+          "command": "latexdesk.wrapEnvironment",
           "when": "editorLangId == latex && editorHasSelection",
-          "group": "latexstudio@2"
+          "group": "latexdesk@2"
         },
         {
-          "command": "latexstudio.citationBrowser",
+          "command": "latexdesk.citationBrowser",
           "when": "editorLangId == latex",
-          "group": "latexstudio@3"
+          "group": "latexdesk@3"
         },
         {
-          "command": "latexstudio.openEntryForm",
+          "command": "latexdesk.openEntryForm",
           "when": "editorLangId == bibtex",
-          "group": "latexstudio@1"
+          "group": "latexdesk@1"
         },
         {
-          "command": "latexstudio.tableWizard",
+          "command": "latexdesk.tableWizard",
           "when": "editorLangId == latex",
-          "group": "latexstudio@4"
+          "group": "latexdesk@4"
         }
       ],
       "explorer/context": [
         {
-          "command": "latexstudio.build",
+          "command": "latexdesk.build",
           "when": "resourceExtname == .tex",
-          "group": "latexstudio"
+          "group": "latexdesk"
         },
         {
-          "command": "latexstudio.openBibManager",
+          "command": "latexdesk.openBibManager",
           "when": "resourceExtname == .bib",
-          "group": "latexstudio"
+          "group": "latexdesk"
         }
       ],
       "view/title": [
         {
-          "command": "latexstudio.openDashboard",
-          "when": "view == latexstudio.build",
+          "command": "latexdesk.openDashboard",
+          "when": "view == latexdesk.build",
           "group": "navigation@1"
         },
         {
-          "command": "latexstudio.stopBuild",
-          "when": "view == latexstudio.build && latexstudio.building",
+          "command": "latexdesk.stopBuild",
+          "when": "view == latexdesk.build && latexdesk.building",
           "group": "navigation@2"
         },
         {
-          "command": "latexstudio.structureFilter",
-          "when": "view == latexstudio.structure",
+          "command": "latexdesk.structureFilter",
+          "when": "view == latexdesk.structure",
           "group": "navigation@1"
         },
         {
-          "command": "latexstudio.refreshViews",
-          "when": "view == latexstudio.structure || view == latexstudio.files || view == latexstudio.citations || view == latexstudio.labels || view == latexstudio.outputs",
+          "command": "latexdesk.refreshViews",
+          "when": "view == latexdesk.structure || view == latexdesk.files || view == latexdesk.citations || view == latexdesk.labels || view == latexdesk.outputs",
           "group": "navigation@9"
         },
         {
-          "command": "latexstudio.history.snapshot",
-          "when": "view == latexstudio.history",
+          "command": "latexdesk.history.snapshot",
+          "when": "view == latexdesk.history",
           "group": "navigation@1"
         },
         {
-          "command": "latexstudio.history.label",
-          "when": "view == latexstudio.history",
+          "command": "latexdesk.history.label",
+          "when": "view == latexdesk.history",
           "group": "navigation@2"
         },
         {
-          "command": "latexstudio.history.latexdiff",
-          "when": "view == latexstudio.history",
+          "command": "latexdesk.history.latexdiff",
+          "when": "view == latexdesk.history",
           "group": "navigation@3"
         }
       ],
       "view/item/context": [
         {
-          "command": "latexstudio.revealFile",
-          "when": "view == latexstudio.outputs && viewItem == outputFile",
+          "command": "latexdesk.revealFile",
+          "when": "view == latexdesk.outputs && viewItem == outputFile",
           "group": "1@1"
         },
         {
-          "command": "latexstudio.copyPath",
-          "when": "view == latexstudio.outputs && viewItem == outputFile",
+          "command": "latexdesk.copyPath",
+          "when": "view == latexdesk.outputs && viewItem == outputFile",
           "group": "1@2"
         },
         {
-          "command": "latexstudio.deleteOutput",
-          "when": "view == latexstudio.outputs && viewItem == outputFile",
+          "command": "latexdesk.deleteOutput",
+          "when": "view == latexdesk.outputs && viewItem == outputFile",
           "group": "2@1"
         },
         {
-          "command": "latexstudio.history.diff",
-          "when": "view == latexstudio.history && viewItem == historySnapshot",
+          "command": "latexdesk.history.diff",
+          "when": "view == latexdesk.history && viewItem == historySnapshot",
           "group": "inline"
         },
         {
-          "command": "latexstudio.history.label",
-          "when": "view == latexstudio.history && viewItem == historySnapshot",
+          "command": "latexdesk.history.label",
+          "when": "view == latexdesk.history && viewItem == historySnapshot",
           "group": "1@1"
         },
         {
-          "command": "latexstudio.history.latexdiff",
-          "when": "view == latexstudio.history && viewItem == historySnapshot",
+          "command": "latexdesk.history.latexdiff",
+          "when": "view == latexdesk.history && viewItem == historySnapshot",
           "group": "1@2"
         },
         {
-          "command": "latexstudio.history.restoreProject",
-          "when": "view == latexstudio.history && viewItem == historySnapshot",
+          "command": "latexdesk.history.restoreProject",
+          "when": "view == latexdesk.history && viewItem == historySnapshot",
           "group": "2@1"
         },
         {
-          "command": "latexstudio.history.diff",
-          "when": "view == latexstudio.history && viewItem == historyFile",
+          "command": "latexdesk.history.diff",
+          "when": "view == latexdesk.history && viewItem == historyFile",
           "group": "inline"
         },
         {
-          "command": "latexstudio.history.restoreFile",
-          "when": "view == latexstudio.history && viewItem == historyFile",
+          "command": "latexdesk.history.restoreFile",
+          "when": "view == latexdesk.history && viewItem == historyFile",
           "group": "2@1"
         }
       ],
       "commandPalette": [
         {
-          "command": "latexstudio.onEnter",
+          "command": "latexdesk.onEnter",
           "when": "false"
         },
         {
-          "command": "latexstudio.revealFile",
+          "command": "latexdesk.revealFile",
           "when": "false"
         },
         {
-          "command": "latexstudio.copyPath",
+          "command": "latexdesk.copyPath",
           "when": "false"
         },
         {
-          "command": "latexstudio.deleteOutput",
+          "command": "latexdesk.deleteOutput",
           "when": "false"
         },
         {
-          "command": "latexstudio.history.diff",
+          "command": "latexdesk.history.diff",
           "when": "false"
         },
         {
-          "command": "latexstudio.history.restoreFile",
+          "command": "latexdesk.history.restoreFile",
           "when": "false"
         },
         {
-          "command": "latexstudio.history.restoreProject",
+          "command": "latexdesk.history.restoreProject",
           "when": "false"
         },
         {
-          "command": "latexstudio.history.refresh",
+          "command": "latexdesk.history.refresh",
           "when": "false"
         },
         {
-          "command": "latexstudio.spell.addWord",
+          "command": "latexdesk.spell.addWord",
           "when": "false"
         },
         {
-          "command": "latexstudio.spell.ignore",
+          "command": "latexdesk.spell.ignore",
           "when": "false"
         },
         {
-          "command": "latexstudio.tb.undo",
+          "command": "latexdesk.tb.undo",
           "when": "false"
         },
         {
-          "command": "latexstudio.tb.redo",
+          "command": "latexdesk.tb.redo",
           "when": "false"
         },
         {
-          "command": "latexstudio.tb.cut",
+          "command": "latexdesk.tb.cut",
           "when": "false"
         },
         {
-          "command": "latexstudio.tb.copy",
+          "command": "latexdesk.tb.copy",
           "when": "false"
         },
         {
-          "command": "latexstudio.tb.paste",
+          "command": "latexdesk.tb.paste",
           "when": "false"
         },
         {
-          "command": "latexstudio.tb.comment",
+          "command": "latexdesk.tb.comment",
           "when": "false"
         }
       ],
-      "latexstudio.partMenu": [
+      "latexdesk.partMenu": [
         {
-          "command": "latexstudio.insert.part",
+          "command": "latexdesk.insert.part",
           "group": "1@0"
         },
         {
-          "command": "latexstudio.insert.chapter",
+          "command": "latexdesk.insert.chapter",
           "group": "1@1"
         },
         {
-          "command": "latexstudio.insert.section",
+          "command": "latexdesk.insert.section",
           "group": "1@2"
         },
         {
-          "command": "latexstudio.insert.subsection",
+          "command": "latexdesk.insert.subsection",
           "group": "1@3"
         },
         {
-          "command": "latexstudio.insert.subsubsection",
+          "command": "latexdesk.insert.subsubsection",
           "group": "1@4"
         },
         {
-          "command": "latexstudio.insert.paragraph",
+          "command": "latexdesk.insert.paragraph",
           "group": "1@5"
         },
         {
-          "command": "latexstudio.insert.subparagraph",
+          "command": "latexdesk.insert.subparagraph",
           "group": "1@6"
         }
       ],
-      "latexstudio.labelMenu": [
+      "latexdesk.labelMenu": [
         {
-          "command": "latexstudio.insert.label",
+          "command": "latexdesk.insert.label",
           "group": "1@0"
         },
         {
-          "command": "latexstudio.insert.ref",
+          "command": "latexdesk.insert.ref",
           "group": "1@1"
         },
         {
-          "command": "latexstudio.insert.eqref",
+          "command": "latexdesk.insert.eqref",
           "group": "1@2"
         },
         {
-          "command": "latexstudio.insert.pageref",
+          "command": "latexdesk.insert.pageref",
           "group": "1@3"
         },
         {
-          "command": "latexstudio.insert.cref",
+          "command": "latexdesk.insert.cref",
           "group": "1@4"
         },
         {
-          "command": "latexstudio.insert.cite",
+          "command": "latexdesk.insert.cite",
           "group": "1@5"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "latexstudio.build",
+        "command": "latexdesk.build",
         "key": "ctrl+alt+b",
         "mac": "cmd+alt+b",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.viewPdf",
+        "command": "latexdesk.viewPdf",
         "key": "ctrl+alt+v",
         "mac": "cmd+alt+v",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.syncForward",
+        "command": "latexdesk.syncForward",
         "key": "ctrl+alt+j",
         "mac": "cmd+alt+j",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.stopBuild",
+        "command": "latexdesk.stopBuild",
         "key": "ctrl+alt+x",
         "mac": "cmd+alt+x",
-        "when": "latexstudio.building"
+        "when": "latexdesk.building"
       },
       {
-        "command": "latexstudio.clean",
+        "command": "latexdesk.clean",
         "key": "ctrl+alt+c",
         "mac": "cmd+alt+c",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.insertEnvironment",
+        "command": "latexdesk.insertEnvironment",
         "key": "ctrl+alt+e",
         "mac": "cmd+alt+e",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.wrapEnvironment",
+        "command": "latexdesk.wrapEnvironment",
         "key": "ctrl+alt+w",
         "mac": "cmd+alt+w",
         "when": "editorLangId == latex && editorHasSelection"
       },
       {
-        "command": "latexstudio.citationBrowser",
+        "command": "latexdesk.citationBrowser",
         "key": "ctrl+alt+[",
         "mac": "cmd+alt+[",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.closeEnvironment",
+        "command": "latexdesk.closeEnvironment",
         "key": "ctrl+alt+]",
         "mac": "cmd+alt+]",
         "when": "editorLangId == latex"
       },
       {
-        "command": "latexstudio.onEnter",
+        "command": "latexdesk.onEnter",
         "key": "enter",
-        "when": "editorTextFocus && editorLangId == latex && !suggestWidgetVisible && !editorHasMultipleSelections && !inSnippetMode && config.latexstudio.editing.autoItem"
+        "when": "editorTextFocus && editorLangId == latex && !suggestWidgetVisible && !editorHasMultipleSelections && !inSnippetMode && config.latexdesk.editing.autoItem"
       },
       {
-        "command": "latexstudio.buildFast",
+        "command": "latexdesk.buildFast",
         "key": "ctrl+alt+shift+b",
         "mac": "cmd+alt+shift+b",
         "when": "editorLangId == latex"
@@ -1076,13 +1090,13 @@
       {
         "title": "Project",
         "properties": {
-          "latexstudio.rootFile": {
+          "latexdesk.rootFile": {
             "type": "string",
             "default": "",
             "scope": "resource",
             "markdownDescription": "Root document relative to the workspace folder. Leave empty to detect it automatically (magic comment `% !TEX root`, then `\\documentclass` files)."
           },
-          "latexstudio.exclude": {
+          "latexdesk.exclude": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1091,7 +1105,7 @@
               "**/node_modules/**",
               "**/.git/**",
               "**/build/**",
-              "**/.latexstudio/**"
+              "**/.latexdesk/**"
             ],
             "description": "Glob patterns ignored when looking for LaTeX files."
           }
@@ -1100,7 +1114,7 @@
       {
         "title": "Build",
         "properties": {
-          "latexstudio.build.autoBuild": {
+          "latexdesk.build.autoBuild": {
             "type": "string",
             "enum": [
               "onSave",
@@ -1109,37 +1123,37 @@
             "default": "onSave",
             "description": "When to build automatically."
           },
-          "latexstudio.build.recipe": {
+          "latexdesk.build.recipe": {
             "type": "string",
             "default": "latexmk (pdf)",
             "description": "Name of the default recipe. 'latexmk (pdf)' is used when latexmk is installed."
           },
-          "latexstudio.build.outDir": {
+          "latexdesk.build.outDir": {
             "type": "string",
             "default": "",
             "markdownDescription": "Output directory, relative to the root document. Supports `%DIR%` and `%DOCNAME%`. Empty means next to the root document."
           },
-          "latexstudio.build.timeout": {
+          "latexdesk.build.timeout": {
             "type": "number",
             "default": 600,
             "description": "Seconds before a running build is stopped."
           },
-          "latexstudio.build.backupExistingPdf": {
+          "latexdesk.build.backupExistingPdf": {
             "type": "boolean",
             "default": true,
-            "markdownDescription": "Before the first build of a root document in a session, copy an existing PDF and SyncTeX file into `.latexstudio/snapshots/` so they can be recovered."
+            "markdownDescription": "Before the first build of a root document in a session, copy an existing PDF and SyncTeX file into `.latexdesk/snapshots/` so they can be recovered."
           },
-          "latexstudio.build.tools": {
+          "latexdesk.build.tools": {
             "type": "array",
             "default": [],
             "markdownDescription": "Extra tools usable in recipes: `{ \"name\": \"...\", \"command\": \"...\", \"args\": [\"%DOC%\"], \"env\": {} }`. Placeholders: `%DOC%` (root without extension), `%DOCFILE%`, `%DIR%`, `%OUTDIR%`, `%DOC_EXT%`."
           },
-          "latexstudio.build.recipes": {
+          "latexdesk.build.recipes": {
             "type": "array",
             "default": [],
             "markdownDescription": "Extra recipes: `{ \"name\": \"...\", \"tools\": [\"pdflatex\", \"bibtex\", \"pdflatex\"] }`. They are added to the built-in ones."
           },
-          "latexstudio.build.cleanExtensions": {
+          "latexdesk.build.cleanExtensions": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1171,12 +1185,12 @@
             ],
             "description": "Extensions removed by 'Clean Auxiliary Files'. Only files named after the root document are deleted."
           },
-          "latexstudio.tools.paths": {
+          "latexdesk.tools.paths": {
             "type": "object",
             "default": {},
             "markdownDescription": "Explicit executable paths, for example `{ \"latexmk\": \"/Library/TeX/texbin/latexmk\" }`."
           },
-          "latexstudio.errors.extra": {
+          "latexdesk.errors.extra": {
             "type": "array",
             "default": [],
             "markdownDescription": "Your own error explanations, checked before the built-in ones: `{ \"id\": \"my-macro\", \"pattern\": \"regular expression\", \"title\": \"...\", \"meaning\": \"...\", \"causes\": [\"...\"], \"fix\": \"...\" }`.",
@@ -1219,17 +1233,17 @@
       {
         "title": "PDF viewer",
         "properties": {
-          "latexstudio.viewer.openAfterBuild": {
+          "latexdesk.viewer.openAfterBuild": {
             "type": "boolean",
             "default": true,
             "description": "Open the PDF beside the source after the first successful build."
           },
-          "latexstudio.viewer.syncAfterBuild": {
+          "latexdesk.viewer.syncAfterBuild": {
             "type": "boolean",
             "default": false,
             "description": "Scroll the PDF to the cursor position after each successful build."
           },
-          "latexstudio.viewer.reverseSyncClick": {
+          "latexdesk.viewer.reverseSyncClick": {
             "type": "string",
             "enum": [
               "ctrl-click",
@@ -1238,7 +1252,7 @@
             "default": "ctrl-click",
             "description": "Mouse action in the PDF that jumps to the source (Cmd-click on macOS)."
           },
-          "latexstudio.viewer.theme": {
+          "latexdesk.viewer.theme": {
             "type": "string",
             "enum": [
               "light",
@@ -1253,12 +1267,12 @@
       {
         "title": "Editing",
         "properties": {
-          "latexstudio.editing.autoItem": {
+          "latexdesk.editing.autoItem": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Pressing Enter on an `\\item` line inserts a new `\\item`. Enter on an empty `\\item` ends the list item."
           },
-          "latexstudio.completion.citeCommands": {
+          "latexdesk.completion.citeCommands": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1281,7 +1295,7 @@
             ],
             "description": "Commands whose argument is completed with citation keys."
           },
-          "latexstudio.completion.refCommands": {
+          "latexdesk.completion.refCommands": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1298,12 +1312,12 @@
             ],
             "description": "Commands whose argument is completed with labels."
           },
-          "latexstudio.hover.math": {
+          "latexdesk.hover.math": {
             "type": "boolean",
             "default": true,
             "description": "Render math under the mouse (approximate preview, made with MathJax)."
           },
-          "latexstudio.format.tool": {
+          "latexdesk.format.tool": {
             "type": "string",
             "enum": [
               "builtin",
@@ -1313,7 +1327,7 @@
             "default": "builtin",
             "description": "Formatter used by Format Document."
           },
-          "latexstudio.checks.enabled": {
+          "latexdesk.checks.enabled": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Live checks while typing: unmatched `\\begin`/`\\end`, duplicate labels, undefined references and citations."
@@ -1323,7 +1337,7 @@
       {
         "title": "Bibliography",
         "properties": {
-          "latexstudio.bib.profile": {
+          "latexdesk.bib.profile": {
             "type": "string",
             "enum": [
               "minimal",
@@ -1333,7 +1347,7 @@
             "default": "standard",
             "markdownDescription": "Which recommended fields the checker expects. `minimal`: only required fields. `standard`: also DOI/pages/volume. `strict`: submission-ready."
           },
-          "latexstudio.bib.dialect": {
+          "latexdesk.bib.dialect": {
             "type": "string",
             "enum": [
               "auto",
@@ -1343,7 +1357,7 @@
             "default": "auto",
             "description": "Field rules to apply. 'auto' uses biblatex when the project loads it."
           },
-          "latexstudio.bib.uncited": {
+          "latexdesk.bib.uncited": {
             "type": "string",
             "enum": [
               "off",
@@ -1353,7 +1367,7 @@
             "default": "hint",
             "description": "How entries that are never cited are reported."
           },
-          "latexstudio.bib.rules": {
+          "latexdesk.bib.rules": {
             "type": "object",
             "default": {},
             "markdownDescription": "Per-rule severity override, for example `{ \"bib/missing-doi\": \"off\", \"bib/placeholder-value\": \"error\" }`."
@@ -1363,33 +1377,33 @@
       {
         "title": "History",
         "properties": {
-          "latexstudio.history.maxSnapshots": {
+          "latexdesk.history.maxSnapshots": {
             "type": "number",
             "default": 200,
             "minimum": 10,
-            "markdownDescription": "Unlabelled snapshots kept in `.latexstudio/history/`. Older ones are removed first; labelled versions are always kept."
+            "markdownDescription": "Unlabelled snapshots kept in `.latexdesk/history/`. Older ones are removed first; labelled versions are always kept."
           }
         }
       },
       {
         "title": "Spelling",
         "properties": {
-          "latexstudio.spell.enabled": {
+          "latexdesk.spell.enabled": {
             "type": "boolean",
             "default": true,
             "description": "Check the spelling of prose in LaTeX files (commands, math, labels, citations and comments are skipped)."
           },
-          "latexstudio.spell.language": {
+          "latexdesk.spell.language": {
             "type": "string",
             "default": "en_US",
             "markdownDescription": "Dictionary language, e.g. `en_US` or `en_GB` (bundled). A file can choose its own with `% !TeX spellcheck = en_GB`."
           },
-          "latexstudio.spell.dictionaryPath": {
+          "latexdesk.spell.dictionaryPath": {
             "type": "string",
             "default": "",
             "markdownDescription": "Folder with more Hunspell dictionaries named `<lang>.aff` and `<lang>.dic`, for example `de_DE.aff`."
           },
-          "latexstudio.spell.words": {
+          "latexdesk.spell.words": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1397,7 +1411,7 @@
             "default": [],
             "description": "Your own dictionary: words that are always accepted."
           },
-          "latexstudio.spell.skipCommands": {
+          "latexdesk.spell.skipCommands": {
             "type": "array",
             "items": {
               "type": "string"
@@ -1410,12 +1424,12 @@
       {
         "title": "Toolbars",
         "properties": {
-          "latexstudio.toolbar.enabled": {
+          "latexdesk.toolbar.enabled": {
             "type": "boolean",
             "default": true,
             "description": "Show the editing buttons (undo, compile, part, label, table, highlight, comment …) in the title bar of LaTeX editors."
           },
-          "latexstudio.toolbar.showMiniBar": {
+          "latexdesk.toolbar.showMiniBar": {
             "type": "boolean",
             "default": true,
             "description": "Open the LaTeX Tools mini bar (format, alignment, equations, symbols) when the first LaTeX file of a window is opened."
@@ -1425,7 +1439,7 @@
     ],
     "submenus": [
       {
-        "id": "latexstudio.partMenu",
+        "id": "latexdesk.partMenu",
         "label": "Part",
         "icon": {
           "light": "media/toolbar/part-light.svg",
@@ -1433,7 +1447,7 @@
         }
       },
       {
-        "id": "latexstudio.labelMenu",
+        "id": "latexdesk.labelMenu",
         "label": "Label",
         "icon": {
           "light": "media/toolbar/label-light.svg",

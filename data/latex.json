@@ -1,5 +1,5 @@
 {
-  "_source": "Written for LaTeX Studio. Each command is [name, snippet arguments, description, package]. Snippet arguments use VS Code snippet syntax.",
+  "_source": "Written for LaTeX Desk. Each command is [name, snippet arguments, description, package]. Snippet arguments use VS Code snippet syntax.",
   "commands": [
     ["documentclass", "[${2:a4paper}]{${1:article}}", "Choose the document class", ""],
     ["usepackage", "{${1}}", "Load a package", ""],

@@ -45,8 +45,8 @@ describe('history store', () => {
 
   it('starts fresh when the index is damaged', () => {
     const { dir } = project();
-    mkdirSync(path.join(dir, '.latexstudio', 'history'), { recursive: true });
-    writeFileSync(path.join(dir, '.latexstudio', 'history', 'index.json'), '{ not json');
+    mkdirSync(path.join(dir, '.latexdesk', 'history'), { recursive: true });
+    writeFileSync(path.join(dir, '.latexdesk', 'history', 'index.json'), '{ not json');
     expect(new HistoryStore(dir).list()).toEqual([]);
   });
 });

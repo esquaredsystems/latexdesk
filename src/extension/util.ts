@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export function config(scope?: vscode.Uri) {
-  return vscode.workspace.getConfiguration('latexstudio', scope);
+  return vscode.workspace.getConfiguration('latexdesk', scope);
 }
 
 export function isTex(doc: vscode.TextDocument): boolean {

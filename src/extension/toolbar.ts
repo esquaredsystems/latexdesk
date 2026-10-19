@@ -51,27 +51,27 @@ export class EditorToolbar {
       comment: 'editor.action.commentLine',
     };
     for (const [name, target] of Object.entries(builtIn)) {
-      command(`latexstudio.tb.${name}`, async () => {
+      command(`latexdesk.tb.${name}`, async () => {
         await this.focusEditor();
         await vscode.commands.executeCommand(target);
       });
     }
-    command('latexstudio.tb.compile', () => vscode.commands.executeCommand('latexstudio.build'));
-    command('latexstudio.tb.buildView', async () => {
-      await vscode.commands.executeCommand('latexstudio.build');
-      await vscode.commands.executeCommand('latexstudio.viewPdf');
+    command('latexdesk.tb.compile', () => vscode.commands.executeCommand('latexdesk.build'));
+    command('latexdesk.tb.buildView', async () => {
+      await vscode.commands.executeCommand('latexdesk.build');
+      await vscode.commands.executeCommand('latexdesk.viewPdf');
     });
-    command('latexstudio.tb.log', () => vscode.commands.executeCommand('latexstudio.openLogViewer'));
+    command('latexdesk.tb.log', () => vscode.commands.executeCommand('latexdesk.openLogViewer'));
 
-    for (const name of SECTIONS) command(`latexstudio.insert.${name}`, () => this.insertSection(name));
-    for (const name of REFERENCES) command(`latexstudio.insert.${name}`, () => this.insertReference(name));
-    for (const op of ['addRow', 'deleteRow', 'addColumn', 'deleteColumn'] as TableOp[]) command(`latexstudio.table.${op}`, () => this.table(op));
+    for (const name of SECTIONS) command(`latexdesk.insert.${name}`, () => this.insertSection(name));
+    for (const name of REFERENCES) command(`latexdesk.insert.${name}`, () => this.insertReference(name));
+    for (const op of ['addRow', 'deleteRow', 'addColumn', 'deleteColumn'] as TableOp[]) command(`latexdesk.table.${op}`, () => this.table(op));
 
     // Formatting (top bar and mini bar).
-    for (const name of Object.keys(STYLES)) command(`latexstudio.format.${name}`, () => this.style(name));
-    for (const name of Object.keys(ALIGNMENTS)) command(`latexstudio.format.align.${name}`, () => this.align(name));
-    command('latexstudio.format.larger', () => this.size(1));
-    command('latexstudio.format.smaller', () => this.size(-1));
+    for (const name of Object.keys(STYLES)) command(`latexdesk.format.${name}`, () => this.style(name));
+    for (const name of Object.keys(ALIGNMENTS)) command(`latexdesk.format.align.${name}`, () => this.align(name));
+    command('latexdesk.format.larger', () => this.size(1));
+    command('latexdesk.format.smaller', () => this.size(-1));
   }
 
   /** The LaTeX editor to act on, or undefined (with a hint) when none is open. */
@@ -177,7 +177,7 @@ export class EditorToolbar {
     const eol = doc.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
     const edits = tableEdit(doc.getText(), doc.offsetAt(editor.selection.active), op, eol);
     if ('error' in edits) {
-      void vscode.window.showInformationMessage(`LaTeX Studio: ${edits.error}`);
+      void vscode.window.showInformationMessage(`LaTeX Desk: ${edits.error}`);
       return;
     }
     await editor.edit((e) => edits.forEach((x) => e.replace(new vscode.Range(doc.positionAt(x.start), doc.positionAt(x.end)), x.text)));
@@ -203,5 +203,5 @@ export async function addPackageLine(root: string, line: string) {
   const edit = new vscode.WorkspaceEdit();
   edit.insert(doc.uri, doc.positionAt(at), lastUse ? eol + line : line + eol);
   await vscode.workspace.applyEdit(edit);
-  void vscode.window.setStatusBarMessage(`LaTeX Studio: added ${line} to ${path.basename(root)}`, 4000);
+  void vscode.window.setStatusBarMessage(`LaTeX Desk: added ${line} to ${path.basename(root)}`, 4000);
 }

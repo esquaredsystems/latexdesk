@@ -2,9 +2,16 @@
 !dist/**
 !data/**
 !snippets/**
-!media/**
+!media/*.css
+!media/toolbar/*.svg
+!media/icon.svg
+!media/tools-icon.svg
+!media/marketplace-icon.png
 !package.json
 !README.md
 !CHANGELOG.md
 !LICENSE
 dist/**/*.map
+
+# The thesis is part of the repository, not of the extension.
+thesis/**
