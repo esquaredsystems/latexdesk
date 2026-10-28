@@ -31,3 +31,4 @@ thesis/.vscode/
 thesis/Figs/minion.*
 thesis/Figs/University_Crest.*
 .DS_Store
+package-lock.json
