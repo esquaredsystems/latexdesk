@@ -71,6 +71,9 @@ class BuildTree extends SimpleTree {
     nodes.push(
       item('Clean aux files', { iconPath: new vscode.ThemeIcon('trash'), command: { command: 'latexdesk.clean', title: 'Clean' } }),
       item('View PDF', { iconPath: new vscode.ThemeIcon('open-preview'), command: { command: 'latexdesk.viewPdf', title: 'View PDF' } }),
+      item('Create Source ZIP', { iconPath: new vscode.ThemeIcon('file-zip'), description: 'no PDF or build files', command: { command: 'latexdesk.exportSourceZip', title: 'Source ZIP' } }),
+      item('Export PDF with Watermark…', { iconPath: new vscode.ThemeIcon('shield'), command: { command: 'latexdesk.exportWatermarkedPdf', title: 'Watermark' } }),
+      item('Create from Template…', { iconPath: new vscode.ThemeIcon('new-folder'), command: { command: 'latexdesk.createFromTemplate', title: 'Create from Template' } }),
       item(`Recipe ▸ ${recipe}`, { iconPath: new vscode.ThemeIcon('list-ordered'), command: { command: 'latexdesk.selectRecipe', title: 'Select recipe' } }),
       item(`Build on save: ${auto ? 'on' : 'off'}`, { iconPath: new vscode.ThemeIcon(auto ? 'check' : 'circle-slash'), command: { command: 'latexdesk.toggleAutoBuild', title: 'Toggle' } }),
       item(`Root ▸ ${this.projects.root ? path.basename(this.projects.root) : 'none'}`, { iconPath: new vscode.ThemeIcon('home'), command: { command: 'latexdesk.selectRoot', title: 'Select root' } }),

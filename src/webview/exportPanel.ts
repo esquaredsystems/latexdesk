@@ -16,6 +16,7 @@ interface State {
 }
 
 const OPTIONS: [string, string][] = [
+  ['allSourceFiles', 'Every source file in the folder (no PDF or build files)'],
   ['usedFilesOnly', 'Only files actually used (from .fls)'],
   ['flatten', 'Flatten \\input / \\include'],
   ['includeBbl', 'Include pre-generated .bbl'],
@@ -26,7 +27,7 @@ const OPTIONS: [string, string][] = [
 const PRESETS: [string, string][] = [
   ['arxiv', 'arXiv'],
   ['journal', 'Journal'],
-  ['project', 'Full project ZIP'],
+  ['project', 'Source ZIP'],
   ['custom', 'Custom'],
 ];
 

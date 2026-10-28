@@ -27,6 +27,8 @@ import { EditorToolbar } from './toolbar';
 import { ToolsView } from './toolsView';
 import { registerFormatter } from './formatter';
 import { newProject } from './newProject';
+import { registerSharing } from './sharing';
+import { TemplateGallery } from './templateGallery';
 import { config, debounce, isBib, isTex } from './util';
 import { listGenerated, cleanFiles } from '../build/outputs';
 import { countWords } from '../core/wordCount';
@@ -60,6 +62,8 @@ export function activate(context: vscode.ExtensionContext) {
   new ToolsView(context, toolbar).register();
   registerFormatter(context);
   registerViews(context, projects, builds, health);
+  registerSharing(context, projects);
+  new TemplateGallery(context, log).register();
   context.subscriptions.push(
     vscode.window.registerCustomEditorProvider(BibManagerProvider.viewType, new BibManagerProvider(context, projects, health), {
       webviewOptions: { retainContextWhenHidden: true },
@@ -106,6 +110,9 @@ export function activate(context: vscode.ExtensionContext) {
       { label: '$(trash) Clean auxiliary files', id: 'latexdesk.clean' },
       { label: '$(output) Open log viewer', id: 'latexdesk.openLogViewer' },
       { label: '$(open-preview) View PDF', id: 'latexdesk.viewPdf' },
+      { label: '$(file-zip) Create Source ZIP (no PDF or build files)', id: 'latexdesk.exportSourceZip' },
+      { label: '$(shield) Export PDF with Watermark…', id: 'latexdesk.exportWatermarkedPdf' },
+      { label: '$(new-folder) Create from Template…', id: 'latexdesk.createFromTemplate' },
     ];
     const pick = await vscode.window.showQuickPick(items, { placeHolder: 'Compile options' });
     if (pick) await vscode.commands.executeCommand(pick.id);

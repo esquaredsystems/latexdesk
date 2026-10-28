@@ -13,10 +13,10 @@ const common = {
 };
 
 const builds = [
-  // Extension host. MathJax is a separate bundle that is only loaded on the first math hover.
+  // Extension host. MathJax and pdf-lib (watermark) are separate bundles, loaded on first use.
   {
     ...common,
-    entryPoints: { extension: 'src/extension/extension.ts', mathjax: 'src/extension/mathjax.ts', spellWorker: 'src/extension/spellWorker.ts' },
+    entryPoints: { extension: 'src/extension/extension.ts', mathjax: 'src/extension/mathjax.ts', spellWorker: 'src/extension/spellWorker.ts', watermark: 'src/build/watermark.ts' },
     outdir: 'dist',
     platform: 'node',
     format: 'cjs',
@@ -44,6 +44,7 @@ const builds = [
       tableWizard: 'src/webview/tableWizard.ts',
       tools: 'src/webview/tools.ts',
       panels: 'src/webview/panels.ts',
+      templateGallery: 'src/webview/templateGallery.ts',
     },
     outdir: 'dist/webview',
     platform: 'browser',

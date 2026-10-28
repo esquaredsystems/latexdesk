@@ -70,7 +70,15 @@ or import a CSV.
 
 **Export for Submission** packages only the files your document actually uses, adds the `.bbl`,
 can strip comments, and then compiles the copy in a clean folder. You know the upload works before
-you send it. Presets cover arXiv, journals and a full project ZIP.
+you send it. Presets cover arXiv, journals and a source ZIP.
+
+Two one-click helpers sit in the Build view:
+
+- **Create Source ZIP** packs every source file of the project (figures, `.bib`, `.cls`, `.sty`,
+  data) into one archive for a publisher or co-author, and leaves out the compiled PDF and all
+  build files. **Verify** compiles the archive's contents in a clean folder.
+- **Export PDF with Watermark…** writes a copy of the built PDF with `DRAFT` (or any text) across
+  every page, or in the top or bottom margin. Your PDF and your sources are not changed.
 
 ![Export for submission with the arXiv preset](images/export.png)
 
@@ -98,8 +106,11 @@ Hover over any formula to see it rendered, without building:
 3. **Open your main file** and press **Ctrl+Alt+B** (**Cmd+Alt+B** on macOS). The PDF opens beside
    the source, and every save rebuilds it after that.
 
-Starting fresh? **LaTeX Desk: New LaTeX Project…** asks a few quick questions (class, engine,
-bibliography, layout) and sets up a project that builds straight away.
+Starting fresh? **Create from Template…** (in the Build view) opens a searchable library of
+journal, conference, thesis, book, slide, poster, CV and letter templates: type `ieee`, `apa`,
+`thesis` or a subject, pick one, and choose a folder. Templates that publishers only offer from
+their own site link there, and you can create the project from the ZIP you download. **New LaTeX
+Project…** asks a few quick questions (class, engine, bibliography, layout) instead.
 
 Editing, completion and all the checks work without TeX installed; only building needs it.
 `latexmk` is used when present (it ships with all three distributions). Optional extras:
@@ -120,11 +131,12 @@ documents qualify, it asks once. **Select Root Document** changes the choice lat
 | SyncTeX | Forward and reverse search, built in, across included files and output folders |
 | Language | Completion for commands, environments, citations, labels, packages and files; hovers for citations, labels, images and math; go to definition; find references; rename labels, keys, commands and environments with a preview |
 | Editing | Toolbars, snippets, insert, wrap, close and rename environments, `\[…\]` ↔ `equation`, automatic `\item` on Enter, table wizard |
-| Checks | Unmatched environments, duplicate labels, undefined references and citations, obsolete commands, as you type |
+| Checks | Unmatched environments, duplicate labels, packages loaded twice (in red, with a fix), undefined references and citations, obsolete commands, as you type |
 | Spelling | Offline, prose only (commands, math, labels and the preamble are skipped), US and UK English, project and personal dictionaries |
 | Bibliography | Checker with rule codes and a completeness score, quick fixes, Bib Manager (table, triage, health report), entry form, citation search, command-line checker for CI |
 | History | Snapshots after each successful build, labelled versions, diff and restore, and a latexdiff PDF against any snapshot |
-| Export | arXiv, journal and full-project presets; only used files; optional flattening and comment stripping; test compile of the exported copy |
+| Export | arXiv, journal and source-ZIP presets; only used files; optional flattening and comment stripping; test compile of the exported copy; watermarked copy of the PDF |
+| Templates | Create from Template: an online library of starter and publisher templates with instant search and type filters; works offline from the last download |
 
 Word counts and math previews are approximations and say so.
 
@@ -160,6 +172,8 @@ Settings are under **LaTeX Desk** in the Settings editor. The ones you are most 
 | `latexdesk.spell.language` | `en_US` | Dictionary; a file can choose with `% !TeX spellcheck = en_GB` |
 | `latexdesk.format.tool` | `builtin` | `latexindent` or `tex-fmt` instead of the built-in formatter |
 | `latexdesk.toolbar.enabled` | `true` | Editor title bar buttons; `latexdesk.toolbar.showMiniBar` controls the LaTeX Tools bar |
+| `latexdesk.watermark.opacity` | `0.15` | Opacity of the watermark text |
+| `latexdesk.network.enabled` | `true` | Set to `false` to stop every download (the template library is the only network feature) |
 
 <details>
 <summary><b>Your own tools and recipes</b></summary>
@@ -246,7 +260,8 @@ licensed separately under CC BY-NC-ND 4.0; see [thesis/LICENSE](thesis/LICENSE).
 | [pdf.js](https://github.com/mozilla/pdf.js) 4.10.38 | Apache-2.0 | PDF viewer |
 | [MathJax](https://github.com/mathjax/MathJax-src) 3.2.2 | Apache-2.0 | Math previews in hovers |
 | [nspell](https://github.com/wooorm/nspell) 2.1.5 | MIT | Spell checking |
-| [JSZip](https://github.com/Stuk/jszip) 3.10.1 | MIT (dual MIT/GPLv3, used under MIT) | ZIP export |
+| [JSZip](https://github.com/Stuk/jszip) 3.10.1 | MIT (dual MIT/GPLv3, used under MIT) | ZIP export and template extraction |
+| [pdf-lib](https://github.com/Hopding/pdf-lib) 1.17.1 | MIT | Watermarked PDF copies |
 | [Papa Parse](https://github.com/mholt/PapaParse) 5.5.3 | MIT | CSV/TSV import in the table wizard |
 | [tree-kill](https://github.com/pkrumins/node-tree-kill) 1.2.2 | MIT | Stopping builds with all child processes |
 | English dictionaries `en_US`, `en_GB` ([`dictionary-en`](https://github.com/wooorm/dictionaries), from [SCOWL](http://wordlist.aspell.net/)) | MIT AND BSD | Spell checking; license files ship in `dist/dictionaries/` |

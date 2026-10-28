@@ -48,7 +48,10 @@ Fast preview and partial builds use the same runner with a latexmk tool that add
 the root file (`-usepretex`), in `.latexdesk/fast` or `.latexdesk/partial`.
 
 `HistoryStore` keeps snapshots in `.latexdesk/history/`: an `index.json` and gzipped objects
-named by content hash. `exporter.ts` plans, writes and verifies submission packages.
+named by content hash. `exporter.ts` plans, writes and verifies submission packages, including the
+source ZIP (`listSourceFiles`, a folder walk that leaves out build output and compiled PDFs).
+`watermark.ts` stamps a copy of a PDF with pdf-lib; it is its own bundle (`dist/watermark.js`),
+loaded only when the command runs. `templateFiles.ts` downloads and safely extracts template ZIPs.
 
 ## Extension (`src/extension`)
 
@@ -61,6 +64,8 @@ ProjectManager ── root detection, parsed files, bibliographies (re-parses on
   ├─ BibHealth ── .bib diagnostics, quick fixes ──> BibManagerProvider, BibEntryForm
   ├─ languageFeatures / rename / liveChecks / spell ── editor features
   ├─ EditorToolbar (toolbar.ts) ── commands of the title-bar buttons ──> ToolsView (left mini bar)
+  ├─ sharing.ts ── Create Source ZIP, Export PDF with Watermark
+  ├─ TemplateGallery ── Create from Template (catalog download and cache, project creation)
   └─ views / statusBar / panels / history / exportPanel / tableWizard ── UI
 ```
 

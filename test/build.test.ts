@@ -90,4 +90,15 @@ describe.skipIf(!hasLatexmk)('builds', () => {
     expect(verified.message).toBe('The exported copy compiles.');
     expect(verified.ok).toBe(true);
   }, 180_000);
+
+  it('creates a source ZIP without the PDF or build output that still compiles', async () => {
+    const host = { readFile: (f: string) => fsp.readFile(f, 'utf8').catch(() => undefined), exists: (f: string) => fsp.access(f).then(() => true, () => false) };
+    const project = await loadProject(path.join(dir, 'main.tex'), host);
+    const plan = planExport(project, dir, 'main', PRESETS.project, 'project');
+    const targets = plan.files.map((f) => f.target).sort();
+    expect(targets).toEqual(['chapters/introduction.tex', 'chapters/methodology.tex', 'figures/setup.png', 'main.tex', 'references.bib']);
+    expect(plan.notes.join(' ')).toMatch(/compiled PDF/);
+    const verified = await verifyExport(plan, 'main.tex', 'main');
+    expect(verified.ok).toBe(true);
+  }, 180_000);
 });

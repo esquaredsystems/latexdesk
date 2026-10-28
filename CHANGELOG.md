@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.3.0
+
+### Added
+
+- **Create from Template.** A template gallery in the Build view with 50 journal, conference,
+  thesis, book, slide, poster, CV and letter templates. Search is instant and needs every word to
+  match (`ieee conference`, `apa`, `astro`), with filters by type and sorting by use, match or
+  name. Templates that publishers only offer from their own site link there; create the project
+  from the downloaded ZIP in one step. The catalog is kept for offline use.
+- **Create Source ZIP.** One click packs every source file for a publisher, leaving out the
+  compiled PDF and build files, and can test-compile the archive.
+- **Export PDF with Watermark.** A copy of the built PDF with `DRAFT` (or any text) on every page,
+  diagonally or in a margin. Also in the PDF viewer's title bar.
+- **Packages loaded twice** are underlined in red, with a quick fix that removes the repeated
+  load. The message says when different options will cause an "Option clash".
+
+### Changed
+
+- The "Full project ZIP" preset of Export for Submission is now **Source ZIP** and uses the same
+  file selection as Create Source ZIP.
+
 ## 0.2.1
 
 ### Fixed

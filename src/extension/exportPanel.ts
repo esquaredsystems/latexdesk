@@ -100,7 +100,7 @@ export class ExportPanel implements vscode.Disposable {
     const out = this.projects.output();
     if (!plan || !root || !out) return;
     const rootDir = path.dirname(root);
-    const base = `${out.jobName}-${this.preset === 'custom' ? 'submission' : this.preset}`;
+    const base = `${out.jobName}-${this.preset === 'custom' ? 'submission' : this.preset === 'project' ? 'source' : this.preset}`;
     let target: string | undefined;
     if (format === 'zip') {
       target = (await vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(path.join(rootDir, base + '.zip')), filters: { 'ZIP archive': ['zip'] } }))?.fsPath;

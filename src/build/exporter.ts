@@ -13,6 +13,8 @@ import { BUILTIN_RECIPES, BUILTIN_TOOLS } from './recipes';
 export type Preset = 'arxiv' | 'journal' | 'project' | 'custom';
 
 export interface ExportOptions {
+  /** Every source file in the project folder (the "Source ZIP", OL-48); takes precedence over usedFilesOnly. */
+  allSourceFiles: boolean;
   /** Use the compiler's .fls record to include only files that were really read. */
   usedFilesOnly: boolean;
   flatten: boolean;
@@ -23,9 +25,9 @@ export interface ExportOptions {
 }
 
 export const PRESETS: Record<Exclude<Preset, 'custom'>, ExportOptions> = {
-  arxiv: { usedFilesOnly: true, flatten: false, includeBbl: true, stripComments: true, includePdf: false, manifest: false },
-  journal: { usedFilesOnly: true, flatten: true, includeBbl: true, stripComments: true, includePdf: true, manifest: true },
-  project: { usedFilesOnly: false, flatten: false, includeBbl: false, stripComments: false, includePdf: false, manifest: false },
+  arxiv: { allSourceFiles: false, usedFilesOnly: true, flatten: false, includeBbl: true, stripComments: true, includePdf: false, manifest: false },
+  journal: { allSourceFiles: false, usedFilesOnly: true, flatten: true, includeBbl: true, stripComments: true, includePdf: true, manifest: true },
+  project: { allSourceFiles: true, usedFilesOnly: false, flatten: false, includeBbl: false, stripComments: false, includePdf: false, manifest: false },
 };
 
 export interface ExportFile {
@@ -59,7 +61,11 @@ export function planExport(project: Project, outDir: string, jobName: string, op
   const inside = (f: string) => !path.relative(rootDir, f).startsWith('..') && !path.isAbsolute(path.relative(rootDir, f));
 
   const fls = readText(path.join(outDir, jobName + '.fls'));
-  if (options.usedFilesOnly && fls) {
+  if (options.allSourceFiles) {
+    const found = listSourceFiles(rootDir, outDir);
+    found.files.forEach((f) => sources.add(f));
+    notes.push(...found.notes);
+  } else if (options.usedFilesOnly && fls) {
     for (const m of fls.matchAll(/^INPUT (.+)$/gm)) {
       const file = path.resolve(rootDir, m[1].trim());
       if (inside(file) && !GENERATED.test(file) && !file.includes(`${path.sep}.latexdesk${path.sep}`)) sources.add(file);
@@ -103,6 +109,78 @@ export function planExport(project: Project, outDir: string, jobName: string, op
   }
 
   return { files, checks: checks(project, files, options, preset), totalBytes: files.reduce((n, f) => n + f.size, 0), notes };
+}
+
+// Build output that never belongs in a source archive. A .bbl is added back only on request.
+const BUILD_OUTPUT =
+  /\.(aux|bbl|blg|toc|lof|lot|loa|lol|out|log|fls|fdb_latexmk|synctex|synctex\.gz|synctex\(busy\)|idx|ilg|ind|bcf|run\.xml|nav|snm|vrb|xdv|dvi|glo|gls|glg|acn|acr|alg|nlo|nls|nlg|brf|thm|tdo|auxlock)$|-blx\.bib$/i;
+const SKIPPED_FOLDERS = new Set(['.git', '.svn', '.hg', '.vscode', '.idea', '.latexdesk', 'node_modules', '__MACOSX', 'svg-inkscape']);
+const SYSTEM_FILES = /^(\.DS_Store|Thumbs\.db|desktop\.ini)$|^\._|~$|\.(bak|swp|swo)$/i;
+const MAX_FILES = 20000;
+
+/**
+ * Every source file under `rootDir` (OL-48): the folder walk behind the Source ZIP. Leaves out
+ * build output, compiled PDFs (X.pdf next to X.tex, and anything in a separate output folder),
+ * tool and system folders, backups and ZIP files. Figures in PDF format are kept.
+ */
+export function listSourceFiles(rootDir: string, outDir: string): { files: string[]; notes: string[] } {
+  const files: string[] = [];
+  const skipped = { build: 0, pdf: 0, folders: 0, system: 0, zip: 0, links: 0 };
+  const realRoot = safeRealpath(rootDir) ?? rootDir;
+  const separateOut = path.resolve(outDir) !== path.resolve(rootDir) ? path.resolve(outDir) : undefined;
+
+  const walk = (dir: string) => {
+    let entries: fs.Dirent[];
+    try {
+      entries = fs.readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    const names = new Set(entries.map((e) => e.name));
+    for (const e of entries) {
+      if (files.length >= MAX_FILES) return;
+      const full = path.join(dir, e.name);
+      if (e.isSymbolicLink()) {
+        // Follow a link to a file only when it stays inside the project folder.
+        const real = safeRealpath(full);
+        if (!real || path.relative(realRoot, real).startsWith('..') || !fs.statSync(real).isFile()) {
+          skipped.links++;
+          continue;
+        }
+      } else if (e.isDirectory()) {
+        if (SKIPPED_FOLDERS.has(e.name) || e.name.startsWith('_minted') || path.resolve(full) === separateOut) skipped.folders++;
+        else walk(full);
+        continue;
+      } else if (!e.isFile()) continue;
+
+      if (SYSTEM_FILES.test(e.name)) skipped.system++;
+      else if (BUILD_OUTPUT.test(e.name)) skipped.build++;
+      else if (/\.zip$/i.test(e.name)) skipped.zip++;
+      else if (/\.pdf$/i.test(e.name) && (names.has(e.name.slice(0, -4) + '.tex') || /-watermarked\.pdf$/i.test(e.name))) skipped.pdf++;
+      else files.push(full);
+    }
+  };
+  walk(rootDir);
+
+  const notes: string[] = [];
+  const left: string[] = [];
+  if (skipped.pdf) left.push(`${skipped.pdf} compiled PDF${skipped.pdf > 1 ? 's' : ''}`);
+  if (skipped.build) left.push(`${skipped.build} build file${skipped.build > 1 ? 's' : ''}`);
+  if (skipped.folders) left.push(`${skipped.folders} tool or output folder${skipped.folders > 1 ? 's' : ''}`);
+  if (skipped.system) left.push(`${skipped.system} system or backup file${skipped.system > 1 ? 's' : ''}`);
+  if (skipped.zip) left.push(`${skipped.zip} ZIP file${skipped.zip > 1 ? 's' : ''}`);
+  if (left.length) notes.push(`Left out: ${left.join(', ')}.`);
+  if (skipped.links) notes.push(`${skipped.links} link${skipped.links > 1 ? 's' : ''} pointing outside the project folder skipped.`);
+  if (files.length >= MAX_FILES) notes.push(`Stopped after ${MAX_FILES} files; is the root document in the right folder?`);
+  return { files, notes };
+}
+
+function safeRealpath(file: string): string | undefined {
+  try {
+    return fs.realpathSync(file);
+  } catch {
+    return undefined;
+  }
 }
 
 function checks(project: Project, files: ExportFile[], options: ExportOptions, preset: Preset): ExportCheck[] {

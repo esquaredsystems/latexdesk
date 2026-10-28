@@ -1,10 +1,12 @@
 // As-you-type checks for .tex files, separate from compiler diagnostics:
-// unclosed environments, duplicate labels, undefined references and citations, obsolete commands.
+// unclosed environments, duplicate labels and packages, undefined references and citations, obsolete commands.
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { ProjectManager } from './projectManager';
 import { BibHealth } from './bibFeatures';
-import { config, debounce, isTex } from './util';
+import { config, debounce, isTex, samePath } from './util';
 import { maskNonCode } from '../core/text';
+import { findDuplicatePackages, PackageLoad, removePackageEdit } from '../core/packages';
 
 const OBSOLETE: { pattern: RegExp; message: string; replacement?: string }[] = [
   { pattern: /\\bf\b/g, message: '\\bf is obsolete; use \\textbf{...} or \\bfseries', replacement: '\\bfseries' },
@@ -88,6 +90,24 @@ export class LiveChecks implements vscode.Disposable {
       }
     }
 
+    // TS-41: a package loaded again (here or in another file of the project) is shown in red.
+    const loads: PackageLoad[] = [];
+    const files = inProject ? (this.projects.project?.files ?? []) : [];
+    for (const f of files.length ? files : [{ path: doc.fileName, index }]) {
+      const packages = samePath(f.path, doc.fileName) ? index.packages : f.index.packages;
+      loads.push(...packages.map((p) => ({ file: f.path, name: p.name, offset: p.offset, line: p.line, options: p.options })));
+    }
+    for (const dup of findDuplicatePackages(loads)) {
+      if (!samePath(dup.file, doc.fileName)) continue;
+      const where = samePath(dup.first.file, doc.fileName) ? `line ${dup.first.line + 1}` : `${path.basename(dup.first.file)}:${dup.first.line + 1}`;
+      const message = dup.optionClash
+        ? `Package "${dup.name}" is already loaded (${where}) with other options: LaTeX will stop with "Option clash"`
+        : `Package "${dup.name}" is already loaded (${where}); this load has no effect`;
+      add(at(dup.offset, dup.name.length), message, 'tex/duplicate-package', vscode.DiagnosticSeverity.Error);
+      const d = diags[diags.length - 1];
+      d.relatedInformation = [new vscode.DiagnosticRelatedInformation(new vscode.Location(vscode.Uri.file(dup.first.file), new vscode.Position(dup.first.line, 0)), 'First loaded here')];
+    }
+
     const masked = maskNonCode(doc.getText());
     for (const rule of OBSOLETE) {
       rule.pattern.lastIndex = 0;
@@ -117,6 +137,17 @@ export class LiveChecks implements vscode.Disposable {
         explain.command = { command: 'latexdesk.explainError', title: 'Explain this error', arguments: [d.message] };
         explain.diagnostics = [d];
         actions.push(explain);
+      }
+      if (d.code === 'tex/duplicate-package') {
+        const edit = removePackageEdit(doc.getText(), doc.offsetAt(d.range.start));
+        if (edit) {
+          const fix = new vscode.CodeAction('Remove this repeated package load', vscode.CodeActionKind.QuickFix);
+          fix.edit = new vscode.WorkspaceEdit();
+          fix.edit.delete(doc.uri, new vscode.Range(doc.positionAt(edit.start), doc.positionAt(edit.end)));
+          fix.diagnostics = [d];
+          fix.isPreferred = true;
+          actions.push(fix);
+        }
       }
       if (d.code === 'tex/undefined-cite') {
         const search = new vscode.CodeAction('Search bibliographies…', vscode.CodeActionKind.QuickFix);

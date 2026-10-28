@@ -1,0 +1,35 @@
+body { padding: 14px 20px 40px; max-width: 980px; }
+h2 { margin: 0; }
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.status { font-size: 12px; margin-top: 2px; }
+.local { display: flex; gap: 6px; flex-wrap: wrap; }
+.searchbar { display: flex; gap: 10px; align-items: center; }
+.searchbar input { flex: 1; font-size: 15px; padding: 7px 10px; border: 1.5px solid var(--ink); }
+.sort { display: flex; gap: 6px; align-items: center; font-size: 12px; white-space: nowrap; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0 6px; }
+.chips .chip { border: 1px solid var(--rule); padding: 2px 8px; font-size: 12px; }
+.chips .chip .n { color: var(--muted); margin-left: 2px; }
+.chips .chip.active .n { color: inherit; opacity: 0.7; }
+.chips .chip:disabled { opacity: 0.4; }
+.busy { padding: 6px 10px; background: var(--accent-soft); color: var(--accent); margin: 6px 0; }
+.results { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.results > li { padding: 9px 10px; border-bottom: 1px solid var(--rule); cursor: pointer; }
+.results > li:hover { background: var(--surface); }
+.results > li.selected { background: var(--surface); border-left: 3px solid var(--accent); padding-left: 7px; cursor: default; }
+.results > li.empty { color: var(--muted); cursor: default; padding: 24px 10px; }
+.row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.name { font-weight: 600; font-size: 14px; }
+.type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+.meta { font-size: 12px; }
+.desc { margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.tags span { font-size: 11px; padding: 0 5px; border: 1px solid var(--rule); color: var(--muted); }
+mark { background: var(--accent-soft); color: inherit; padding: 0; }
+.detail p { margin: 6px 0; }
+.detail dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 6px 0; font-size: 12px; }
+.detail dt { color: var(--muted); }
+.detail dd { margin: 0; }
+.detail a { color: var(--accent); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.more { margin-top: 10px; text-align: center; }
+.small { font-size: 11px; }

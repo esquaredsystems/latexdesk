@@ -2,7 +2,7 @@
   "name": "latexdesk",
   "displayName": "LaTeX Desk",
   "description": "All the LaTeX power, none of the setup, and no limits on your builds. Build, preview, fix your bibliography and export for submission, all inside Visual Studio Code.",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publisher": "esquaredsystems",
   "icon": "media/marketplace-icon.png",
   "galleryBanner": {
@@ -141,7 +141,7 @@
     "viewsWelcome": [
       {
         "view": "latexdesk.build",
-        "contents": "No LaTeX root document found in this workspace.\n[New LaTeX Project](command:latexdesk.newProject)\n[Check LaTeX Tools](command:latexdesk.checkTools)"
+        "contents": "No LaTeX root document found in this workspace.\n[Create from Template](command:latexdesk.createFromTemplate)\n[New Blank Project](command:latexdesk.newProject)\n[Check LaTeX Tools](command:latexdesk.checkTools)"
       }
     ],
     "customEditors": [
@@ -411,6 +411,24 @@
         "title": "Export for Submission…",
         "category": "LaTeX Desk",
         "icon": "$(package)"
+      },
+      {
+        "command": "latexdesk.exportSourceZip",
+        "title": "Create Source ZIP (no PDF or build files)",
+        "category": "LaTeX Desk",
+        "icon": "$(file-zip)"
+      },
+      {
+        "command": "latexdesk.exportWatermarkedPdf",
+        "title": "Export PDF with Watermark…",
+        "category": "LaTeX Desk",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "latexdesk.createFromTemplate",
+        "title": "Create from Template…",
+        "category": "LaTeX Desk",
+        "icon": "$(new-folder)"
       },
       {
         "command": "latexdesk.spell.addWord",
@@ -771,6 +789,11 @@
           "command": "latexdesk.openEntryForm",
           "when": "editorLangId == bibtex",
           "group": "navigation@2"
+        },
+        {
+          "command": "latexdesk.exportWatermarkedPdf",
+          "when": "activeWebviewPanelId == 'latexdesk.pdf'",
+          "group": "navigation@9"
         }
       ],
       "editor/context": [
@@ -1435,6 +1458,30 @@
             "description": "Open the LaTeX Tools mini bar (format, alignment, equations, symbols) when the first LaTeX file of a window is opened."
           }
         }
+      },
+      {
+        "title": "Templates, export and network",
+        "properties": {
+          "latexdesk.templates.catalogUrl": {
+            "type": "string",
+            "default": "https://raw.githubusercontent.com/esquaredsystems/latexdesk-resources/master/templates/templates.json",
+            "markdownDescription": "Address of the template catalog (`templates.json`) used by **Create from Template**. Template ZIP names in the catalog are resolved relative to this address. Only `https` addresses are downloaded.",
+            "scope": "application"
+          },
+          "latexdesk.watermark.opacity": {
+            "type": "number",
+            "default": 0.15,
+            "minimum": 0.02,
+            "maximum": 1,
+            "markdownDescription": "Opacity of the text added by **Export PDF with Watermark** (0.02 to 1)."
+          },
+          "latexdesk.network.enabled": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Master switch for every network feature. When off, LaTeX Desk makes no network request: the template gallery shows only its cached catalog and local options. See the privacy document for the full list.",
+            "scope": "application"
+          }
+        }
       }
     ],
     "submenus": [
@@ -1474,6 +1521,7 @@
     "mathjax-full": "3.2.2",
     "nspell": "2.1.5",
     "papaparse": "5.5.3",
+    "pdf-lib": "1.17.1",
     "pdfjs-dist": "4.10.38",
     "tree-kill": "1.2.2"
   },
