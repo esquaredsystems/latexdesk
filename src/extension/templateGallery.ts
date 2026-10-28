@@ -8,7 +8,7 @@ import { Catalog, CATALOG_VERSION, parseCatalog, Template } from '../core/templa
 import { download, extractProject } from '../build/templateFiles';
 import { config, webviewHtml } from './util';
 
-const DEFAULT_CATALOG = 'https://raw.githubusercontent.com/esquaredsystems/latexdesk-resources/master/templates/templates.json';
+const DEFAULT_CATALOG = 'https://raw.githubusercontent.com/esquaredsystems/latexdesk/main/templates/templates.json';
 const CACHE_FILE = 'templates-catalog.json';
 const PENDING_KEY = 'latexdesk.templates.pendingOpen';
 const ONE_HOUR = 60 * 60 * 1000;

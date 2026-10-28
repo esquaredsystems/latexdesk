@@ -9,7 +9,7 @@
     "color": "#1E3A8A",
     "theme": "dark"
   },
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "https://github.com/esquaredsystems/latexdesk.git"
@@ -1464,7 +1464,7 @@
         "properties": {
           "latexdesk.templates.catalogUrl": {
             "type": "string",
-            "default": "https://raw.githubusercontent.com/esquaredsystems/latexdesk-resources/master/templates/templates.json",
+            "default": "https://raw.githubusercontent.com/esquaredsystems/latexdesk/main/templates/templates.json",
             "markdownDescription": "Address of the template catalog (`templates.json`) used by **Create from Template**. Template ZIP names in the catalog are resolved relative to this address. Only `https` addresses are downloaded.",
             "scope": "application"
           },
@@ -1511,7 +1511,7 @@
     "test": "vitest run",
     "bench": "node scripts/bench.mjs",
     "gate:dissertation": "node esbuild.mjs && node scripts/dissertation-gate.mjs",
-    "package": "node esbuild.mjs --production && vsce package --no-dependencies --baseImagesUrl https://raw.githubusercontent.com/esquaredsystems/latexdesk-resources/master/latexdesk --baseContentUrl https://github.com/esquaredsystems/latexdesk-resources/blob/master/latexdesk",
+    "package": "node esbuild.mjs --production && vsce package --no-dependencies --githubBranch main",
     "vscode:prepublish": "node esbuild.mjs --production"
   },
   "dependencies": {

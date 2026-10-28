@@ -12,7 +12,7 @@
 <p align="center">
   <a href="https://marketplace.visualstudio.com/items?itemName=esquaredsystems.latexdesk"><img src="https://img.shields.io/visual-studio-marketplace/v/esquaredsystems.latexdesk?label=Marketplace&color=1E3A8A" alt="Marketplace version"></a>
   <a href="https://marketplace.visualstudio.com/items?itemName=esquaredsystems.latexdesk"><img src="https://img.shields.io/visual-studio-marketplace/i/esquaredsystems.latexdesk?color=F59E0B" alt="Installs"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0F172A" alt="MIT license"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-0F172A" alt="AGPL-3.0 license"></a>
 </p>
 
 ![LaTeX Desk: source, toolbars and the PDF side by side](images/hero.png)
@@ -248,7 +248,17 @@ Want to work on LaTeX Desk itself? See the developer guide, [README_DEV.md](READ
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+Copyright (C) 2026 eSquared Systems.
+
+LaTeX Desk is free software: you can redistribute it and/or modify it under the terms of the
+GNU Affero General Public License as published by the Free Software Foundation, either version 3
+of the License, or (at your option) any later version. See [LICENSE](LICENSE).
+
+In short: you may use LaTeX Desk for any purpose, including at work. If you distribute a modified
+version, or offer one to others over a network (for example in a hosted editor), you must make
+its complete source available under the same license.
+
+Versions up to and including 0.3.0 were released under the MIT license and remain available under it.
 
 The thesis in `thesis/` (used only for testing in this repository, not shipped in the extension) is
 licensed separately under CC BY-NC-ND 4.0; see [thesis/LICENSE](thesis/LICENSE).
@@ -268,4 +278,4 @@ licensed separately under CC BY-NC-ND 4.0; see [thesis/LICENSE](thesis/LICENSE).
 
 The command list, symbols, error explanations, snippets and BibTeX/BibLaTeX field tables in
 `data/` and `snippets/` were written for this project (the field tables follow the BibTeX and
-BibLaTeX documentation) and are under the project's MIT license.
+BibLaTeX documentation) and are under the project's license (AGPL-3.0-or-later).

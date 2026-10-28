@@ -10,7 +10,7 @@ gallery or create a project from it. Everything else works offline.
 | Completion, hovers, checks, spelling | none | Bundled data and dictionaries |
 | Bibliography checker and Bib Manager | none | |
 | History, export, table wizard, watermark | none | Files stay on your computer |
-| Create from Template | `raw.githubusercontent.com` (repository `esquaredsystems/latexdesk-resources`), or the address in `latexdesk.templates.catalogUrl` | Downloads `templates.json` when the gallery opens (at most once an hour, or on Refresh) and a template's ZIP when you create a project. Nothing is sent beyond the request itself. The last catalog is kept for offline use. |
+| Create from Template | `raw.githubusercontent.com` (the `templates/` folder of this repository, `esquaredsystems/latexdesk`), or the address in `latexdesk.templates.catalogUrl` | Downloads `templates.json` when the gallery opens (at most once an hour, or on Refresh) and a template's ZIP when you create a project. Nothing is sent beyond the request itself. The last catalog is kept for offline use. |
 
 To turn every download off, set `latexdesk.network.enabled` to `false`. The template gallery then
 shows only its cached catalog, a blank project, and "From a ZIP file on disk".

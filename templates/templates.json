@@ -1,0 +1,963 @@
+{
+  "version": 1,
+  "updated": "2026-10-25",
+  "about": "Template library for LaTeX Desk. Ordered from most used to least used. Entries without \"filename\" are available from the publisher only.",
+  "templates": [
+    {
+      "id": "ieee-conference",
+      "name": "IEEE Conference Paper",
+      "type": "conference",
+      "publisher": "IEEE",
+      "description": "Two-column conference paper with the IEEEtran class, as used by most IEEE conferences.",
+      "tags": [
+        "engineering",
+        "computer science",
+        "electronics",
+        "two-column",
+        "IEEEtran"
+      ],
+      "filename": "ieee-conference.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "IEEEtran.cls"
+      ],
+      "license": "MIT",
+      "source": "https://www.ieee.org/conferences/publishing/templates.html"
+    },
+    {
+      "id": "ieee-journal",
+      "name": "IEEE Transactions Journal Article",
+      "type": "journal",
+      "publisher": "IEEE",
+      "description": "Two-column article for IEEE Transactions and journals, with membership and manuscript notes.",
+      "tags": [
+        "engineering",
+        "computer science",
+        "electronics",
+        "two-column",
+        "IEEEtran",
+        "transactions"
+      ],
+      "filename": "ieee-journal.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "IEEEtran.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/ieeetran"
+    },
+    {
+      "id": "elsevier-elsarticle",
+      "name": "Elsevier Article (elsarticle)",
+      "type": "journal",
+      "publisher": "Elsevier",
+      "description": "Generic Elsevier journal article in preprint layout, with front matter, keywords and numbered references.",
+      "tags": [
+        "science",
+        "medicine",
+        "engineering",
+        "preprint",
+        "elsarticle"
+      ],
+      "filename": "elsevier-elsarticle.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "elsarticle.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/elsarticle"
+    },
+    {
+      "id": "springer-nature",
+      "name": "Springer Nature Journal Article",
+      "type": "journal",
+      "publisher": "Springer Nature",
+      "description": "The official Springer Nature LaTeX template (sn-jnl class) with its reference styles, user manual and sample article.",
+      "tags": [
+        "science",
+        "medicine",
+        "nature",
+        "sn-jnl"
+      ],
+      "filename": "sn-article-template.zip",
+      "main": "sn-article.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "license": "Springer Nature (see the user manual)",
+      "source": "https://cms-resources.apps.public.k8s.springernature.io/springer-cms/rest/v1/content/18782940/data/v12"
+    },
+    {
+      "id": "springer-lncs",
+      "name": "Springer LNCS Proceedings Paper",
+      "type": "conference",
+      "publisher": "Springer",
+      "description": "Lecture Notes in Computer Science paper with the llncs class and the splncs04 reference style.",
+      "tags": [
+        "computer science",
+        "proceedings",
+        "LNCS",
+        "llncs"
+      ],
+      "filename": "springer-lncs.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "llncs.cls",
+        "splncs04.bst"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/llncs"
+    },
+    {
+      "id": "acm-sigconf",
+      "name": "ACM Conference Paper (sigconf)",
+      "type": "conference",
+      "publisher": "ACM",
+      "description": "Two-column ACM proceedings paper with the acmart class in sigconf format.",
+      "tags": [
+        "computer science",
+        "proceedings",
+        "SIG",
+        "acmart",
+        "two-column"
+      ],
+      "filename": "acm-sigconf.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "acmart.cls"
+      ],
+      "license": "MIT",
+      "source": "https://www.acm.org/publications/proceedings-template"
+    },
+    {
+      "id": "acm-journal",
+      "name": "ACM Journal Article (acmsmall)",
+      "type": "journal",
+      "publisher": "ACM",
+      "description": "Single-column ACM journal or transactions article with the acmart class in acmsmall format.",
+      "tags": [
+        "computer science",
+        "transactions",
+        "acmart",
+        "single-column"
+      ],
+      "filename": "acm-journal.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "acmart.cls"
+      ],
+      "license": "MIT",
+      "source": "https://www.acm.org/publications/proceedings-template"
+    },
+    {
+      "id": "elsevier-cas-dc",
+      "name": "Elsevier CAS Double Column",
+      "type": "journal",
+      "publisher": "Elsevier",
+      "description": "Elsevier Complex Article Service layout in two columns (cas-dc), with CRediT roles and ORCID.",
+      "tags": [
+        "science",
+        "engineering",
+        "two-column",
+        "CAS",
+        "CRediT"
+      ],
+      "filename": "elsevier-cas-dc.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "cas-dc.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/els-cas-templates"
+    },
+    {
+      "id": "elsevier-cas-sc",
+      "name": "Elsevier CAS Single Column",
+      "type": "journal",
+      "publisher": "Elsevier",
+      "description": "Elsevier Complex Article Service layout in one column (cas-sc), with CRediT roles and ORCID.",
+      "tags": [
+        "science",
+        "engineering",
+        "single-column",
+        "CAS",
+        "CRediT"
+      ],
+      "filename": "elsevier-cas-sc.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "cas-sc.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/els-cas-templates"
+    },
+    {
+      "id": "article",
+      "name": "Article",
+      "type": "article",
+      "publisher": "Generic",
+      "description": "A clean, general-purpose article with title, abstract, sections, figure, table and bibliography.",
+      "tags": [
+        "general",
+        "paper",
+        "homework",
+        "preprint",
+        "arXiv"
+      ],
+      "filename": "article.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "license": "MIT",
+      "source": "https://www.latex-project.org/"
+    },
+    {
+      "id": "mdpi",
+      "name": "MDPI Journal Article",
+      "type": "journal",
+      "publisher": "MDPI",
+      "description": "The MDPI LaTeX template, shared by all MDPI open-access journals (Sensors, Sustainability, Applied Sciences and others).",
+      "tags": [
+        "open access",
+        "science",
+        "engineering",
+        "medicine"
+      ],
+      "source": "https://www.mdpi.com/authors/latex"
+    },
+    {
+      "id": "neurips",
+      "name": "NeurIPS Conference Paper",
+      "type": "conference",
+      "publisher": "NeurIPS",
+      "description": "Style file for the Conference on Neural Information Processing Systems; it changes every year, so get the current one.",
+      "tags": [
+        "machine learning",
+        "artificial intelligence",
+        "computer science"
+      ],
+      "source": "https://neurips.cc/"
+    },
+    {
+      "id": "aps-revtex",
+      "name": "APS Physical Review (REVTeX)",
+      "type": "journal",
+      "publisher": "American Physical Society",
+      "description": "Physical Review Letters / Physical Review article with REVTeX 4.2.",
+      "tags": [
+        "physics",
+        "PRL",
+        "PRB",
+        "revtex",
+        "two-column"
+      ],
+      "filename": "aps-revtex.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "revtex4-2.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/revtex"
+    },
+    {
+      "id": "koma-thesis",
+      "name": "Thesis (KOMA-Script)",
+      "type": "thesis",
+      "publisher": "Generic",
+      "description": "PhD or master thesis with front matter, chapters in separate files, list of figures, bibliography and appendix.",
+      "tags": [
+        "dissertation",
+        "PhD",
+        "masters",
+        "chapters",
+        "KOMA-Script",
+        "scrreprt"
+      ],
+      "filename": "koma-thesis.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "scrreprt.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/koma-script"
+    },
+    {
+      "id": "beamer",
+      "name": "Beamer Presentation",
+      "type": "presentation",
+      "publisher": "Generic",
+      "description": "Widescreen slides with the Madrid theme: title page, outline, overlays, columns and blocks.",
+      "tags": [
+        "slides",
+        "talk",
+        "lecture",
+        "beamer",
+        "16:9"
+      ],
+      "filename": "beamer.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "none",
+      "requires": [
+        "beamer.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/beamer"
+    },
+    {
+      "id": "apa7",
+      "name": "APA 7th Edition Manuscript",
+      "type": "journal",
+      "publisher": "American Psychological Association",
+      "description": "Manuscript in APA 7th edition style with the apa7 class and biblatex-apa references.",
+      "tags": [
+        "psychology",
+        "social sciences",
+        "education",
+        "APA",
+        "biblatex"
+      ],
+      "filename": "apa7.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "biber",
+      "requires": [
+        "apa7.cls",
+        "biblatex-apa.sty"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/apa7"
+    },
+    {
+      "id": "icml",
+      "name": "ICML Conference Paper",
+      "type": "conference",
+      "publisher": "ICML",
+      "description": "Style files for the International Conference on Machine Learning; they change every year.",
+      "tags": [
+        "machine learning",
+        "artificial intelligence"
+      ],
+      "source": "https://icml.cc/Conferences/2026/AuthorInstructions"
+    },
+    {
+      "id": "beamer-metropolis",
+      "name": "Beamer Metropolis Presentation",
+      "type": "presentation",
+      "publisher": "Generic",
+      "description": "Modern, minimal slides with the Metropolis theme, progress bar and a standout closing slide.",
+      "tags": [
+        "slides",
+        "talk",
+        "beamer",
+        "metropolis",
+        "modern",
+        "16:9"
+      ],
+      "filename": "beamer-metropolis.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "none",
+      "requires": [
+        "beamerthememetropolis.sty"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/beamertheme-metropolis"
+    },
+    {
+      "id": "cvpr",
+      "name": "CVPR Conference Paper",
+      "type": "conference",
+      "publisher": "CVF / IEEE",
+      "description": "Author kit for the Conference on Computer Vision and Pattern Recognition (also used by ICCV and WACV).",
+      "tags": [
+        "computer vision",
+        "machine learning",
+        "two-column"
+      ],
+      "source": "https://github.com/cvpr-org/author-kit"
+    },
+    {
+      "id": "acl",
+      "name": "ACL Conference Paper",
+      "type": "conference",
+      "publisher": "Association for Computational Linguistics",
+      "description": "Official style files for ACL, EMNLP, NAACL and other ACL venues.",
+      "tags": [
+        "natural language processing",
+        "computational linguistics",
+        "NLP"
+      ],
+      "source": "https://github.com/acl-org/acl-style-files"
+    },
+    {
+      "id": "iclr",
+      "name": "ICLR Conference Paper",
+      "type": "conference",
+      "publisher": "ICLR",
+      "description": "Templates for the International Conference on Learning Representations, one folder per year.",
+      "tags": [
+        "machine learning",
+        "deep learning",
+        "representation learning"
+      ],
+      "source": "https://github.com/ICLR/Master-Template"
+    },
+    {
+      "id": "report",
+      "name": "Report",
+      "type": "report",
+      "publisher": "Generic",
+      "description": "Technical or project report with chapters, table of contents, figure, bibliography and appendix.",
+      "tags": [
+        "technical report",
+        "project",
+        "chapters",
+        "coursework"
+      ],
+      "filename": "report.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "license": "MIT",
+      "source": "https://www.latex-project.org/"
+    },
+    {
+      "id": "aaai",
+      "name": "AAAI Conference Paper",
+      "type": "conference",
+      "publisher": "AAAI",
+      "description": "Author kit for the AAAI Conference on Artificial Intelligence; download the kit for the current year.",
+      "tags": [
+        "artificial intelligence",
+        "machine learning",
+        "two-column"
+      ],
+      "source": "https://aaai.org/"
+    },
+    {
+      "id": "plos",
+      "name": "PLOS Journal Article",
+      "type": "journal",
+      "publisher": "PLOS",
+      "description": "LaTeX template for PLOS ONE and the other PLOS journals.",
+      "tags": [
+        "open access",
+        "biology",
+        "medicine",
+        "science"
+      ],
+      "source": "https://journals.plos.org/plosone/s/latex"
+    },
+    {
+      "id": "tandf-interact",
+      "name": "Taylor & Francis Article (Interact)",
+      "type": "journal",
+      "publisher": "Taylor & Francis",
+      "description": "The Interact layout used by most Taylor & Francis journals, with a choice of reference styles.",
+      "tags": [
+        "humanities",
+        "social sciences",
+        "engineering",
+        "mathematics"
+      ],
+      "source": "https://authorservices.taylorandfrancis.com/"
+    },
+    {
+      "id": "wiley-njd",
+      "name": "Wiley New Journal Design",
+      "type": "journal",
+      "publisher": "Wiley",
+      "description": "Wiley's New Journal Design (NJD) authoring template for its journals.",
+      "tags": [
+        "science",
+        "engineering",
+        "medicine"
+      ],
+      "source": "https://authorservices.wiley.com/author-resources/Journal-Authors/Prepare/new-journal-design.html"
+    },
+    {
+      "id": "ams-article",
+      "name": "AMS Mathematics Article (amsart)",
+      "type": "journal",
+      "publisher": "American Mathematical Society",
+      "description": "Mathematics article with the amsart class: theorems, definitions, proofs and MSC subject classes.",
+      "tags": [
+        "mathematics",
+        "theorem",
+        "proof",
+        "AMS",
+        "amsart"
+      ],
+      "filename": "ams-article.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "amsart.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/amscls"
+    },
+    {
+      "id": "frontiers",
+      "name": "Frontiers Journal Article",
+      "type": "journal",
+      "publisher": "Frontiers",
+      "description": "LaTeX template for the Frontiers open-access journals.",
+      "tags": [
+        "open access",
+        "neuroscience",
+        "biology",
+        "medicine",
+        "science"
+      ],
+      "source": "https://www.frontiersin.org/guidelines/author-guidelines"
+    },
+    {
+      "id": "cambridge-thesis",
+      "name": "Cambridge-style PhD Thesis",
+      "type": "thesis",
+      "publisher": "Krishna Kumar (CUED template)",
+      "description": "A widely used PhD thesis template (PhDThesisPSnPDF class) with front matter, chapters, appendices and compile scripts.",
+      "tags": [
+        "dissertation",
+        "PhD",
+        "Cambridge",
+        "chapters"
+      ],
+      "source": "https://github.com/kks32/phd-thesis-template"
+    },
+    {
+      "id": "moderncv",
+      "name": "Curriculum Vitae (moderncv)",
+      "type": "cv",
+      "publisher": "Generic",
+      "description": "A clean CV with the moderncv class: education, experience, skills and publications.",
+      "tags": [
+        "resume",
+        "CV",
+        "job application",
+        "moderncv"
+      ],
+      "filename": "moderncv.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "none",
+      "requires": [
+        "moderncv.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/moderncv"
+    },
+    {
+      "id": "memoir-book",
+      "name": "Book (memoir)",
+      "type": "book",
+      "publisher": "Generic",
+      "description": "A book with front, main and back matter, chapters in separate files and a styled chapter design.",
+      "tags": [
+        "book",
+        "monograph",
+        "novel",
+        "memoir",
+        "chapters"
+      ],
+      "filename": "memoir-book.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "memoir.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/memoir"
+    },
+    {
+      "id": "aas-aastex",
+      "name": "AAS Journals Article (AASTeX)",
+      "type": "journal",
+      "publisher": "American Astronomical Society",
+      "description": "Article for the Astrophysical Journal and other AAS journals with AASTeX 6.31.",
+      "tags": [
+        "astronomy",
+        "astrophysics",
+        "ApJ",
+        "AJ",
+        "aastex"
+      ],
+      "filename": "aas-aastex.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "aastex631.cls"
+      ],
+      "license": "MIT",
+      "source": "https://journals.aas.org/authors/aastex.html"
+    },
+    {
+      "id": "mnras",
+      "name": "MNRAS Article",
+      "type": "journal",
+      "publisher": "Royal Astronomical Society",
+      "description": "Article for the Monthly Notices of the Royal Astronomical Society with the mnras class.",
+      "tags": [
+        "astronomy",
+        "astrophysics",
+        "MNRAS"
+      ],
+      "filename": "mnras.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "mnras.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/mnras"
+    },
+    {
+      "id": "aanda",
+      "name": "Astronomy & Astrophysics Article",
+      "type": "journal",
+      "publisher": "EDP Sciences",
+      "description": "The aa macro package for Astronomy & Astrophysics.",
+      "tags": [
+        "astronomy",
+        "astrophysics",
+        "A&A"
+      ],
+      "source": "https://www.aanda.org/for-authors/latex-issues/texnical-background-information"
+    },
+    {
+      "id": "aip-revtex",
+      "name": "AIP Publishing Article (REVTeX)",
+      "type": "journal",
+      "publisher": "AIP Publishing",
+      "description": "Article for AIP Publishing journals (such as The Journal of Chemical Physics) with REVTeX 4.2.",
+      "tags": [
+        "physics",
+        "chemical physics",
+        "applied physics",
+        "revtex"
+      ],
+      "filename": "aip-revtex.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "revtex4-2.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/revtex"
+    },
+    {
+      "id": "iop",
+      "name": "IOP Publishing Journal Article",
+      "type": "journal",
+      "publisher": "IOP Publishing",
+      "description": "LaTeX template for IOP Publishing journals.",
+      "tags": [
+        "physics",
+        "materials",
+        "engineering"
+      ],
+      "source": "https://publishingsupport.iopscience.iop.org/questions/latex-template/"
+    },
+    {
+      "id": "acs-achemso",
+      "name": "ACS Journal Article (achemso)",
+      "type": "journal",
+      "publisher": "American Chemical Society",
+      "description": "Manuscript for American Chemical Society journals with the achemso class.",
+      "tags": [
+        "chemistry",
+        "JACS",
+        "ACS",
+        "achemso"
+      ],
+      "filename": "acs-achemso.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "achemso.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/achemso"
+    },
+    {
+      "id": "pnas",
+      "name": "PNAS Article",
+      "type": "journal",
+      "publisher": "National Academy of Sciences",
+      "description": "Template for the Proceedings of the National Academy of Sciences.",
+      "tags": [
+        "science",
+        "biology",
+        "multidisciplinary"
+      ],
+      "source": "https://www.pnas.org/author-center"
+    },
+    {
+      "id": "siam",
+      "name": "SIAM Journal Article",
+      "type": "journal",
+      "publisher": "SIAM",
+      "description": "The siamart macros for SIAM journals in applied mathematics.",
+      "tags": [
+        "applied mathematics",
+        "numerical analysis",
+        "optimization"
+      ],
+      "source": "https://www.siam.org/publications/journals/about-siam-journals/information-for-authors/"
+    },
+    {
+      "id": "oup-general",
+      "name": "Oxford University Press Article",
+      "type": "journal",
+      "publisher": "Oxford University Press",
+      "description": "Article with the general OUP authoring template (contemporary layout), used by many OUP journals.",
+      "tags": [
+        "science",
+        "medicine",
+        "humanities",
+        "OUP"
+      ],
+      "filename": "oup-general.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "oup-authoring-template.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/oup-authoring-template"
+    },
+    {
+      "id": "pmlr-jmlr",
+      "name": "PMLR Proceedings Paper (jmlr)",
+      "type": "conference",
+      "publisher": "PMLR / JMLR",
+      "description": "Paper for the Proceedings of Machine Learning Research (workshops and conferences such as AISTATS and COLT) with the jmlr class.",
+      "tags": [
+        "machine learning",
+        "statistics",
+        "proceedings",
+        "PMLR"
+      ],
+      "filename": "pmlr-jmlr.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "jmlr.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/jmlr"
+    },
+    {
+      "id": "sage",
+      "name": "SAGE Journal Article",
+      "type": "journal",
+      "publisher": "SAGE Publishing",
+      "description": "LaTeX template for SAGE journals; see the submission guidelines of the target journal.",
+      "tags": [
+        "social sciences",
+        "medicine",
+        "engineering"
+      ],
+      "source": "https://us.sagepub.com/en-us/nam/manuscript-submission-guidelines"
+    },
+    {
+      "id": "classicthesis",
+      "name": "Thesis (classicthesis style)",
+      "type": "thesis",
+      "publisher": "Generic",
+      "description": "Thesis in the elegant classicthesis typographic style, with chapters in separate files.",
+      "tags": [
+        "dissertation",
+        "PhD",
+        "masters",
+        "classicthesis",
+        "typography"
+      ],
+      "filename": "classicthesis.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "classicthesis.sty"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/classicthesis"
+    },
+    {
+      "id": "koma-book",
+      "name": "Book (KOMA-Script)",
+      "type": "book",
+      "publisher": "Generic",
+      "description": "A book with scrbook: front, main and back matter, chapters in separate files and an index.",
+      "tags": [
+        "book",
+        "monograph",
+        "KOMA-Script",
+        "scrbook",
+        "index"
+      ],
+      "filename": "koma-book.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "scrbook.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/koma-script"
+    },
+    {
+      "id": "tufte-book",
+      "name": "Book (Tufte style)",
+      "type": "book",
+      "publisher": "Generic",
+      "description": "Book in the style of Edward Tufte, with side notes and margin figures.",
+      "tags": [
+        "book",
+        "side notes",
+        "margin",
+        "tufte"
+      ],
+      "filename": "tufte-book.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "tufte-book.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/tufte-latex"
+    },
+    {
+      "id": "tufte-handout",
+      "name": "Handout (Tufte style)",
+      "type": "article",
+      "publisher": "Generic",
+      "description": "Short handout with side notes, margin figures and booktabs tables.",
+      "tags": [
+        "handout",
+        "lecture notes",
+        "side notes",
+        "tufte"
+      ],
+      "filename": "tufte-handout.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "bibtex",
+      "requires": [
+        "tufte-handout.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/tufte-latex"
+    },
+    {
+      "id": "tikzposter",
+      "name": "Poster (tikzposter)",
+      "type": "poster",
+      "publisher": "Generic",
+      "description": "A0 portrait conference poster in two columns with the tikzposter class.",
+      "tags": [
+        "poster",
+        "conference",
+        "A0",
+        "tikzposter"
+      ],
+      "filename": "tikzposter.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "none",
+      "requires": [
+        "tikzposter.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/tikzposter"
+    },
+    {
+      "id": "beamerposter",
+      "name": "Poster (beamerposter)",
+      "type": "poster",
+      "publisher": "Generic",
+      "description": "A0 portrait poster built with beamer and beamerposter, in two columns of blocks.",
+      "tags": [
+        "poster",
+        "conference",
+        "A0",
+        "beamer"
+      ],
+      "filename": "beamerposter.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "none",
+      "requires": [
+        "beamerposter.sty"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/beamerposter"
+    },
+    {
+      "id": "awesome-cv",
+      "name": "Awesome CV",
+      "type": "cv",
+      "publisher": "Byungjin Park",
+      "description": "A popular, modern CV and cover letter template (XeLaTeX, with its own fonts).",
+      "tags": [
+        "resume",
+        "CV",
+        "cover letter",
+        "xelatex"
+      ],
+      "source": "https://github.com/posquit0/Awesome-CV"
+    },
+    {
+      "id": "koma-letter",
+      "name": "Letter (KOMA-Script)",
+      "type": "letter",
+      "publisher": "Generic",
+      "description": "A formal letter with scrlttr2: sender, recipient, subject, date, closing and enclosures.",
+      "tags": [
+        "letter",
+        "cover letter",
+        "scrlttr2",
+        "KOMA-Script"
+      ],
+      "filename": "koma-letter.zip",
+      "main": "main.tex",
+      "engine": "pdflatex",
+      "bibliography": "none",
+      "requires": [
+        "scrlttr2.cls"
+      ],
+      "license": "MIT",
+      "source": "https://ctan.org/pkg/koma-script"
+    }
+  ]
+}

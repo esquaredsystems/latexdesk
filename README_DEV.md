@@ -65,7 +65,7 @@ indexing measurements.
   `WorkspaceEdit`, so Undo works and untouched text stays byte-identical.
 - Error explanations live in `data/errors.json`; add an entry there rather than in code.
 
-## The dissertation gate
+## The dissertation test
 
 `thesis/` holds a real 250-page thesis used as an end-to-end test: root detection, a full build,
 SyncTeX accuracy, incremental and partial builds, spell checking speed and export for submission.
@@ -82,23 +82,26 @@ The screenshots and GIFs in `images/` show the real extension running a small de
 diffusion in composite panels). `README.md` refers to them, and to `docs/`, `LICENSE` and this guide,
 with relative paths, so they work when browsing this repository.
 
-This repository is private, so the Marketplace and VS Code can't load files from it. The public
-repository [esquaredsystems/latexdesk-resources](https://github.com/esquaredsystems/latexdesk-resources)
-holds copies in its `latexdesk/` folder, and `npm run package` passes `--baseImagesUrl` and
-`--baseContentUrl` so the packaged README points there. Images are not shipped inside the `.vsix`.
-
-Whenever you add or change an image or a linked document, copy it to the same path under
-`latexdesk/` in latexdesk-resources and push that repository **before** publishing.
+`npm run package` passes `--githubBranch main` to `vsce`, which rewrites those relative links to
+this repository on GitHub, so the Marketplace and VS Code load the images from the `main` branch.
+Images are not shipped inside the `.vsix`. Push new or changed images **before** publishing.
 
 When the UI changes, retake the affected image at the same size (1440 × 860 window; still images
 at 2× pixel density, GIFs at about 1100 px wide and 12 fps) so the README stays consistent.
+
+## Template library
+
+`templates/` holds the catalog (`templates.json`) and the template ZIPs behind **Create from
+Template**. The extension downloads them from the `main` branch, so a pushed change reaches users
+without a release; the folder is not packaged into the `.vsix`. See `templates/README.md` for the
+catalog format. Before pushing a change there, run `python3 scripts/check-templates.py --compile`.
+`python3 scripts/template-starters/build.py templates` rebuilds the starter ZIPs.
 
 ## Releasing
 
 1. Update `version` in `package.json` and add an entry to `CHANGELOG.md`.
 2. `npm run lint && npm run typecheck && npm test`
-3. Copy any new or changed README images and linked documents to `latexdesk/` in
-   latexdesk-resources and push it.
+3. Push to `main`, so that the README images and linked documents are online.
 4. `npm run package` and install the `.vsix` in a clean VS Code profile to smoke-test it
    (**Extensions: Install from VSIX…**).
 5. Publish under the `esquaredsystems` publisher:
